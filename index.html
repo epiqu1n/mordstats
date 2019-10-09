@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="shortcut icon" href="mfavicon.ico" type="image/x-icon" />
+	<title>Mordhau Weapon Matchup</title>
+	<meta property="og:title" content="Mordhau Weapon Matchup" />
+	<meta property=”og:type” content=”website” />
+	<meta property="og:image" content="http://mordstats.com/img/preview.png" />
+	<meta property="og:image:width" content="1366" />
+	<meta property="og:image:height" content="600" />
+	<meta name="description" content="View Mordhau weapon statistics side-by-side" />
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" type="text/css" href="res/style.css?v=1.40">
+	<script src="res/scripts.js?v=1.40"></script>
+</head>
+<body onload="onPageLoad()">
+	<div id="menuBar">
+		<div id="menuLeft" class="menuBox">
+			
+		</div>
+		<div id="menuCenter" class="menuBox">
+			<div class="menuTitleBox">
+			<div class="menuTitleBox">
+				<span id="menuTitle">Mordhau<br/>Weapon Matchup</span>
+			</div>
+			</div>
+		</div>
+		<div id="menuRight" class="menuBox">
+			<div class="menuRightBtnDiv">
+				<button type="button" id="settingsButton" class="menuButton" onclick="toggleSettings(event)"></button>
+			</div>
+			<div id="settingsMenu" class="menu menuHide" onclick="event.stopPropagation()">
+				<div class="menuOptWrapper">
+					<div class="checkContainer">
+						<button type="button" class="checkbox checked" onclick="toggleComparisons(this)"></button>
+					</div>
+					<span class="buttonText">Show comparisons</span>
+				</div>
+				<div class="menuOptWrapper">
+					<div class="checkContainer">
+						<button type="button" id="peasantBtn" class="checkbox" onclick="togglePeasant(this)"></button>
+					</div>
+					<span class="buttonText">Show peasant-only weapons</span>
+				</div>
+				<div id="sortWrapper" class="menuOptWrapper">
+					<div id="sortButtons">
+						<span class="menuText">Sort weapons by:</span><br/>
+						<div class="checkContainer multiselect">
+							<button type="button" class="checkbox" onclick="toggleSort(this)"></button>
+						</div>
+						<span class="buttonText">Name</span><br/>
+						<div class="checkContainer multiselect">
+							<button type="button" class="checkbox checked" onclick="toggleSort(this)" disabled></button>
+						</div>
+						<span class="buttonText">Point cost</span>
+					</div>
+				</div>
+			</div>
+			<div class="menuRightBtnDiv">
+				<button type="button" id="helpButton" class="menuButton" onclick="toggleHelp(event)"></button>
+			</div>
+			<div id="helpMenu" class="menu menuHide" onclick="event.stopPropagation()">
+				<div id="faqHelp" class="menuText" onclick="toggleFAQ(event)">
+					Frequently asked questions
+				</div>
+				<div class="menuText">
+					Issues or suggestions?&nbsp; Send an email to <a href="mailto:feedback@mordstats.com" target="_blank">feedback@mordstats.com</a>.
+					<br/>Want to donate? <a href="https://www.paypal.me/mordstats" target="_blank">Click here</a>.
+				</div>
+				<div class="helpSubtext menuText">Stats accurate as of Build #12.</div>
+				<div id="issuesSelect" class="helpSubtext menuText" onclick="toggleIssues(event)">Known issues</div>
+			</div>
+			<div id="issuesMenu" class="menu menuHide" onclick="event.stopPropagation()">
+				<div class="helpTitle">Known issues</div>
+			</div>
+			<div id="faqMenu" class="menu menuHide" onclick="event.stopPropagation()">
+				<div class="helpTitle">FAQ</div>
+				<div class="faqQ">Which stat is which?</div>
+				<div class="faqA">
+				Values in the top of each row of the damage table and in the left of the speed/general tables
+				belong to the first weapon. The bottom and right values are for the second weapon. 
+				A design to make this more clear is being considered.
+				</div>
+				<div class="faqQ">What are the numbers in (parentheses)?</div>
+				<div class="faqA">
+				These are the comparisons for that stat. For example, if you see a damage value of "<span class="damageHigh" style="background-color: transparent;">100</span> <span class="cPos">(+15)</span>", it means that weapon
+				does <span class="damageHigh" style="background-color: transparent;">100</span> damage, which is <span class="cPos">15</span> more than the other weapon.<br/><br/>
+				A positive difference is not always better; <span class="cPos">green</span> highlighting means better, <span class="cNeg">red</span> means worse,
+				and <span class="cNeut">yellow</span> means that the difference could be better or worse, depending on the player.
+				<br/><br/>These comparisons can be hidden in the settings menu.
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="categoryBar">
+	<!-- Buttons for weapon class -->
+		<button type="button" id="meleeButton" class="catButton catActive" onclick="switchCategory('Melee')" disabled>Melee</button>
+		<button type="button" id="rangedButton" class="catButton" onclick="switchCategory('Ranged')">Ranged</button>
+		<button type="button" id="shieldButton" class="catButton" onclick="switchCategory('Shield')">Shield</button>
+	</div>
+	<div id="imageBox">
+		<div id="imageRight"><img id="imageLeft" src=""/></div>
+	</div>
+	<div id="infoBox">
+		<div id="weaponBar">
+			<div id="weaponLeft" class="weaponList">
+				<div class="listSelected"></div>
+				<div class="dummyList menuHide"></div>
+				<div class="listItems menuHide"></div>
+			</div>
+			<div id="weaponRight" class="weaponList">
+				<div class="listSelected"></div>
+				<div class="dummyList menuHide" ></div>
+				<div class="listItems menuHide"></div>
+			</div>
+		</div>
+		<div id="attTypeBar">
+			<div class="attTypeBox">
+				<div class="attTypeTitle">Attack<br/>Type</div>
+				<div id="attTypeLeft" class="attTypeButtons">
+					<div class="attackModes">
+						<button type="button" class="strikeSel attButton" onclick="switchAttMode(this)"></button>
+						<button type="button" class="stabUnsel attButton" onclick="switchAttMode(this)"></button>
+					</div>
+					<br />
+					<div class="altMode">
+						<button type="button" class="altUnsel altButton" onclick="toggleAltMode(this)"></button>
+					</div>
+					<span class="altText">Alt Mode</span>
+				</div>
+			</div>
+			<div class="attTypeBox">
+				<div class="attTypeTitle">Attack<br/>Type</div>
+				<div id="attTypeRight" class="attTypeButtons">
+					<div class="attackModes">
+						<button type="button" class="strikeSel attButton" onclick="switchAttMode(this)"></button>
+						<button type="button" class="stabUnsel attButton" onclick="switchAttMode(this)"></button>
+					</div>
+					<br />
+					<div class="altMode">
+						<button type="button" class="altUnsel altButton" onclick="toggleAltMode(this)"></button>
+					</div>
+					<span class="altText">Alt Mode</span>
+				</div>
+			</div>
+		</div>
+		
+		<div id="compTitle"><span>Advanced Stats – Comparison</span></div>
+		<div id="stats">
+			<div class="statHalf">
+				<div class="statTitle">Damage Table</div>
+				<div id="damage">
+					<table id="damageTable">
+					<tr>
+						<th rowspan=2></th>
+						<th class="armorCell"><img src="img/icons/armor0.png" class="armorImg" /></th>
+						<th class="armorCell"><img src="img/icons/armor1.png" class="armorImg" /></th>
+						<th class="armorCell"><img src="img/icons/armor2.png" class="armorImg" /></th>
+						<th class="armorCell"><img src="img/icons/armor3.png" class="armorImg" /></th>
+					</tr>
+					<tr>
+						<td id="topBorder" colspan=5></td>
+					</tr>
+					<tr id="headRowL">
+						<th class="bodyCell" rowspan=2><img src="img/icons/headLS.png" class="bodyImg" /></th>
+						<td class="damageCell"><div class="damageDiv"><div id="a0hL" class="damageValue posCorr"></div><div class="compL"></div></div><div class="damRibbon nRhL"><div class="nameL"></div></div></td>
+						<td class="damageCell"><div class="damageDiv"><div id="a1hL" class="damageValue posCorr"></div><div class="compL"></div></div><div class="damRibbon nRhL"><div class="nameL"></div></div></td>
+						<td class="damageCell"><div class="damageDiv"><div id="a2hL" class="damageValue posCorr"></div><div class="compL"></div></div><div class="damRibbon nRhL"><div class="nameL"></div></div></td>
+						<td class="damageCellEnd"><div class="damageDiv"><div id="a3hL" class="damageValue posCorr"></div><div class="compL"></div></div><div class="damRibbon nRhL"><div class="nameL"></div></div></td>
+					</tr>
+					<tr id="headRowR">
+						<td class="damageCell"><div class="damageDiv"><div id="a0hR" class="damageValue posCorr"></div><div class="compR"></div></div><div class="damRibbon nRhR"><div class="nameR"></div></div></td>
+						<td class="damageCell"><div class="damageDiv"><div id="a1hR" class="damageValue posCorr"></div><div class="compR"></div></div><div class="damRibbon nRhR"><div class="nameR"></div></div></td>
+						<td class="damageCell"><div class="damageDiv"><div id="a2hR" class="damageValue posCorr"></div><div class="compR"></div></div><div class="damRibbon nRhR"><div class="nameR"></div></div></td>
+						<td class="damageCellEnd"><div class="damageDiv"><div id="a3hR" class="damageValue posCorr"></div><div class="compR"></div></div><div class="damRibbon nRhR"><div class="nameR"></div></div></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td class="intBorder" colspan=4></td>
+					</tr>
+					<tr id="torsoRowL">
+						<th class="bodyCell" rowspan=2><img src="img/icons/torso.png" class="bodyImg" /></th>
+						<td class="damageCell"><div class="damageDiv"><div id="a0tL" class="damageValue posCorr"></div><div class="compL"></div></div><div class="damRibbon nRtL"><div class="nameL"></div></div></td>
+						<td class="damageCell"><div class="damageDiv"><div id="a1tL" class="damageValue posCorr"></div><div class="compL"></div></div><div class="damRibbon nRtL"><div class="nameL"></div></div></td>
+						<td class="damageCell"><div class="damageDiv"><div id="a2tL" class="damageValue posCorr"></div><div class="compL"></div></div><div class="damRibbon nRtL"><div class="nameL"></div></div></td>
+						<td class="damageCellEnd"><div class="damageDiv"><div id="a3tL" class="damageValue posCorr"></div><div class="compL"></div></div><div class="damRibbon nRtL"><div class="nameL"></div></div></td>
+					</tr>
+					<tr id="torsoRowR">
+						<td class="damageCell"><div class="damageDiv"><div id="a0tR" class="damageValue posCorr"></div><div class="compR"></div></div><div class="damRibbon nRtR"><div class="nameR"></div></div></td>
+						<td class="damageCell"><div class="damageDiv"><div id="a1tR" class="damageValue posCorr"></div><div class="compR"></div></div><div class="damRibbon nRtR"><div class="nameR"></div></div></td>
+						<td class="damageCell"><div class="damageDiv"><div id="a2tR" class="damageValue posCorr"></div><div class="compR"></div></div><div class="damRibbon nRtR"><div class="nameR"></div></div></td>
+						<td class="damageCellEnd"><div class="damageDiv"><div id="a3tR" class="damageValue posCorr"></div><div class="compR"></div></div><div class="damRibbon nRtR"><div class="nameR"></div></div></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td class="intBorder" colspan=4></td>
+					</tr>
+					<tr id="legsRowL">
+						<th class="bodyCell" rowspan=2><img src="img/icons/legs.png" class="bodyImg" /></th>
+						<td class="damageCell"><div class="damageDiv"><div id="a0lL" class="damageValue posCorr"></div><div class="compL"></div></div><div class="damRibbon nRlL"><div class="nameL"></div></div></td>
+						<td class="damageCell"><div class="damageDiv"><div id="a1lL" class="damageValue posCorr"></div><div class="compL"></div></div><div class="damRibbon nRlL"><div class="nameL"></div></div></td>
+						<td class="damageCell"><div class="damageDiv"><div id="a2lL" class="damageValue posCorr"></div><div class="compL"></div></div><div class="damRibbon nRlL"><div class="nameL"></div></div></td>
+						<td class="damageCellEnd"><div class="damageDiv"><div id="a3lL" class="damageValue posCorr"></div><div class="compL"></div></div><div class="damRibbon nRlL"><div class="nameL"></div></div></td>
+					</tr>
+					<tr id="legsRowR">
+						<td class="damageCell"><div class="damageDiv"><div id="a0lR" class="damageValue posCorr"></div><div class="compR"></div></div><div class="damRibbon nRlR"><div class="nameR"></div></div></td>
+						<td class="damageCell"><div class="damageDiv"><div id="a1lR" class="damageValue posCorr"></div><div class="compR"></div></div><div class="damRibbon nRlR"><div class="nameR"></div></div></td>
+						<td class="damageCell"><div class="damageDiv"><div id="a2lR" class="damageValue posCorr"></div><div class="compR"></div></div><div class="damRibbon nRlR"><div class="nameR"></div></div></td>
+						<td class="damageCellEnd"><div class="damageDiv"><div id="a3lR" class="damageValue posCorr"></div><div class="compR"></div></div><div class="damRibbon nRlR"><div class="nameR"></div></div></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td class="bottomBorder" colspan=4></td>
+					</tr>
+					</table>
+					
+					<div id="nRhR" class="damRibbon"></div>
+					<div id="nRtL" class="damRibbon"></div>
+					<div id="nRtR" class="damRibbon"></div>
+					<div id="nRlL" class="damRibbon"></div>
+					<div id="nRlR" class="damRibbon"></div>
+				</div>
+				
+				<div id="speedTitle" class="statTitle"><span>Speed</span></div>
+				<div id="speed">
+					<div class="nameLabelL"><div class="nameL"></div></div>
+					<div class="nameLabelR"><div class="nameR"></div></div>
+					<table id="speedTable">
+					<tr>
+						<td class="speedCell"><div class="speedDiv"><div id="windupLeft" class="speedValue neutCorr"></div><div class="compL"></div></div></td>
+						<th id="windupTitle" class="spTableTitle">WINDUP</th>
+						<td class="speedCell"><div class="speedDiv"><div id="windupRight" class="speedValue neutCorr"></div><div class="compR"></div></div></td>
+					</tr>
+					<tr>
+						<td class="speedCell"><div class="speedDiv"><div id="comboLeft" class="speedValue neutCorr"></div><div class="compL"></div></div></td>
+						<th id="comboTitle" class="spTableTitle">COMBO</th>
+						<td class="speedCell"><div class="speedDiv"><div id="comboRight" class="speedValue neutCorr"></div><div class="compR"></div></div></td>
+					</tr>
+					<tr>
+						<td class="speedCell"><div class="speedDiv"><div id="releaseLeft" class="speedValue neutCorr"></div><div class="compL"></div></div></td>
+						<th id="releaseTitle" class="spTableTitle">RELEASE</th>
+						<td class="speedCell"><div class="speedDiv"><div id="releaseRight" class="speedValue neutCorr"></div><div class="compR"></div></div></td>
+					</tr>
+					<tr>
+						<td class="speedCell"><div class="speedDiv"><div id="recoveryLeft" class="speedValue negCorr"></div><div class="compL"></div></div></td>
+						<th id="recoveryTitle" class="spTableTitle">RECOVERY</th>
+						<td class="speedCell"><div class="speedDiv"><div id="recoveryRight" class="speedValue negCorr"></div><div class="compR"></div></div></td>
+					</tr>
+					<tr>
+						<td class="speedCell"><div class="speedDiv"><div id="drawLeft" class="speedValue negCorr"></div><div class="compL"></div></div></td>
+						<th id="drawTitle" class="spTableTitle">DRAW</th>
+						<td class="speedCell"><div class="speedDiv"><div id="drawRight" class="speedValue negCorr"></div><div class="compR"></div></div></td>
+					</tr>
+					<tr>
+						<td class="speedCell"><div class="speedDiv"><div id="reloadLeft" class="speedValue negCorr"></div><div class="compL"></div></div></td>
+						<th id="reloadTitle" class="spTableTitle">RELOAD</th>
+						<td class="speedCell"><div class="speedDiv"><div id="reloadRight" class="speedValue negCorr"></div><div class="compR"></div></div></td>
+					</tr>
+					</table>
+				</div>
+			</div>
+			<div class="statHalf">
+				<div id="general">
+				<table id="genTable">
+				<tr>
+					<th></th>
+					<td><div class="nameLabelL"><div class="nameL"></div></div></td>
+					<td><div class="nameLabelR"><div class="nameR"></div></div></td>
+				</tr>
+				<tr>
+					<th id="Length" class="genTitle">Length</th>
+					<td class="genCell"><div class="genDiv"><div id="LengthL" class="normalStat genStat posCorr"></div><div class="compL"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="LengthR" class="normalStat genStat posCorr"></div><div class="compR"></div></div></td>
+				</tr>
+				<tr>
+					<th rowspan=2 id="TurnCapX" class="genTitle">Turn Cap</th>
+					<th id="TurnCapY" class="genTitle invisible"></th> <!-- To play nice with scripts -->
+					<td class="XYCellTop"><div class="XYDiv"><div class="genXTitle">X:</div><div id="TurnCapXL" class="XYStat genStat"></div></div></td>
+					<td class="XYCellTop"><div class="XYDiv"><div id="TurnCapXR" class="XYStat genStat"></div></div></td>
+				</tr>
+				<tr>
+					<td class="XYCell"><div class="XYDiv"><div class="genYTitle">Y:</div><div id="TurnCapYL" class="XYStat genStat"></div></div></td>
+					<td class="XYCell"><div class="XYDiv"><div id="TurnCapYR" class="XYStat genStat"></div></div></td>
+				</tr>
+				<tr>
+					<th id="MissCost" class="genTitle">Miss Cost</th>
+					<td class="genCell"><div class="genDiv"><div id="MissCostL" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="compL"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="MissCostR" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="compR"></div></div></td>
+				</tr>
+				<tr>
+					<th id="FeintCost" class="genTitle">Feint Cost</th>
+					<td class="genCell"><div class="genDiv"><div id="FeintCostL" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="compL"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="FeintCostR" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="compR"></div></div></td>
+				</tr>
+				<tr>
+					<th id="MorphCost" class="genTitle">Morph Cost</th>
+					<td class="genCell"><div class="genDiv"><div id="MorphCostL" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="compL"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="MorphCostR" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="compR"></div></div></td>
+				</tr>
+				<tr>
+					<th id="StaminaDrain" class="genTitle">Stamina Drain</th>
+					<td class="genCell"><div class="genDiv"><div id="StaminaDrainL" class="stamStat genStat posCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="compL"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="StaminaDrainR" class="stamStat genStat posCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="compR"></div></div></td>
+				</tr>
+				<tr>
+					<th id="ParryDrainNeg" class="genTitle">Parry Drain Negation</th>
+					<td class="genCell"><div class="genDiv"><div id="ParryDrainNegL" class="stamStat genStat posCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="compL"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="ParryDrainNegR" class="stamStat genStat posCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="compR"></div></div></td>
+				</tr>
+				<tr>
+					<th id="StopOnHit" class="genTitle">Stop on Hit</th>
+					<td class="genCell"><div class="genDiv"><div id="StopOnHitL" class="textStat genStat negCorr"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="StopOnHitR" class="textStat genStat negCorr"></div></div></td>
+				</tr>
+				<tr>
+					<th id="CanCombo" class="genTitle">Can Combo</th>
+					<td class="genCell"><div class="genDiv"><div id="CanComboL" class="textStat genStat posCorr"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="CanComboR" class="textStat genStat posCorr"></div></div></td>
+				</tr>
+				<tr>
+					<th id="Knockback" class="genTitle">Hit Knockback</th>
+					<td class="genCell"><div class="genDiv"><div id="KnockbackL" class="normalStat genStat neutCorr"></div><div class="compL"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="KnockbackR" class="normalStat genStat neutCorr"></div><div class="compR"></div></div></td>
+				</tr>
+				<tr>
+					<th id="WoodDamage" class="genTitle">Wood Damage</th>
+					<td class="genCell"><div class="genDiv"><div id="WoodDamageL" class="normalStat genStat posCorr"></div><div class="compL"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="WoodDamageR" class="normalStat genStat posCorr"></div><div class="compR"></div></div></td>
+				</tr>
+				<tr>
+					<th id="StoneDamage" class="genTitle">Stone Damage</th>
+					<td class="genCell"><div class="genDiv"><div id="StoneDamageL" class="normalStat genStat posCorr"></div><div class="compL"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="StoneDamageR" class="normalStat genStat posCorr"></div><div class="compR"></div></div></td>
+				</tr>
+				<tr>
+					<th id="BlockHeld" class="genTitle">Is block held</th>
+					<td class="genCell"><div class="genDiv"><div id="BlockHeldL" class="textStat genStat posCorr"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="BlockHeldR" class="textStat genStat posCorr"></div></div></td>
+				</tr>
+				<tr>
+					<th id="BMoveRest" class="genTitle">Block Movement Restriction</th>
+					<td class="genCell"><div class="genDiv"><div id="BMoveRestL" class="normalStat genStat"></div><div class="compL"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="BMoveRestR" class="normalStat genStat"></div><div class="compR"></div></div></td>
+				</tr>
+				<tr>
+					<th id="MaxAmmo" class="genTitle">Max Ammo</th>
+					<td class="genCell"><div class="genDiv"><div id="MaxAmmoL" class="normalStat genStat posCorr"></div><div class="compL"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="MaxAmmoR" class="normalStat genStat posCorr"></div><div class="compR"></div></div></td>
+				</tr>
+				<tr>
+					<th id="CanFlinch" class="genTitle">Can Flinch</th>
+					<td class="genCell"><div class="genDiv"><div id="CanFlinchL" class="textStat genStat posCorr"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="CanFlinchR" class="textStat genStat posCorr"></div></div></td>
+				</tr>
+				<tr>
+					<th id="ProjSpeed" class="genTitle">Projectile Speed</th>
+					<td class="genCell"><div class="genDiv"><div id="ProjSpeedL" class="normalStat genStat posCorr"></div><div class="compL"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="ProjSpeedR" class="normalStat genStat posCorr"></div><div class="compR"></div></div></td>
+				</tr>
+				<tr>
+					<th id="GravityScale" class="genTitle">Gravity Scale</th>
+					<td class="genCell"><div class="genDiv"><div id="GravityScaleL" class="normalStat genStat negCorr"></div><div class="compL"></div></div></td>
+					<td class="genCell"><div class="genDiv"><div id="GravityScaleR" class="normalStat genStat negCorr"></div><div class="compR"></div></div></td>
+				</tr>
+				</table>
+			</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
