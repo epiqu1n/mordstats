@@ -1,0 +1,19 @@
+Version 2.8
+- Updated for build #16
+- Found and added all previously missing data
+
+Version 2.7
+- Updated for build #15
+
+Version 2.6
+- Fixed some issues with mobile rendering
+- Bug fixes
+
+Version 2.5
+- (Beta) Mordstats is now mobile friendly!  It is difficult to test on various mobile configurations so if anything seems off, please contact me through the email provided in the help menu. Be sure to include device model, browser details, and a screencap of the page.
+
+Version 2.4
+- Added searchable lists with filtering, keyboard controls, and autosuggest!
+- Revamped damage table to improve readability
+- Added setting to use classic damage table
+- Fixed issue with settings not saving properly

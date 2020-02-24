@@ -1,0 +1,1 @@
+- Autosuggestions (as well as various styling features) do not function in Microsoft Edge as the current implementation is not supported.  Edge is not recommended for this site, or in general.
