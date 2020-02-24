@@ -1,2 +1,0 @@
-- In mobile browsers, the page may partly freeze when switching categories.  However, tapping/swiping anywhere else on the page should get it going again.
-- The known issues in this section are sometimes not displayed.
