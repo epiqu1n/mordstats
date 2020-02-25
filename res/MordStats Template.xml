@@ -5,6 +5,7 @@
 		<Type>Melee</Type> <!-- Melee Normal -->
 		<Points></Points>
 		<PeasantOnly></PeasantOnly>
+		<Misc></Misc>
 		<Attack>
 			<AttackType>Strike</AttackType>
 			<Damage>
@@ -199,6 +200,7 @@
 		<Type>Melee</Type> <!-- Melee No Alt -->
 		<Points></Points>
 		<PeasantOnly></PeasantOnly>
+		<Misc></Misc>
 		<Attack>
 			<AttackType>Strike</AttackType>
 			<Damage>
@@ -299,6 +301,7 @@
 		<Type>Melee</Type> <!-- Melee Throwable -->
 		<Points></Points>
 		<PeasantOnly></PeasantOnly>
+		<Misc></Misc>
 		<Attack>
 			<AttackType>Strike</AttackType>
 			<Damage>
@@ -429,6 +432,7 @@
 		<Type>Ranged</Type> <!-- Ranged weapon -->
 		<Points></Points>
 		<PeasantOnly></PeasantOnly>
+		<Misc></Misc>
 		<Attack>
 			<AttackType>Ranged</AttackType>
 			<Damage>
@@ -467,9 +471,10 @@
 	</Weapon>
 	<Weapon>
 		<Name></Name>
-		<Type>Shields</Type> <!-- Shield -->
+		<Type>Shields</Type> <!-- Shield (held block) -->
 		<Points></Points>
 		<PeasantOnly></PeasantOnly>
+		<Misc></Misc>
 		<Attack>
 			<AttackType>Shield</AttackType>
 			<GeneralStats>
@@ -478,6 +483,53 @@
 				<ParryDrainNeg></ParryDrainNeg>
 				<BlockHeld></BlockHeld>
 				<BMoveRest></BMoveRest>
+			</GeneralStats>
+		</Attack>
+	</Weapon>
+	<Weapon>
+		<Name></Name>
+		<Type>Shields</Type> <!-- Shield (throwable) -->
+		<Points></Points>
+		<PeasantOnly></PeasantOnly>
+		<Misc></Misc>
+		<Attack>
+			<AttackType>Shield</AttackType>
+			<GeneralStats>
+				<TurnCapX></TurnCapX>
+				<TurnCapY></TurnCapY>
+				<ParryDrainNeg></ParryDrainNeg>
+				<BlockHeld></BlockHeld>
+				<BMoveRest></BMoveRest>
+			</GeneralStats>
+		</Attack>
+		<Attack>
+			<AttackType>Melee Throw</AttackType>
+			<Damage>
+				<Head>
+					<Armor0></Armor0>
+					<Armor1></Armor1>
+					<Armor2></Armor2>
+					<Armor3></Armor3>
+				</Head>
+				<Torso>
+					<Armor0></Armor0>
+					<Armor1></Armor1>
+					<Armor2></Armor2>
+					<Armor3></Armor3>
+				</Torso>
+				<Legs>
+					<Armor0></Armor0>
+					<Armor1></Armor1>
+					<Armor2></Armor2>
+					<Armor3></Armor3>
+				</Legs>
+			</Damage>
+			<GeneralStats>
+				<WoodDamage></WoodDamage>
+				<StoneDamage></StoneDamage>
+				<CanFlinch></CanFlinch>
+				<ProjSpeed></ProjSpeed>
+				<GravityScale></GravityScale>
 			</GeneralStats>
 		</Attack>
 	</Weapon>
