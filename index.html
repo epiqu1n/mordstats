@@ -11,8 +11,8 @@
 	<meta property="og:image:height" content="600" />
 	<meta name="description" content="View and compare Mordhau advanced weapon statistics side-by-side, including peasant/miscellaneous weapons, ranged weapons, and shields." />
 	<meta charset="UTF-8" />
-	<link rel="stylesheet" type="text/css" href="res/style.css?v=2.800">
-	<script src="res/scripts.js?v=2.800"></script>
+	<link rel="stylesheet" type="text/css" href="res/style.css?v=2.856">
+	<script src="res/scripts.js?v=2.854"></script>
 </head>
 <body class="expanded" onload="onPageLoad()">
 <div id="pageWrapper">
@@ -40,7 +40,7 @@
 		<div class="menuOptWrapper">
 			<span class="menuText">Damage modifier:</span>
 			<div class="damageMod">
-				<input type="text" id="damageField" class="buttonText" value="1.00" placeholder="1.00" onfocus="onDModFocus(this)" onblur="onDModBlur(this)" maxlength="4" spellcheck="false" inputmode="numeric" />
+				<input type="text" id="damageField" class="buttonText" value="1.00" placeholder="1.00" onfocus="onDModFocus(this)" onblur="onDModBlur(this)" onKeyDown="onDModPress(this, event)" maxlength="4" spellcheck="false" inputmode="numeric" />
 				 X
 			</div>
 			<div id="dModHelper" class="helper helpHide" ontouchstart="toggleHelperText(event, this)">!<div id="dModError" class="popText">Damage modifier must be a number between 0 and 5.</div></div>
@@ -100,9 +100,8 @@
 		</div>
 		<div class="menuText">
 			Issues or suggestions?&nbsp; Send an email to <a href="mailto:feedback@mordstats.com" target="_blank">feedback@mordstats.com</a>.
-			<br/>Want to donate? <a href="https://www.paypal.me/mordstats" target="_blank">Click here</a>.
 		</div>
-		<div class="helpSubtext menuText">Stats accurate as of Build #16</div>
+		<div class="helpSubtext menuText">Stats accurate as of Build #18</div>
 		<div id="issuesSelect" class="helpSubtext menuText" onclick="toggleIssues(event)">Known issues</div>
 		
 		<!-- Known issues menu -->
@@ -415,8 +414,8 @@
 			</table>
 			
 			<div id="damWarnings">
-				<div id="huntWarning" class="damWarn invisible"><sup class="ast">*</sup><span>*</span> Huntsman enabled</div>
-				<div id="dModWarning" class="damWarn invisible"><sup class="dagger">&#8224;</sup><span>&#8224;</span> Global damage modified by <span id="dMod">1.00</span>x</div>
+				<div id="huntWarning" class="damWarn invisible"><sup class="ast">*</sup> Huntsman enabled</div>
+				<div id="dModWarning" class="damWarn invisible"><sup class="dagger">&#8224;</sup> Global damage modified by <span id="dMod">1.00</span>x</div>
 			</div>
 		</div>
 		

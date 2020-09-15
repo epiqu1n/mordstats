@@ -1,15 +1,17 @@
-var _weapons, _weapNum, _categoryChanged, _lastFocus, _lastX, _xMove, _mainBody, _animTimeout, _mobile;
+var _weapons, _weapNum, Max_Cost, _categoryChanged, _lastFocus, _lastX, _xMove, _mainBody, _animTimeout, _mobile;
 	
 /** function onPageLoad()
  * Function to be run on first page load
  * @returns : Nothing
  */
 function onPageLoad() {
+	// Define global variables
 	_mainBody = document.getElementById("mainBody");
 	_categoryChanged = true;
 	_weapons = {};
 	_lastFocus = document.getElementById("weaponRight").querySelector(".listInput");
 	_mobile = false;
+	Max_Cost = 33;
 	document.body.width = document.body.offsetWidth;
 	
 	if (navigator.userAgent.match(/Mobi/)) adjustMobile();
@@ -990,7 +992,7 @@ function makeLists() {
 
 	var options = new Array();
 	var pointCosts = new Array();
-	var weaponLists, weapName, pointCosts, optionElement, optionImg, optionText, selectedName;
+	var weaponLists, weapName, pointCosts, optionElement, optionImg, costText, optionText, selectedName;
 	weaponLists = document.getElementsByClassName("weaponList");
 	var keys = Object.keys(_weapons);
 	
@@ -1012,7 +1014,11 @@ function makeLists() {
 		optionElement = document.createElement("div");
 		optionImg = document.createElement("div");
 		optionImg.setAttribute("class", "optionImg");
-		optionImg.style.backgroundImage = "url(\"img/icons/points"+pointCost+".png\")";
+		optionImg.style.backgroundImage = "url(\"img/icons/pointsNull.png\")";
+		costText = document.createElement("span");
+		costText.setAttribute("class", "costText");
+		costText.innerHTML = pointCost;
+		optionImg.append(costText);
 		optionText = document.createElement("span");
 		optionText.setAttribute("class", "optionText");		
 		optionText.innerHTML = weapName;
@@ -1045,8 +1051,8 @@ function makeLists() {
 		if (sortMethod == "points") {
 			// Create 2D array: [point cost][weapon]
 			var points;
-			var buffer = new Array(12);
-			for (a=0; a<12; a++) {
+			var buffer = new Array(Max_Cost+1);
+			for (a=0; a<Max_Cost+1; a++) {
 				buffer[a] = new Array();
 			}
 			
@@ -1058,7 +1064,7 @@ function makeLists() {
 	
 			// Append the sum of the buffer arrays to the listItems element
 			// _weapons array is sorted upon page load so this will automatically be sorted.
-			for (x=0; x<12; x++) {
+			for (x=0; x<Max_Cost+1; x++) {
 				for (y=0; y<buffer[x].length; y++) {
 					if (l > 0) {
 						// listOption must be cloned before being appended elsewhere
@@ -1197,6 +1203,12 @@ function onDModBlur(mod) {
 function onDModFocus(mod) {
 	mod.placeholder = mod.value;
 	mod.value = "";
+}
+
+function onDModPress(input, event) {
+	if (event.code == "Enter" || event.code == "NumpadEnter") {
+		input.blur();
+	}
 }
 
 /** function onSelBlur(input)
@@ -2223,6 +2235,26 @@ function updateStats(side, name) {
 	var ribbons = document.getElementsByClassName("name"+s);
 	for (r=0; r < ribbons.length; r++) {
 		ribbons[r].innerHTML = name;
+	}
+
+	// sekrit
+	var alt = document.getElementById(`attType${side}`).querySelector(".altText");
+	if (name == "Pole Axe") {
+		alt.classList.add("paxe");
+		var paxe_bb = document.createElement("div");
+		var pI = document.createElement("img");
+		pI.setAttribute("src", "/img/gg_dating_sim.png");
+		alt.onclick = function(event) {
+			paxe_bb.style.opacity = 0;
+			paxe_bb.id = "paxe_bb";
+			paxe_bb.appendChild(pI);
+			document.body.appendChild(paxe_bb);
+			paxe_bb.addEventListener("click", function(event) { if (event.target.tagName == "DIV") paxe_bb.remove(); });
+			setTimeout(function(){paxe_bb.style.opacity = 1;}, 100);
+		};
+	} else {
+		alt.onclick = null;
+		alt.classList.remove("paxe");
 	}
 
 	setImage(side, name);

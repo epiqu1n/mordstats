@@ -226,7 +226,7 @@
 			<Speed>
 				<Windup>550</Windup>
 				<Combo>750</Combo>
-				<Release>525</Release>
+				<Release>500</Release>
 				<Recovery>700</Recovery>
 			</Speed>
 			<GeneralStats>
@@ -320,7 +320,7 @@
 			<Speed>
 				<Windup>575</Windup>
 				<Combo>800</Combo>
-				<Release>525</Release>
+				<Release>500</Release>
 				<Recovery>700</Recovery>
 			</Speed>
 			<GeneralStats>
@@ -538,7 +538,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>100</Knockback>
 				<WoodDamage>10</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>8</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -585,7 +585,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>100</Knockback>
 				<WoodDamage>10</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>5</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -965,10 +965,10 @@
 			<AttackType>Kick</AttackType>
 			<Damage>
 				<Head>
-					<Armor0>20</Armor0>
-					<Armor1>15</Armor1>
-					<Armor2>12</Armor2>
-					<Armor3>10</Armor3>
+					<Armor0>25</Armor0>
+					<Armor1>20</Armor1>
+					<Armor2>17</Armor2>
+					<Armor3>15</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>20</Armor0>
@@ -1000,9 +1000,63 @@
 				<ParryDrainNeg>7</ParryDrainNeg>
 				<StopOnHit>Yes</StopOnHit>
 				<CanCombo>No</CanCombo>
-				<Knockback>180</Knockback>
+				<Knockback>182.5</Knockback>
 				<WoodDamage>10</WoodDamage>
-				<StoneDamage>1</StoneDamage>
+				<StoneDamage>15</StoneDamage>
+				<BlockHeld>No</BlockHeld>
+				<BMoveRest>None</BMoveRest>
+				<CanFlinch>Yes</CanFlinch>
+			</GeneralStats>
+		</Attack>
+	</Weapon>
+	<Weapon>
+		<Name>Kick (T3 Legs)</Name>
+		<Type>Melee</Type>
+		<Points>0</Points>
+		<PeasantOnly>No</PeasantOnly>
+		<Misc>Yes</Misc>
+		<Attack>
+			<AttackType>Kick</AttackType>
+			<Damage>
+				<Head>
+					<Armor0>45</Armor0>
+					<Armor1>35</Armor1>
+					<Armor2>29</Armor2>
+					<Armor3>25</Armor3>
+				</Head>
+				<Torso>
+					<Armor0>40</Armor0>
+					<Armor1>30</Armor1>
+					<Armor2>24</Armor2>
+					<Armor3>20</Armor3>
+				</Torso>
+				<Legs>
+					<Armor0>40</Armor0>
+					<Armor1>30</Armor1>
+					<Armor2>24</Armor2>
+					<Armor3>20</Armor3>
+				</Legs>
+			</Damage>
+			<Speed>
+				<Windup>340</Windup>
+				<Combo>465</Combo>
+				<Release>300</Release>
+				<Recovery>650</Recovery>
+			</Speed>
+			<GeneralStats>
+				<Length>0</Length>
+				<TurnCapX>287.5</TurnCapX>
+				<TurnCapY>201.25</TurnCapY>
+				<MissCost>10</MissCost>
+				<FeintCost>5</FeintCost>
+				<MorphCost>7</MorphCost>
+				<StaminaDrain>10</StaminaDrain>
+				<ParryDrainNeg>7</ParryDrainNeg>
+				<StopOnHit>Yes</StopOnHit>
+				<CanCombo>No</CanCombo>
+				<Knockback>182.5</Knockback>
+				<WoodDamage>10</WoodDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -1129,8 +1183,8 @@
 			</Speed>
 			<GeneralStats>
 				<Length>85</Length>
-				<TurnCapX>255</TurnCapX>
-				<TurnCapY>178.5</TurnCapY>
+				<TurnCapX>245</TurnCapX>
+				<TurnCapY>171.5</TurnCapY>
 				<MissCost>0</MissCost>
 				<FeintCost>0</FeintCost>
 				<MorphCost>0</MorphCost>
@@ -1188,6 +1242,238 @@
 				<Knockback>200</Knockback>
 				<WoodDamage>200</WoodDamage>
 				<StoneDamage>2</StoneDamage>
+				<BlockHeld>No</BlockHeld>
+				<BMoveRest>None</BMoveRest>
+				<CanFlinch>Yes</CanFlinch>
+			</GeneralStats>
+		</Attack>
+	</Weapon>
+	<Weapon>
+		<Name>Corseca (Prototype)</Name>
+		<Type>Melee</Type>
+		<Points>9</Points>
+		<PeasantOnly>No</PeasantOnly>
+		<Misc>Yes</Misc>
+		<Attack>
+			<AttackType>Strike</AttackType>
+			<Damage>
+				<Head>
+					<Armor0>75</Armor0>
+					<Armor1>45</Armor1>
+					<Armor2>30</Armor2>
+					<Armor3>25</Armor3>
+				</Head>
+				<Torso>
+					<Armor0>40</Armor0>
+					<Armor1>30</Armor1>
+					<Armor2>20</Armor2>
+					<Armor3>15</Armor3>
+				</Torso>
+				<Legs>
+					<Armor0>35</Armor0>
+					<Armor1>20</Armor1>
+					<Armor2>10</Armor2>
+					<Armor3>5</Armor3>
+				</Legs>
+			</Damage>
+			<Speed>
+				<Windup>550</Windup>
+				<Combo>775</Combo>
+				<Release>475</Release>
+				<Recovery>400</Recovery>
+			</Speed>
+			<GeneralStats>
+				<Length>120</Length>
+				<TurnCapX>262.5</TurnCapX>
+				<TurnCapY>183.75</TurnCapY>
+				<MissCost>8</MissCost>
+				<FeintCost>10</FeintCost>
+				<MorphCost>7</MorphCost>
+				<StaminaDrain>14</StaminaDrain>
+				<ParryDrainNeg>13</ParryDrainNeg>
+				<StopOnHit>No</StopOnHit>
+				<CanCombo>No</CanCombo>
+				<Knockback>100</Knockback>
+				<WoodDamage>13</WoodDamage>
+				<StoneDamage>2</StoneDamage>
+				<BlockHeld>No</BlockHeld>
+				<BMoveRest>None</BMoveRest>
+				<CanFlinch>Yes</CanFlinch>
+			</GeneralStats>
+		</Attack>
+		<Attack>
+			<AttackType>Stab</AttackType>
+			<Damage>
+				<Head>
+					<Armor0>100</Armor0>
+					<Armor1>100</Armor1>
+					<Armor2>60</Armor2>
+					<Armor3>45</Armor3>
+				</Head>
+				<Torso>
+					<Armor0>65</Armor0>
+					<Armor1>60</Armor1>
+					<Armor2>50</Armor2>
+					<Armor3>40</Armor3>
+				</Torso>
+				<Legs>
+					<Armor0>55</Armor0>
+					<Armor1>50</Armor1>
+					<Armor2>40</Armor2>
+					<Armor3>35</Armor3>
+				</Legs>
+			</Damage>
+			<Speed>
+				<Windup>600</Windup>
+				<Combo>800</Combo>
+				<Release>325</Release>
+				<Recovery>400</Recovery>
+			</Speed>
+			<GeneralStats>
+				<Length>120</Length>
+				<TurnCapX>275</TurnCapX>
+				<TurnCapY>192.5</TurnCapY>
+				<MissCost>10</MissCost>
+				<FeintCost>10</FeintCost>
+				<MorphCost>7</MorphCost>
+				<StaminaDrain>21</StaminaDrain>
+				<ParryDrainNeg>13</ParryDrainNeg>
+				<StopOnHit>No</StopOnHit>
+				<CanCombo>Yes</CanCombo>
+				<Knockback>125</Knockback>
+				<WoodDamage>7</WoodDamage>
+				<StoneDamage>10</StoneDamage>
+				<BlockHeld>No</BlockHeld>
+				<BMoveRest>None</BMoveRest>
+				<CanFlinch>Yes</CanFlinch>
+			</GeneralStats>
+		</Attack>
+		<Attack>
+			<AttackType>Melee Throw</AttackType>
+			<Damage>
+				<Head>
+					<Armor0>110</Armor0>
+					<Armor1>100</Armor1>
+					<Armor2>100</Armor2>
+					<Armor3>65</Armor3>
+				</Head>
+				<Torso>
+					<Armor0>100</Armor0>
+					<Armor1>70</Armor1>
+					<Armor2>55</Armor2>
+					<Armor3>50</Armor3>
+				</Torso>
+				<Legs>
+					<Armor0>80</Armor0>
+					<Armor1>50</Armor1>
+					<Armor2>40</Armor2>
+					<Armor3>35</Armor3>
+				</Legs>
+			</Damage>
+			<GeneralStats>
+				<WoodDamage>5</WoodDamage>
+				<StoneDamage>1</StoneDamage>
+				<CanFlinch>No</CanFlinch>
+				<ProjSpeed>3000</ProjSpeed>
+				<GravityScale>1.1</GravityScale>
+			</GeneralStats>
+		</Attack>
+	</Weapon>
+	<Weapon>
+		<Name>Falx (Prototype)</Name>
+		<Type>Melee</Type>
+		<Points>18</Points>
+		<PeasantOnly>No</PeasantOnly>
+		<Misc>Yes</Misc>
+		<Attack>
+			<AttackType>Strike</AttackType>
+			<Damage>
+				<Head>
+					<Armor0>100</Armor0>
+					<Armor1>100</Armor1>
+					<Armor2>70</Armor2>
+					<Armor3>60</Armor3>
+				</Head>
+				<Torso>
+					<Armor0>100</Armor0>
+					<Armor1>100</Armor1>
+					<Armor2>50</Armor2>
+					<Armor3>40</Armor3>
+				</Torso>
+				<Legs>
+					<Armor0>100</Armor0>
+					<Armor1>80</Armor1>
+					<Armor2>40</Armor2>
+					<Armor3>35</Armor3>
+				</Legs>
+			</Damage>
+			<Speed>
+				<Windup>650</Windup>
+				<Combo>850</Combo>
+				<Release>500</Release>
+				<Recovery>700</Recovery>
+			</Speed>
+			<GeneralStats>
+				<Length>110</Length>
+				<TurnCapX>240</TurnCapX>
+				<TurnCapY>168</TurnCapY>
+				<MissCost>11</MissCost>
+				<FeintCost>10</FeintCost>
+				<MorphCost>7</MorphCost>
+				<StaminaDrain>20</StaminaDrain>
+				<ParryDrainNeg>13</ParryDrainNeg>
+				<StopOnHit>No</StopOnHit>
+				<CanCombo>Yes</CanCombo>
+				<Knockback>125</Knockback>
+				<WoodDamage>30</WoodDamage>
+				<StoneDamage>25</StoneDamage>
+				<BlockHeld>No</BlockHeld>
+				<BMoveRest>None</BMoveRest>
+				<CanFlinch>Yes</CanFlinch>
+			</GeneralStats>
+		</Attack>
+		<Attack>
+			<AttackType>Stab</AttackType>
+			<Damage>
+				<Head>
+					<Armor0>32</Armor0>
+					<Armor1>30</Armor1>
+					<Armor2>27</Armor2>
+					<Armor3>25</Armor3>
+				</Head>
+				<Torso>
+					<Armor0>27</Armor0>
+					<Armor1>25</Armor1>
+					<Armor2>22</Armor2>
+					<Armor3>20</Armor3>
+				</Torso>
+				<Legs>
+					<Armor0>17</Armor0>
+					<Armor1>15</Armor1>
+					<Armor2>12</Armor2>
+					<Armor3>10</Armor3>
+				</Legs>
+			</Damage>
+			<Speed>
+				<Windup>625</Windup>
+				<Combo>825</Combo>
+				<Release>350</Release>
+				<Recovery>700</Recovery>
+			</Speed>
+			<GeneralStats>
+				<Length>110</Length>
+				<TurnCapX>262.5</TurnCapX>
+				<TurnCapY>183.75</TurnCapY>
+				<MissCost>9</MissCost>
+				<FeintCost>10</FeintCost>
+				<MorphCost>7</MorphCost>
+				<StaminaDrain>16</StaminaDrain>
+				<ParryDrainNeg>13</ParryDrainNeg>
+				<StopOnHit>No</StopOnHit>
+				<CanCombo>Yes</CanCombo>
+				<Knockback>115</Knockback>
+				<WoodDamage>15</WoodDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -1271,7 +1557,7 @@
 			</Damage>
 			<Speed>
 				<Windup>600</Windup>
-				<Combo>825</Combo>
+				<Combo>850</Combo>
 				<Release>350</Release>
 				<Recovery>700</Recovery>
 			</Speed>
@@ -1298,7 +1584,7 @@
 	<Weapon>
 		<Name>Cleaver</Name>
 		<Type>Melee</Type>
-		<Points>1</Points>
+		<Points>3</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -1342,7 +1628,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>110</Knockback>
 				<WoodDamage>23</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>8</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -1371,8 +1657,8 @@
 				</Legs>
 			</Damage>
 			<Speed>
-				<Windup>500</Windup>
-				<Combo>725</Combo>
+				<Windup>525</Windup>
+				<Combo>750</Combo>
 				<Release>350</Release>
 				<Recovery>400</Recovery>
 			</Speed>
@@ -1392,7 +1678,7 @@
 				<StoneDamage>2</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
-				<CanFlinch>No</CanFlinch>
+				<CanFlinch>Yes</CanFlinch>
 			</GeneralStats>
 		</Attack>
 		<Attack>
@@ -1429,7 +1715,7 @@
 	<Weapon>
 		<Name>Dagger</Name>
 		<Type>Melee</Type>
-		<Points>1</Points>
+		<Points>2</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -1599,7 +1885,7 @@
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
 				<StaminaDrain>15</StaminaDrain>
-				<ParryDrainNeg>9</ParryDrainNeg>
+				<ParryDrainNeg>5</ParryDrainNeg>
 				<StopOnHit>No</StopOnHit>
 				<CanCombo>Yes</CanCombo>
 				<Knockback>105</Knockback>
@@ -1646,7 +1932,7 @@
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
 				<StaminaDrain>16</StaminaDrain>
-				<ParryDrainNeg>9</ParryDrainNeg>
+				<ParryDrainNeg>5</ParryDrainNeg>
 				<StopOnHit>No</StopOnHit>
 				<CanCombo>Yes</CanCombo>
 				<Knockback>105</Knockback>
@@ -1822,7 +2108,7 @@
 	<Weapon>
 		<Name>Rock</Name>
 		<Type>Ranged</Type>
-		<Points>1</Points>
+		<Points>2</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -1848,8 +2134,8 @@
 				</Legs>
 			</Damage>
 			<Speed>
-				<Draw>600</Draw>
-				<Reload>400</Reload>
+				<Draw>500</Draw>
+				<Reload>200</Reload>
 			</Speed>
 			<GeneralStats>
 				<WoodDamage>5</WoodDamage>
@@ -1862,51 +2148,9 @@
 		</Attack>
 	</Weapon>
 	<Weapon>
-		<Name>Christmas Ornament</Name>
-		<Type>Ranged</Type>
-		<Points>2</Points>
-		<PeasantOnly>No</PeasantOnly>
-		<Misc>Yes</Misc>
-		<Attack>
-			<AttackType>Ranged</AttackType>
-			<Damage>
-				<Head>
-					<Armor0>10</Armor0>
-					<Armor1>10</Armor1>
-					<Armor2>10</Armor2>
-					<Armor3>10</Armor3>
-				</Head>
-				<Torso>
-					<Armor0>5</Armor0>
-					<Armor1>5</Armor1>
-					<Armor2>5</Armor2>
-					<Armor3>5</Armor3>
-				</Torso>
-				<Legs>
-					<Armor0>5</Armor0>
-					<Armor1>5</Armor1>
-					<Armor2>5</Armor2>
-					<Armor3>5</Armor3>
-				</Legs>
-			</Damage>
-			<Speed>
-				<Draw>550</Draw>
-				<Reload>400</Reload>
-			</Speed>
-			<GeneralStats>
-				<WoodDamage>6</WoodDamage>
-				<StoneDamage>1</StoneDamage>
-				<MaxAmmo>1</MaxAmmo>
-				<CanFlinch>No</CanFlinch>
-				<ProjSpeed>2300</ProjSpeed>
-				<GravityScale>1.1</GravityScale>
-			</GeneralStats>
-		</Attack>
-	</Weapon>
-	<Weapon>
 		<Name>Smoke Bomb</Name>
 		<Type>Ranged</Type>
-		<Points>1</Points>
+		<Points>2</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -1932,7 +2176,7 @@
 				</Legs>
 			</Damage>
 			<Speed>
-				<Draw>550</Draw>
+				<Draw>450</Draw>
 				<Reload>400</Reload>
 			</Speed>
 			<GeneralStats>
@@ -1948,7 +2192,7 @@
 	<Weapon>
 		<Name>Quarterstaff</Name>
 		<Type>Melee</Type>
-		<Points>1</Points>
+		<Points>2</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -1992,7 +2236,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>110</Knockback>
 				<WoodDamage>9</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>7</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -2086,7 +2330,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>110</Knockback>
 				<WoodDamage>9</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>7</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -2171,7 +2415,7 @@
 			<Speed>
 				<Windup>550</Windup>
 				<Combo>750</Combo>
-				<Release>525</Release>
+				<Release>500</Release>
 				<Recovery>700</Recovery>
 			</Speed>
 			<GeneralStats>
@@ -2244,7 +2488,7 @@
 	<Weapon>
 		<Name>Pavise Shield</Name>
 		<Type>Shield</Type>
-		<Points>1</Points>
+		<Points>2</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -2261,7 +2505,7 @@
 	<Weapon>
 		<Name>Arming Sword</Name>
 		<Type>Melee</Type>
-		<Points>2</Points>
+		<Points>6</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -2305,7 +2549,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>100</Knockback>
 				<WoodDamage>15</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>8</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -2352,7 +2596,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>100</Knockback>
 				<WoodDamage>10</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>5</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -2392,7 +2636,7 @@
 	<Weapon>
 		<Name>Axe</Name>
 		<Type>Melee</Type>
-		<Points>2</Points>
+		<Points>5</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -2436,7 +2680,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>120</Knockback>
 				<WoodDamage>35</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>17</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -2523,7 +2767,7 @@
 	<Weapon>
 		<Name>Throwing Axe</Name>
 		<Type>Ranged</Type>
-		<Points>2</Points>
+		<Points>4</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -2565,29 +2809,29 @@
 	<Weapon>
 		<Name>Fire Bomb</Name>
 		<Type>Ranged</Type>
-		<Points>2</Points>
+		<Points>6</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
 			<AttackType>Ranged</AttackType>
 			<Damage>
 				<Head>
+					<Armor0>15</Armor0>
+					<Armor1>15</Armor1>
+					<Armor2>15</Armor2>
+					<Armor3>15</Armor3>
+				</Head>
+				<Torso>
 					<Armor0>10</Armor0>
 					<Armor1>10</Armor1>
 					<Armor2>10</Armor2>
 					<Armor3>10</Armor3>
-				</Head>
-				<Torso>
-					<Armor0>5</Armor0>
-					<Armor1>5</Armor1>
-					<Armor2>5</Armor2>
-					<Armor3>5</Armor3>
 				</Torso>
 				<Legs>
-					<Armor0>5</Armor0>
-					<Armor1>5</Armor1>
-					<Armor2>5</Armor2>
-					<Armor3>5</Armor3>
+					<Armor0>10</Armor0>
+					<Armor1>10</Armor1>
+					<Armor2>10</Armor2>
+					<Armor3>10</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
@@ -2607,7 +2851,7 @@
 	<Weapon>
 		<Name>Throwing Knife</Name>
 		<Type>Ranged</Type>
-		<Points>2</Points>
+		<Points>4</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -2649,7 +2893,7 @@
 	<Weapon>
 		<Name>Warhammer</Name>
 		<Type>Melee</Type>
-		<Points>2</Points>
+		<Points>4</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -2693,7 +2937,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>18</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -2787,7 +3031,7 @@
 				<CanCombo>No</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>18</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>25</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -2844,7 +3088,7 @@
 	<Weapon>
 		<Name>Blacksmith Hammer</Name>
 		<Type>Melee</Type>
-		<Points>2</Points>
+		<Points>4</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -2888,7 +3132,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>-30</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -2975,7 +3219,7 @@
 	<Weapon>
 		<Name>Heater Shield</Name>
 		<Type>Shield</Type>
-		<Points>2</Points>
+		<Points>6</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -2983,7 +3227,7 @@
 			<GeneralStats>
 				<TurnCapX>375</TurnCapX>
 				<TurnCapY>262.5</TurnCapY>
-				<ParryDrainNeg>10</ParryDrainNeg>
+				<ParryDrainNeg>9</ParryDrainNeg>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 			</GeneralStats>
@@ -2992,7 +3236,7 @@
 	<Weapon>
 		<Name>Targe</Name>
 		<Type>Shield</Type>
-		<Points>2</Points>
+		<Points>6</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -3039,7 +3283,7 @@
 	<Weapon>
 		<Name>Falchion</Name>
 		<Type>Melee</Type>
-		<Points>3</Points>
+		<Points>8</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -3083,7 +3327,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>115</Knockback>
 				<WoodDamage>20</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>12</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -3170,7 +3414,7 @@
 	<Weapon>
 		<Name>Heavy Handaxe</Name>
 		<Type>Melee</Type>
-		<Points>3</Points>
+		<Points>9</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -3180,13 +3424,13 @@
 					<Armor0>100</Armor0>
 					<Armor1>100</Armor1>
 					<Armor2>68</Armor2>
-					<Armor3>60</Armor3>
+					<Armor3>50</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>75</Armor0>
 					<Armor1>62</Armor1>
 					<Armor2>53</Armor2>
-					<Armor3>45</Armor3>
+					<Armor3>40</Armor3>
 				</Torso>
 				<Legs>
 					<Armor0>65</Armor0>
@@ -3196,8 +3440,8 @@
 				</Legs>
 			</Damage>
 			<Speed>
-				<Windup>650</Windup>
-				<Combo>725</Combo>
+				<Windup>600</Windup>
+				<Combo>700</Combo>
 				<Release>475</Release>
 				<Recovery>500</Recovery>
 			</Speed>
@@ -3214,7 +3458,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>45</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>12</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -3227,7 +3471,7 @@
 					<Armor0>100</Armor0>
 					<Armor1>80</Armor1>
 					<Armor2>60</Armor2>
-					<Armor3>45</Armor3>
+					<Armor3>40</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>75</Armor0>
@@ -3243,8 +3487,8 @@
 				</Legs>
 			</Damage>
 			<Speed>
-				<Windup>625</Windup>
-				<Combo>725</Combo>
+				<Windup>600</Windup>
+				<Combo>700</Combo>
 				<Release>350</Release>
 				<Recovery>500</Recovery>
 			</Speed>
@@ -3261,7 +3505,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>120</Knockback>
 				<WoodDamage>15</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>9</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -3271,27 +3515,27 @@
 			<AttackType>Alt Strike</AttackType>
 			<Damage>
 				<Head>
-					<Armor0>100</Armor0>
-					<Armor1>100</Armor1>
-					<Armor2>77</Armor2>
-					<Armor3>76</Armor3>
+					<Armor0>55</Armor0>
+					<Armor1>54</Armor1>
+					<Armor2>46</Armor2>
+					<Armor3>45</Armor3>
 				</Head>
 				<Torso>
-					<Armor0>49</Armor0>
-					<Armor1>48</Armor1>
-					<Armor2>47</Armor2>
-					<Armor3>46</Armor3>
+					<Armor0>45</Armor0>
+					<Armor1>44</Armor1>
+					<Armor2>43</Armor2>
+					<Armor3>42</Armor3>
 				</Torso>
 				<Legs>
-					<Armor0>39</Armor0>
-					<Armor1>38</Armor1>
-					<Armor2>37</Armor2>
-					<Armor3>36</Armor3>
+					<Armor0>40</Armor0>
+					<Armor1>39</Armor1>
+					<Armor2>38</Armor2>
+					<Armor3>37</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
-				<Windup>650</Windup>
-				<Combo>725</Combo>
+				<Windup>600</Windup>
+				<Combo>675</Combo>
 				<Release>475</Release>
 				<Recovery>500</Recovery>
 			</Speed>
@@ -3308,7 +3552,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>-30</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>20</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -3355,7 +3599,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>120</Knockback>
 				<WoodDamage>15</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>9</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -3365,7 +3609,7 @@
 	<Weapon>
 		<Name>Javelin</Name>
 		<Type>Ranged</Type>
-		<Points>3</Points>
+		<Points>9</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -3407,7 +3651,7 @@
 	<Weapon>
 		<Name>Kite Shield</Name>
 		<Type>Shield</Type>
-		<Points>3</Points>
+		<Points>9</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -3415,7 +3659,7 @@
 			<GeneralStats>
 				<TurnCapX>375</TurnCapX>
 				<TurnCapY>262.5</TurnCapY>
-				<ParryDrainNeg>11</ParryDrainNeg>
+				<ParryDrainNeg>10</ParryDrainNeg>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 			</GeneralStats>
@@ -3424,7 +3668,7 @@
 	<Weapon>
 		<Name>Buckler</Name>
 		<Type>Shield</Type>
-		<Points>3</Points>
+		<Points>9</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -3471,16 +3715,16 @@
 	<Weapon>
 		<Name>Mace</Name>
 		<Type>Melee</Type>
-		<Points>4</Points>
+		<Points>11</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
 			<AttackType>Strike</AttackType>
 			<Damage>
 				<Head>
-					<Armor0>63</Armor0>
-					<Armor1>62</Armor1>
-					<Armor2>61</Armor2>
+					<Armor0>103</Armor0>
+					<Armor1>102</Armor1>
+					<Armor2>71</Armor2>
 					<Armor3>60</Armor3>
 				</Head>
 				<Torso>
@@ -3515,7 +3759,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>20</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -3544,8 +3788,8 @@
 				</Legs>
 			</Damage>
 			<Speed>
-				<Windup>525</Windup>
-				<Combo>775</Combo>
+				<Windup>550</Windup>
+				<Combo>800</Combo>
 				<Release>350</Release>
 				<Recovery>600</Recovery>
 			</Speed>
@@ -3602,7 +3846,7 @@
 	<Weapon>
 		<Name>Rapier</Name>
 		<Type>Melee</Type>
-		<Points>4</Points>
+		<Points>12</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -3630,7 +3874,7 @@
 			<Speed>
 				<Windup>450</Windup>
 				<Combo>675</Combo>
-				<Release>475</Release>
+				<Release>450</Release>
 				<Recovery>400</Recovery>
 			</Speed>
 			<GeneralStats>
@@ -3693,7 +3937,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>100</Knockback>
 				<WoodDamage>5</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>7</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -3733,7 +3977,7 @@
 	<Weapon>
 		<Name>Short Spear</Name>
 		<Type>Melee</Type>
-		<Points>3</Points>
+		<Points>9</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -3765,13 +4009,13 @@
 				<Recovery>400</Recovery>
 			</Speed>
 			<GeneralStats>
-				<Length>120</Length>
+				<Length>115</Length>
 				<TurnCapX>262.5</TurnCapX>
 				<TurnCapY>183.75</TurnCapY>
 				<MissCost>8</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
-				<StaminaDrain>16</StaminaDrain>
+				<StaminaDrain>14</StaminaDrain>
 				<ParryDrainNeg>12</ParryDrainNeg>
 				<StopOnHit>No</StopOnHit>
 				<CanCombo>No</CanCombo>
@@ -3788,21 +4032,21 @@
 			<Damage>
 				<Head>
 					<Armor0>100</Armor0>
-					<Armor1>75</Armor1>
-					<Armor2>55</Armor2>
+					<Armor1>100</Armor1>
+					<Armor2>60</Armor2>
 					<Armor3>45</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>65</Armor0>
 					<Armor1>60</Armor1>
-					<Armor2>45</Armor2>
-					<Armor3>35</Armor3>
+					<Armor2>50</Armor2>
+					<Armor3>40</Armor3>
 				</Torso>
 				<Legs>
 					<Armor0>55</Armor0>
 					<Armor1>50</Armor1>
-					<Armor2>35</Armor2>
-					<Armor3>25</Armor3>
+					<Armor2>40</Armor2>
+					<Armor3>35</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
@@ -3812,7 +4056,7 @@
 				<Recovery>400</Recovery>
 			</Speed>
 			<GeneralStats>
-				<Length>120</Length>
+				<Length>115</Length>
 				<TurnCapX>275</TurnCapX>
 				<TurnCapY>192.5</TurnCapY>
 				<MissCost>10</MissCost>
@@ -3824,7 +4068,7 @@
 				<CanCombo>No</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>7</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -3864,7 +4108,7 @@
 	<Weapon>
 		<Name>Bastard Sword</Name>
 		<Type>Melee</Type>
-		<Points>4</Points>
+		<Points>12</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -3908,7 +4152,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>105</Knockback>
 				<WoodDamage>20</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -3955,7 +4199,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>105</Knockback>
 				<WoodDamage>20</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>5</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -3986,7 +4230,7 @@
 			<Speed>
 				<Windup>525</Windup>
 				<Combo>675</Combo>
-				<Release>525</Release>
+				<Release>500</Release>
 				<Recovery>400</Recovery>
 			</Speed>
 			<GeneralStats>
@@ -4002,7 +4246,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>105</Knockback>
 				<WoodDamage>20</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -4049,7 +4293,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>105</Knockback>
 				<WoodDamage>20</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>5</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -4057,9 +4301,26 @@
 		</Attack>
 	</Weapon>
 	<Weapon>
+		<Name>Round Shield</Name>
+		<Type>Shield</Type>
+		<Points>12</Points>
+		<PeasantOnly>No</PeasantOnly>
+		<Misc>No</Misc>
+		<Attack>
+			<AttackType>Shield</AttackType>
+			<GeneralStats>
+				<TurnCapX>375</TurnCapX>
+				<TurnCapY>262.5</TurnCapY>
+				<ParryDrainNeg>11</ParryDrainNeg>
+				<BlockHeld>No</BlockHeld>
+				<BMoveRest>None</BMoveRest>
+			</GeneralStats>
+		</Attack>
+	</Weapon>
+	<Weapon>
 		<Name>Billhook</Name>
 		<Type>Melee</Type>
-		<Points>5</Points>
+		<Points>14</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -4103,7 +4364,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>-200</Knockback>
 				<WoodDamage>22</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -4150,7 +4411,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>12</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>7</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -4197,7 +4458,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>120</Knockback>
 				<WoodDamage>22</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -4244,7 +4505,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>-170</Knockback>
 				<WoodDamage>12</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>7</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -4254,7 +4515,7 @@
 	<Weapon>
 		<Name>Longsword</Name>
 		<Type>Melee</Type>
-		<Points>5</Points>
+		<Points>14</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -4280,9 +4541,9 @@
 				</Legs>
 			</Damage>
 			<Speed>
-				<Windup>525</Windup>
-				<Combo>700</Combo>
-				<Release>525</Release>
+				<Windup>535</Windup>
+				<Combo>710</Combo>
+				<Release>500</Release>
 				<Recovery>550</Recovery>
 			</Speed>
 			<GeneralStats>
@@ -4292,13 +4553,13 @@
 				<MissCost>8</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
-				<StaminaDrain>18</StaminaDrain>
+				<StaminaDrain>19</StaminaDrain>
 				<ParryDrainNeg>13</ParryDrainNeg>
 				<StopOnHit>No</StopOnHit>
 				<CanCombo>Yes</CanCombo>
 				<Knockback>110</Knockback>
 				<WoodDamage>22</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>12</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -4328,7 +4589,7 @@
 			</Damage>
 			<Speed>
 				<Windup>625</Windup>
-				<Combo>875</Combo>
+				<Combo>850</Combo>
 				<Release>350</Release>
 				<Recovery>550</Recovery>
 			</Speed>
@@ -4345,7 +4606,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>110</Knockback>
 				<WoodDamage>15</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>7</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -4376,7 +4637,7 @@
 			<Speed>
 				<Windup>550</Windup>
 				<Combo>750</Combo>
-				<Release>525</Release>
+				<Release>500</Release>
 				<Recovery>400</Recovery>
 			</Speed>
 			<GeneralStats>
@@ -4386,13 +4647,13 @@
 				<MissCost>8</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
-				<StaminaDrain>18</StaminaDrain>
+				<StaminaDrain>19</StaminaDrain>
 				<ParryDrainNeg>13</ParryDrainNeg>
 				<StopOnHit>Yes</StopOnHit>
 				<CanCombo>Yes</CanCombo>
 				<Knockback>100</Knockback>
 				<WoodDamage>18</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>22</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -4449,7 +4710,7 @@
 	<Weapon>
 		<Name>Messer</Name>
 		<Type>Melee</Type>
-		<Points>5</Points>
+		<Points>15</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -4458,26 +4719,26 @@
 				<Head>
 					<Armor0>100</Armor0>
 					<Armor1>75</Armor1>
-					<Armor2>60</Armor2>
-					<Armor3>52</Armor3>
+					<Armor2>62</Armor2>
+					<Armor3>48</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>70</Armor0>
 					<Armor1>60</Armor1>
-					<Armor2>50</Armor2>
+					<Armor2>52</Armor2>
 					<Armor3>40</Armor3>
 				</Torso>
 				<Legs>
 					<Armor0>60</Armor0>
 					<Armor1>50</Armor1>
-					<Armor2>40</Armor2>
+					<Armor2>42</Armor2>
 					<Armor3>34</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
 				<Windup>525</Windup>
 				<Combo>675</Combo>
-				<Release>525</Release>
+				<Release>500</Release>
 				<Recovery>550</Recovery>
 			</Speed>
 			<GeneralStats>
@@ -4493,7 +4754,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>20</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -4540,7 +4801,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>105</Knockback>
 				<WoodDamage>20</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>7</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -4552,19 +4813,19 @@
 				<Head>
 					<Armor0>100</Armor0>
 					<Armor1>75</Armor1>
-					<Armor2>60</Armor2>
-					<Armor3>52</Armor3>
+					<Armor2>62</Armor2>
+					<Armor3>48</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>70</Armor0>
 					<Armor1>60</Armor1>
-					<Armor2>50</Armor2>
+					<Armor2>52</Armor2>
 					<Armor3>40</Armor3>
 				</Torso>
 				<Legs>
 					<Armor0>60</Armor0>
 					<Armor1>50</Armor1>
-					<Armor2>40</Armor2>
+					<Armor2>42</Armor2>
 					<Armor3>34</Armor3>
 				</Legs>
 			</Damage>
@@ -4575,9 +4836,9 @@
 				<Recovery>700</Recovery>
 			</Speed>
 			<GeneralStats>
-				<Length>98</Length>
-				<TurnCapX>262.5</TurnCapX>
-				<TurnCapY>183.75</TurnCapY>
+				<Length>97</Length>
+				<TurnCapX>255</TurnCapX>
+				<TurnCapY>178.5</TurnCapY>
 				<MissCost>10</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -4587,7 +4848,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>20</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -4622,7 +4883,7 @@
 				<Recovery>700</Recovery>
 			</Speed>
 			<GeneralStats>
-				<Length>98</Length>
+				<Length>97</Length>
 				<TurnCapX>300</TurnCapX>
 				<TurnCapY>210</TurnCapY>
 				<MissCost>9</MissCost>
@@ -4634,7 +4895,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>105</Knockback>
 				<WoodDamage>20</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>7</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -4644,7 +4905,7 @@
 	<Weapon>
 		<Name>War Axe</Name>
 		<Type>Melee</Type>
-		<Points>5</Points>
+		<Points>15</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -4654,13 +4915,13 @@
 					<Armor0>130</Armor0>
 					<Armor1>105</Armor1>
 					<Armor2>80</Armor2>
-					<Armor3>70</Armor3>
+					<Armor3>55</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>100</Armor0>
 					<Armor1>75</Armor1>
 					<Armor2>65</Armor2>
-					<Armor3>55</Armor3>
+					<Armor3>50</Armor3>
 				</Torso>
 				<Legs>
 					<Armor0>80</Armor0>
@@ -4688,7 +4949,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>50</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>28</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -4743,140 +5004,9 @@
 		</Attack>
 	</Weapon>
 	<Weapon>
-		<Name>Candy Cane</Name>
-		<Type>Melee</Type>
-		<Points>5</Points>
-		<PeasantOnly>No</PeasantOnly>
-		<Misc>Yes</Misc>
-		<Attack>
-			<AttackType>Strike</AttackType>
-			<Damage>
-				<Head>
-					<Armor0>47</Armor0>
-					<Armor1>45</Armor1>
-					<Armor2>40</Armor2>
-					<Armor3>35</Armor3>
-				</Head>
-				<Torso>
-					<Armor0>42</Armor0>
-					<Armor1>40</Armor1>
-					<Armor2>35</Armor2>
-					<Armor3>30</Armor3>
-				</Torso>
-				<Legs>
-					<Armor0>41</Armor0>
-					<Armor1>38</Armor1>
-					<Armor2>32</Armor2>
-					<Armor3>26</Armor3>
-				</Legs>
-			</Damage>
-			<Speed>
-				<Windup>600</Windup>
-				<Combo>900</Combo>
-				<Release>450</Release>
-				<Recovery>600</Recovery>
-			</Speed>
-			<GeneralStats>
-				<Length>60</Length>
-				<TurnCapX>300</TurnCapX>
-				<TurnCapY>210</TurnCapY>
-				<MissCost>10</MissCost>
-				<FeintCost>10</FeintCost>
-				<MorphCost>7</MorphCost>
-				<StaminaDrain>15</StaminaDrain>
-				<ParryDrainNeg>8</ParryDrainNeg>
-				<StopOnHit>Yes</StopOnHit>
-				<CanCombo>Yes</CanCombo>
-				<Knockback>120</Knockback>
-				<WoodDamage>10</WoodDamage>
-				<StoneDamage>2</StoneDamage>
-				<BlockHeld>No</BlockHeld>
-				<BMoveRest>None</BMoveRest>
-				<CanFlinch>Yes</CanFlinch>
-			</GeneralStats>
-		</Attack>
-		<Attack>
-			<AttackType>Stab</AttackType>
-			<Damage>
-				<Head>
-					<Armor0>47</Armor0>
-					<Armor1>43</Armor1>
-					<Armor2>35</Armor2>
-					<Armor3>30</Armor3>
-				</Head>
-				<Torso>
-					<Armor0>37</Armor0>
-					<Armor1>33</Armor1>
-					<Armor2>25</Armor2>
-					<Armor3>20</Armor3>
-				</Torso>
-				<Legs>
-					<Armor0>32</Armor0>
-					<Armor1>23</Armor1>
-					<Armor2>15</Armor2>
-					<Armor3>10</Armor3>
-				</Legs>
-			</Damage>
-			<Speed>
-				<Windup>600</Windup>
-				<Combo>900</Combo>
-				<Release>350</Release>
-				<Recovery>600</Recovery>
-			</Speed>
-			<GeneralStats>
-				<Length>60</Length>
-				<TurnCapX>300</TurnCapX>
-				<TurnCapY>210</TurnCapY>
-				<MissCost>8</MissCost>
-				<FeintCost>10</FeintCost>
-				<MorphCost>7</MorphCost>
-				<StaminaDrain>15</StaminaDrain>
-				<ParryDrainNeg>8</ParryDrainNeg>
-				<StopOnHit>Yes</StopOnHit>
-				<CanCombo>Yes</CanCombo>
-				<Knockback>120</Knockback>
-				<WoodDamage>8</WoodDamage>
-				<StoneDamage>2</StoneDamage>
-				<BlockHeld>No</BlockHeld>
-				<BMoveRest>None</BMoveRest>
-				<CanFlinch>Yes</CanFlinch>
-			</GeneralStats>
-		</Attack>
-		<Attack>
-			<AttackType>Melee Throw</AttackType>
-			<Damage>
-				<Head>
-					<Armor0>75</Armor0>
-					<Armor1>72</Armor1>
-					<Armor2>60</Armor2>
-					<Armor3>55</Armor3>
-				</Head>
-				<Torso>
-					<Armor0>50</Armor0>
-					<Armor1>47</Armor1>
-					<Armor2>45</Armor2>
-					<Armor3>40</Armor3>
-				</Torso>
-				<Legs>
-					<Armor0>40</Armor0>
-					<Armor1>37</Armor1>
-					<Armor2>30</Armor2>
-					<Armor3>30</Armor3>
-				</Legs>
-			</Damage>
-			<GeneralStats>
-				<WoodDamage>5</WoodDamage>
-				<StoneDamage>1</StoneDamage>
-				<CanFlinch>No</CanFlinch>
-				<ProjSpeed>2200</ProjSpeed>
-				<GravityScale>1.4</GravityScale>
-			</GeneralStats>
-		</Attack>
-	</Weapon>
-	<Weapon>
 		<Name>Estoc</Name>
 		<Type>Melee</Type>
-		<Points>6</Points>
+		<Points>18</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -4933,7 +5063,7 @@
 					<Armor0>100</Armor0>
 					<Armor1>70</Armor1>
 					<Armor2>66</Armor2>
-					<Armor3>53</Armor3>
+					<Armor3>50</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>70</Armor0>
@@ -4945,7 +5075,7 @@
 					<Armor0>60</Armor0>
 					<Armor1>50</Armor1>
 					<Armor2>41</Armor2>
-					<Armor3>33</Armor3>
+					<Armor3>34</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
@@ -4956,8 +5086,8 @@
 			</Speed>
 			<GeneralStats>
 				<Length>120</Length>
-				<TurnCapX>300</TurnCapX>
-				<TurnCapY>210</TurnCapY>
+				<TurnCapX>275</TurnCapX>
+				<TurnCapY>192.5</TurnCapY>
 				<MissCost>8</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -4967,7 +5097,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>15</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -4990,21 +5120,21 @@
 				</Torso>
 				<Legs>
 					<Armor0>39</Armor0>
-					<Armor1>33</Armor1>
-					<Armor2>31</Armor2>
-					<Armor3>30</Armor3>
+					<Armor1>38</Armor1>
+					<Armor2>36</Armor2>
+					<Armor3>35</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
 				<Windup>600</Windup>
 				<Combo>825</Combo>
-				<Release>525</Release>
+				<Release>500</Release>
 				<Recovery>400</Recovery>
 			</Speed>
 			<GeneralStats>
 				<Length>68</Length>
-				<TurnCapX>275</TurnCapX>
-				<TurnCapY>192.5</TurnCapY>
+				<TurnCapX>262.5</TurnCapX>
+				<TurnCapY>183.75</TurnCapY>
 				<MissCost>8</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -5061,7 +5191,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>110</Knockback>
 				<WoodDamage>15</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -5071,7 +5201,7 @@
 	<Weapon>
 		<Name>Pole Axe</Name>
 		<Type>Melee</Type>
-		<Points>6</Points>
+		<Points>18</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -5081,7 +5211,7 @@
 					<Armor0>100</Armor0>
 					<Armor1>78</Armor1>
 					<Armor2>53</Armor2>
-					<Armor3>49</Armor3>
+					<Armor3>48</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>70</Armor0>
@@ -5103,7 +5233,7 @@
 				<Recovery>600</Recovery>
 			</Speed>
 			<GeneralStats>
-				<Length>110</Length>
+				<Length>115</Length>
 				<TurnCapX>250</TurnCapX>
 				<TurnCapY>175</TurnCapY>
 				<MissCost>9</MissCost>
@@ -5115,7 +5245,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>120</Knockback>
 				<WoodDamage>35</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -5150,7 +5280,7 @@
 				<Recovery>600</Recovery>
 			</Speed>
 			<GeneralStats>
-				<Length>110</Length>
+				<Length>115</Length>
 				<TurnCapX>300</TurnCapX>
 				<TurnCapY>210</TurnCapY>
 				<MissCost>9</MissCost>
@@ -5162,7 +5292,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>14</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -5197,7 +5327,7 @@
 				<Recovery>700</Recovery>
 			</Speed>
 			<GeneralStats>
-				<Length>110</Length>
+				<Length>115</Length>
 				<TurnCapX>240</TurnCapX>
 				<TurnCapY>168</TurnCapY>
 				<MissCost>9</MissCost>
@@ -5209,7 +5339,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>-20</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>30</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -5244,7 +5374,7 @@
 				<Recovery>600</Recovery>
 			</Speed>
 			<GeneralStats>
-				<Length>110</Length>
+				<Length>115</Length>
 				<TurnCapX>290</TurnCapX>
 				<TurnCapY>203</TurnCapY>
 				<MissCost>9</MissCost>
@@ -5256,7 +5386,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>14</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -5266,7 +5396,7 @@
 	<Weapon>
 		<Name>Battle Axe</Name>
 		<Type>Melee</Type>
-		<Points>6</Points>
+		<Points>15</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -5293,14 +5423,14 @@
 			</Damage>
 			<Speed>
 				<Windup>625</Windup>
-				<Combo>800</Combo>
+				<Combo>725</Combo>
 				<Release>500</Release>
 				<Recovery>700</Recovery>
 			</Speed>
 			<GeneralStats>
 				<Length>90</Length>
-				<TurnCapX>255</TurnCapX>
-				<TurnCapY>178.5</TurnCapY>
+				<TurnCapX>245</TurnCapX>
+				<TurnCapY>171.5</TurnCapY>
 				<MissCost>9</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -5310,7 +5440,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>45</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>22</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -5376,7 +5506,7 @@
 					<Armor0>75</Armor0>
 					<Armor1>62</Armor1>
 					<Armor2>53</Armor2>
-					<Armor3>45</Armor3>
+					<Armor3>40</Armor3>
 				</Torso>
 				<Legs>
 					<Armor0>65</Armor0>
@@ -5404,7 +5534,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>40</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>20</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -5461,7 +5591,7 @@
 	<Weapon>
 		<Name>Crossbow</Name>
 		<Type>Ranged</Type>
-		<Points>7</Points>
+		<Points>21</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -5470,8 +5600,8 @@
 				<Head>
 					<Armor0>110</Armor0>
 					<Armor1>100</Armor1>
-					<Armor2>62</Armor2>
-					<Armor3>60</Armor3>
+					<Armor2>67</Armor2>
+					<Armor3>65</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>60</Armor0>
@@ -5503,7 +5633,7 @@
 	<Weapon>
 		<Name>Executioner's Sword</Name>
 		<Type>Melee</Type>
-		<Points>7</Points>
+		<Points>21</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -5513,7 +5643,7 @@
 					<Armor0>120</Armor0>
 					<Armor1>110</Armor1>
 					<Armor2>70</Armor2>
-					<Armor3>68</Armor3>
+					<Armor3>60</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>100</Armor0>
@@ -5547,7 +5677,7 @@
 				<CanCombo>No</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>30</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>25</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -5594,7 +5724,7 @@
 				<CanCombo>No</CanCombo>
 				<Knockback>115</Knockback>
 				<WoodDamage>15</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -5604,7 +5734,7 @@
 	<Weapon>
 		<Name>Greatsword</Name>
 		<Type>Melee</Type>
-		<Points>7</Points>
+		<Points>21</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -5632,13 +5762,13 @@
 			<Speed>
 				<Windup>575</Windup>
 				<Combo>775</Combo>
-				<Release>525</Release>
+				<Release>500</Release>
 				<Recovery>700</Recovery>
 			</Speed>
 			<GeneralStats>
 				<Length>120</Length>
-				<TurnCapX>250</TurnCapX>
-				<TurnCapY>175</TurnCapY>
+				<TurnCapX>245</TurnCapX>
+				<TurnCapY>171.5</TurnCapY>
 				<MissCost>10</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -5648,7 +5778,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>25</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>20</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -5684,8 +5814,8 @@
 			</Speed>
 			<GeneralStats>
 				<Length>120</Length>
-				<TurnCapX>287.5</TurnCapX>
-				<TurnCapY>201.25</TurnCapY>
+				<TurnCapX>275</TurnCapX>
+				<TurnCapY>192.5</TurnCapY>
 				<MissCost>10</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -5695,7 +5825,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>10</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>8</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -5742,7 +5872,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>20</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>22</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -5789,7 +5919,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>12</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -5799,7 +5929,7 @@
 	<Weapon>
 		<Name>Recurve Bow</Name>
 		<Type>Ranged</Type>
-		<Points>6</Points>
+		<Points>18</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -5841,7 +5971,7 @@
 	<Weapon>
 		<Name>Maul</Name>
 		<Type>Melee</Type>
-		<Points>7</Points>
+		<Points>21</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -5856,21 +5986,21 @@
 				<Torso>
 					<Armor0>85</Armor0>
 					<Armor1>83</Armor1>
-					<Armor2>77</Armor2>
-					<Armor3>75</Armor3>
+					<Armor2>67</Armor2>
+					<Armor3>66</Armor3>
 				</Torso>
 				<Legs>
 					<Armor0>75</Armor0>
 					<Armor1>73</Armor1>
-					<Armor2>67</Armor2>
+					<Armor2>66</Armor2>
 					<Armor3>65</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
 				<Windup>725</Windup>
-				<Combo>900</Combo>
+				<Combo>825</Combo>
 				<Release>475</Release>
-				<Recovery>600</Recovery>
+				<Recovery>700</Recovery>
 			</Speed>
 			<GeneralStats>
 				<Length>60</Length>
@@ -5879,13 +6009,13 @@
 				<MissCost>13</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
-				<StaminaDrain>25</StaminaDrain>
+				<StaminaDrain>24</StaminaDrain>
 				<ParryDrainNeg>13</ParryDrainNeg>
 				<StopOnHit>Yes</StopOnHit>
 				<CanCombo>No</CanCombo>
 				<Knockback>135</Knockback>
 				<WoodDamage>45</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>45</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -5932,7 +6062,7 @@
 				<CanCombo>No</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>10</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -5972,7 +6102,7 @@
 	<Weapon>
 		<Name>Bardiche</Name>
 		<Type>Melee</Type>
-		<Points>8</Points>
+		<Points>24</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -6005,8 +6135,8 @@
 			</Speed>
 			<GeneralStats>
 				<Length>120</Length>
-				<TurnCapX>255</TurnCapX>
-				<TurnCapY>178.5</TurnCapY>
+				<TurnCapX>245</TurnCapX>
+				<TurnCapY>171.5</TurnCapY>
 				<MissCost>10</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -6016,7 +6146,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>35</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>17</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6045,8 +6175,8 @@
 				</Legs>
 			</Damage>
 			<Speed>
-				<Windup>600</Windup>
-				<Combo>850</Combo>
+				<Windup>625</Windup>
+				<Combo>875</Combo>
 				<Release>350</Release>
 				<Recovery>600</Recovery>
 			</Speed>
@@ -6076,7 +6206,7 @@
 					<Armor0>140</Armor0>
 					<Armor1>115</Armor1>
 					<Armor2>81</Armor2>
-					<Armor3>70</Armor3>
+					<Armor3>60</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>100</Armor0>
@@ -6099,8 +6229,8 @@
 			</Speed>
 			<GeneralStats>
 				<Length>140</Length>
-				<TurnCapX>250</TurnCapX>
-				<TurnCapY>175</TurnCapY>
+				<TurnCapX>245</TurnCapX>
+				<TurnCapY>171.5</TurnCapY>
 				<MissCost>15</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -6110,7 +6240,7 @@
 				<CanCombo>No</CanCombo>
 				<Knockback>135</Knockback>
 				<WoodDamage>40</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>17</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6167,7 +6297,7 @@
 	<Weapon>
 		<Name>Eveningstar</Name>
 		<Type>Melee</Type>
-		<Points>8</Points>
+		<Points>21</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -6177,7 +6307,7 @@
 					<Armor0>102</Armor0>
 					<Armor1>100</Armor1>
 					<Armor2>77</Armor2>
-					<Armor3>75</Armor3>
+					<Armor3>65</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>62</Armor0>
@@ -6200,8 +6330,8 @@
 			</Speed>
 			<GeneralStats>
 				<Length>90</Length>
-				<TurnCapX>250</TurnCapX>
-				<TurnCapY>175</TurnCapY>
+				<TurnCapX>245</TurnCapX>
+				<TurnCapY>171.5</TurnCapY>
 				<MissCost>13</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -6211,7 +6341,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>135</Knockback>
 				<WoodDamage>40</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>35</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6258,7 +6388,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>10</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6268,22 +6398,22 @@
 			<AttackType>Alt Strike</AttackType>
 			<Damage>
 				<Head>
-					<Armor0>100</Armor0>
-					<Armor1>73</Armor1>
-					<Armor2>67</Armor2>
-					<Armor3>66</Armor3>
+					<Armor0>102</Armor0>
+					<Armor1>100</Armor1>
+					<Armor2>77</Armor2>
+					<Armor3>65</Armor3>
 				</Head>
 				<Torso>
-					<Armor0>60</Armor0>
-					<Armor1>58</Armor1>
-					<Armor2>52</Armor2>
-					<Armor3>51</Armor3>
+					<Armor0>62</Armor0>
+					<Armor1>59</Armor1>
+					<Armor2>57</Armor2>
+					<Armor3>55</Armor3>
 				</Torso>
 				<Legs>
-					<Armor0>52</Armor0>
+					<Armor0>57</Armor0>
 					<Armor1>50</Armor1>
-					<Armor2>42</Armor2>
-					<Armor3>41</Armor3>
+					<Armor2>47</Armor2>
+					<Armor3>45</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
@@ -6305,7 +6435,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>135</Knockback>
 				<WoodDamage>30</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>22</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6352,7 +6482,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>145</Knockback>
 				<WoodDamage>10</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6362,7 +6492,7 @@
 	<Weapon>
 		<Name>Spear</Name>
 		<Type>Melee</Type>
-		<Points>10</Points>
+		<Points>27</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -6400,8 +6530,8 @@
 				<MissCost>13</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
-				<StaminaDrain>17</StaminaDrain>
-				<ParryDrainNeg>11</ParryDrainNeg>
+				<StaminaDrain>18</StaminaDrain>
+				<ParryDrainNeg>13</ParryDrainNeg>
 				<StopOnHit>No</StopOnHit>
 				<CanCombo>No</CanCombo>
 				<Knockback>100</Knockback>
@@ -6431,7 +6561,7 @@
 					<Armor0>70</Armor0>
 					<Armor1>57</Armor1>
 					<Armor2>42</Armor2>
-					<Armor3>28</Armor3>
+					<Armor3>34</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
@@ -6447,13 +6577,13 @@
 				<MissCost>13</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
-				<StaminaDrain>19</StaminaDrain>
-				<ParryDrainNeg>11</ParryDrainNeg>
+				<StaminaDrain>20</StaminaDrain>
+				<ParryDrainNeg>13</ParryDrainNeg>
 				<StopOnHit>No</StopOnHit>
 				<CanCombo>No</CanCombo>
 				<Knockback>160</Knockback>
 				<WoodDamage>12</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6525,7 +6655,7 @@
 					<Armor0>65</Armor0>
 					<Armor1>50</Armor1>
 					<Armor2>40</Armor2>
-					<Armor3>30</Armor3>
+					<Armor3>34</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
@@ -6541,13 +6671,13 @@
 				<MissCost>11</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
-				<StaminaDrain>18</StaminaDrain>
+				<StaminaDrain>19</StaminaDrain>
 				<ParryDrainNeg>13</ParryDrainNeg>
 				<StopOnHit>No</StopOnHit>
 				<CanCombo>Yes</CanCombo>
 				<Knockback>135</Knockback>
 				<WoodDamage>20</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6557,7 +6687,7 @@
 	<Weapon>
 		<Name>Zweihander</Name>
 		<Type>Melee</Type>
-		<Points>10</Points>
+		<Points>27</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -6567,7 +6697,7 @@
 					<Armor0>115</Armor0>
 					<Armor1>100</Armor1>
 					<Armor2>70</Armor2>
-					<Armor3>55</Armor3>
+					<Armor3>48</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>100</Armor0>
@@ -6585,13 +6715,13 @@
 			<Speed>
 				<Windup>650</Windup>
 				<Combo>800</Combo>
-				<Release>525</Release>
+				<Release>500</Release>
 				<Recovery>700</Recovery>
 			</Speed>
 			<GeneralStats>
 				<Length>135</Length>
-				<TurnCapX>242.5</TurnCapX>
-				<TurnCapY>169.75</TurnCapY>
+				<TurnCapX>240</TurnCapX>
+				<TurnCapY>168</TurnCapY>
 				<MissCost>13</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -6601,7 +6731,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>135</Knockback>
 				<WoodDamage>28</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>25</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6626,7 +6756,7 @@
 					<Armor0>65</Armor0>
 					<Armor1>50</Armor1>
 					<Armor2>45</Armor2>
-					<Armor3>30</Armor3>
+					<Armor3>35</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
@@ -6648,7 +6778,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>10</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>5</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6661,19 +6791,19 @@
 					<Armor0>100</Armor0>
 					<Armor1>70</Armor1>
 					<Armor2>52</Armor2>
-					<Armor3>48</Armor3>
+					<Armor3>44</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>60</Armor0>
 					<Armor1>55</Armor1>
 					<Armor2>37</Armor2>
-					<Armor3>33</Armor3>
+					<Armor3>34</Armor3>
 				</Torso>
 				<Legs>
 					<Armor0>50</Armor0>
 					<Armor1>40</Armor1>
 					<Armor2>34</Armor2>
-					<Armor3>30</Armor3>
+					<Armor3>31</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
@@ -6695,7 +6825,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>20</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>20</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6742,7 +6872,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>12</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6752,7 +6882,7 @@
 	<Weapon>
 		<Name>Longbow</Name>
 		<Type>Ranged</Type>
-		<Points>11</Points>
+		<Points>33</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -6794,7 +6924,7 @@
 	<Weapon>
 		<Name>Halberd</Name>
 		<Type>Melee</Type>
-		<Points>11</Points>
+		<Points>24</Points>
 		<PeasantOnly>No</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -6803,42 +6933,42 @@
 				<Head>
 					<Armor0>115</Armor0>
 					<Armor1>100</Armor1>
-					<Armor2>65</Armor2>
-					<Armor3>55</Armor3>
+					<Armor2>70</Armor2>
+					<Armor3>48</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>100</Armor0>
 					<Armor1>60</Armor1>
-					<Armor2>50</Armor2>
+					<Armor2>55</Armor2>
 					<Armor3>40</Armor3>
 				</Torso>
 				<Legs>
 					<Armor0>85</Armor0>
 					<Armor1>50</Armor1>
-					<Armor2>40</Armor2>
+					<Armor2>45</Armor2>
 					<Armor3>37</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
 				<Windup>625</Windup>
-				<Combo>825</Combo>
+				<Combo>775</Combo>
 				<Release>500</Release>
 				<Recovery>700</Recovery>
 			</Speed>
 			<GeneralStats>
 				<Length>135</Length>
-				<TurnCapX>250</TurnCapX>
-				<TurnCapY>175</TurnCapY>
+				<TurnCapX>245</TurnCapX>
+				<TurnCapY>171.5</TurnCapY>
 				<MissCost>13</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
-				<StaminaDrain>19</StaminaDrain>
+				<StaminaDrain>20</StaminaDrain>
 				<ParryDrainNeg>13</ParryDrainNeg>
 				<StopOnHit>No</StopOnHit>
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>25</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6850,25 +6980,25 @@
 				<Head>
 					<Armor0>100</Armor0>
 					<Armor1>85</Armor1>
-					<Armor2>65</Armor2>
+					<Armor2>70</Armor2>
 					<Armor3>45</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>70</Armor0>
 					<Armor1>65</Armor1>
-					<Armor2>50</Armor2>
+					<Armor2>55</Armor2>
 					<Armor3>40</Armor3>
 				</Torso>
 				<Legs>
 					<Armor0>65</Armor0>
 					<Armor1>55</Armor1>
-					<Armor2>35</Armor2>
-					<Armor3>25</Armor3>
+					<Armor2>40</Armor2>
+					<Armor3>34</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
 				<Windup>675</Windup>
-				<Combo>925</Combo>
+				<Combo>875</Combo>
 				<Release>325</Release>
 				<Recovery>700</Recovery>
 			</Speed>
@@ -6885,7 +7015,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>15</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>8</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6895,22 +7025,22 @@
 			<AttackType>Alt Strike</AttackType>
 			<Damage>
 				<Head>
-					<Armor0>160</Armor0>
-					<Armor1>120</Armor1>
-					<Armor2>80</Armor2>
-					<Armor3>70</Armor3>
+					<Armor0>115</Armor0>
+					<Armor1>102</Armor1>
+					<Armor2>72</Armor2>
+					<Armor3>50</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>100</Armor0>
-					<Armor1>60</Armor1>
-					<Armor2>50</Armor2>
-					<Armor3>40</Armor3>
+					<Armor1>62</Armor1>
+					<Armor2>57</Armor2>
+					<Armor3>42</Armor3>
 				</Torso>
 				<Legs>
 					<Armor0>85</Armor0>
-					<Armor1>50</Armor1>
-					<Armor2>40</Armor2>
-					<Armor3>37</Armor3>
+					<Armor1>52</Armor1>
+					<Armor2>47</Armor2>
+					<Armor3>39</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
@@ -6932,7 +7062,7 @@
 				<CanCombo>No</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>20</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6944,20 +7074,20 @@
 				<Head>
 					<Armor0>100</Armor0>
 					<Armor1>85</Armor1>
-					<Armor2>65</Armor2>
+					<Armor2>70</Armor2>
 					<Armor3>45</Armor3>
 				</Head>
 				<Torso>
 					<Armor0>70</Armor0>
 					<Armor1>65</Armor1>
-					<Armor2>50</Armor2>
+					<Armor2>55</Armor2>
 					<Armor3>40</Armor3>
 				</Torso>
 				<Legs>
 					<Armor0>65</Armor0>
 					<Armor1>55</Armor1>
-					<Armor2>35</Armor2>
-					<Armor3>25</Armor3>
+					<Armor2>40</Armor2>
+					<Armor3>34</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
@@ -6979,7 +7109,202 @@
 				<CanCombo>No</CanCombo>
 				<Knockback>135</Knockback>
 				<WoodDamage>15</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>8</StoneDamage>
+				<BlockHeld>No</BlockHeld>
+				<BMoveRest>None</BMoveRest>
+				<CanFlinch>Yes</CanFlinch>
+			</GeneralStats>
+		</Attack>
+	</Weapon>
+	<Weapon>
+		<Name>Polehammer</Name>
+		<Type>Melee</Type>
+		<Points>27</Points>
+		<PeasantOnly>No</PeasantOnly>
+		<Misc>No</Misc>
+		<Attack>
+			<AttackType>Strike</AttackType>
+			<Damage>
+				<Head>
+					<Armor0>100</Armor0>
+					<Armor1>100</Armor1>
+					<Armor2>75</Armor2>
+					<Armor3>64</Armor3>
+				</Head>
+				<Torso>
+					<Armor0>62</Armor0>
+					<Armor1>61</Armor1>
+					<Armor2>55</Armor2>
+					<Armor3>51</Armor3>
+				</Torso>
+				<Legs>
+					<Armor0>60</Armor0>
+					<Armor1>59</Armor1>
+					<Armor2>54</Armor2>
+					<Armor3>50</Armor3>
+				</Legs>
+			</Damage>
+			<Speed>
+				<Windup>700</Windup>
+				<Combo>875</Combo>
+				<Release>475</Release>
+				<Recovery>800</Recovery>
+			</Speed>
+			<GeneralStats>
+				<Length>120</Length>
+				<TurnCapX>220</TurnCapX>
+				<TurnCapY>154</TurnCapY>
+				<MissCost>15</MissCost>
+				<FeintCost>10</FeintCost>
+				<MorphCost>7</MorphCost>
+				<StaminaDrain>21</StaminaDrain>
+				<ParryDrainNeg>13</ParryDrainNeg>
+				<StopOnHit>Yes</StopOnHit>
+				<CanCombo>No</CanCombo>
+				<Knockback>135</Knockback>
+				<WoodDamage>25</WoodDamage>
+				<StoneDamage>25</StoneDamage>
+				<BlockHeld>No</BlockHeld>
+				<BMoveRest>None</BMoveRest>
+				<CanFlinch>Yes</CanFlinch>
+			</GeneralStats>
+		</Attack>
+		<Attack>
+			<AttackType>Stab</AttackType>
+			<Damage>
+				<Head>
+					<Armor0>65</Armor0>
+					<Armor1>61</Armor1>
+					<Armor2>45</Armor2>
+					<Armor3>39</Armor3>
+				</Head>
+				<Torso>
+					<Armor0>55</Armor0>
+					<Armor1>51</Armor1>
+					<Armor2>36</Armor2>
+					<Armor3>29</Armor3>
+				</Torso>
+				<Legs>
+					<Armor0>54</Armor0>
+					<Armor1>50</Armor1>
+					<Armor2>35</Armor2>
+					<Armor3>28</Armor3>
+				</Legs>
+			</Damage>
+			<Speed>
+				<Windup>675</Windup>
+				<Combo>900</Combo>
+				<Release>300</Release>
+				<Recovery>800</Recovery>
+			</Speed>
+			<GeneralStats>
+				<Length>120</Length>
+				<TurnCapX>237.5</TurnCapX>
+				<TurnCapY>166.25</TurnCapY>
+				<MissCost>13</MissCost>
+				<FeintCost>10</FeintCost>
+				<MorphCost>7</MorphCost>
+				<StaminaDrain>19</StaminaDrain>
+				<ParryDrainNeg>13</ParryDrainNeg>
+				<StopOnHit>No</StopOnHit>
+				<CanCombo>No</CanCombo>
+				<Knockback>130</Knockback>
+				<WoodDamage>15</WoodDamage>
+				<StoneDamage>10</StoneDamage>
+				<BlockHeld>No</BlockHeld>
+				<BMoveRest>None</BMoveRest>
+				<CanFlinch>Yes</CanFlinch>
+			</GeneralStats>
+		</Attack>
+		<Attack>
+			<AttackType>Alt Strike</AttackType>
+			<Damage>
+				<Head>
+					<Armor0>100</Armor0>
+					<Armor1>100</Armor1>
+					<Armor2>100</Armor2>
+					<Armor3>75</Armor3>
+				</Head>
+				<Torso>
+					<Armor0>75</Armor0>
+					<Armor1>70</Armor1>
+					<Armor2>40</Armor2>
+					<Armor3>35</Armor3>
+				</Torso>
+				<Legs>
+					<Armor0>70</Armor0>
+					<Armor1>65</Armor1>
+					<Armor2>38</Armor2>
+					<Armor3>34</Armor3>
+				</Legs>
+			</Damage>
+			<Speed>
+				<Windup>700</Windup>
+				<Combo>875</Combo>
+				<Release>475</Release>
+				<Recovery>800</Recovery>
+			</Speed>
+			<GeneralStats>
+				<Length>120</Length>
+				<TurnCapX>220</TurnCapX>
+				<TurnCapY>154</TurnCapY>
+				<MissCost>15</MissCost>
+				<FeintCost>10</FeintCost>
+				<MorphCost>7</MorphCost>
+				<StaminaDrain>20</StaminaDrain>
+				<ParryDrainNeg>13</ParryDrainNeg>
+				<StopOnHit>Yes</StopOnHit>
+				<CanCombo>No</CanCombo>
+				<Knockback>130</Knockback>
+				<WoodDamage>20</WoodDamage>
+				<StoneDamage>25</StoneDamage>
+				<BlockHeld>No</BlockHeld>
+				<BMoveRest>None</BMoveRest>
+				<CanFlinch>Yes</CanFlinch>
+			</GeneralStats>
+		</Attack>
+		<Attack>
+			<AttackType>Alt Stab</AttackType>
+			<Damage>
+				<Head>
+					<Armor0>65</Armor0>
+					<Armor1>61</Armor1>
+					<Armor2>45</Armor2>
+					<Armor3>39</Armor3>
+				</Head>
+				<Torso>
+					<Armor0>55</Armor0>
+					<Armor1>51</Armor1>
+					<Armor2>36</Armor2>
+					<Armor3>29</Armor3>
+				</Torso>
+				<Legs>
+					<Armor0>24</Armor0>
+					<Armor1>50</Armor1>
+					<Armor2>35</Armor2>
+					<Armor3>28</Armor3>
+				</Legs>
+			</Damage>
+			<Speed>
+				<Windup>675</Windup>
+				<Combo>900</Combo>
+				<Release>300</Release>
+				<Recovery>800</Recovery>
+			</Speed>
+			<GeneralStats>
+				<Length>120</Length>
+				<TurnCapX>237.5</TurnCapX>
+				<TurnCapY>166.25</TurnCapY>
+				<MissCost>13</MissCost>
+				<FeintCost>10</FeintCost>
+				<MorphCost>7</MorphCost>
+				<StaminaDrain>19</StaminaDrain>
+				<ParryDrainNeg>13</ParryDrainNeg>
+				<StopOnHit>No</StopOnHit>
+				<CanCombo>No</CanCombo>
+				<Knockback>130</Knockback>
+				<WoodDamage>15</WoodDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -6989,7 +7314,7 @@
 	<Weapon>
 		<Name>Carving Knife</Name>
 		<Type>Melee</Type>
-		<Points>1</Points>
+		<Points>3</Points>
 		<PeasantOnly>Yes</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -7120,7 +7445,7 @@
 	<Weapon>
 		<Name>Pitchfork</Name>
 		<Type>Melee</Type>
-		<Points>1</Points>
+		<Points>3</Points>
 		<PeasantOnly>Yes</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -7153,8 +7478,8 @@
 			</Speed>
 			<GeneralStats>
 				<Length>131</Length>
-				<TurnCapX>250</TurnCapX>
-				<TurnCapY>175</TurnCapY>
+				<TurnCapX>245</TurnCapX>
+				<TurnCapY>171.5</TurnCapY>
 				<MissCost>10</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -7164,7 +7489,7 @@
 				<CanCombo>No</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>10</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -7194,7 +7519,7 @@
 			</Damage>
 			<Speed>
 				<Windup>600</Windup>
-				<Combo>850</Combo>
+				<Combo>800</Combo>
 				<Release>325</Release>
 				<Recovery>700</Recovery>
 			</Speed>
@@ -7211,7 +7536,7 @@
 				<CanCombo>No</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>15</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>8</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -7221,7 +7546,7 @@
 	<Weapon>
 		<Name>Frying Pan</Name>
 		<Type>Melee</Type>
-		<Points>2</Points>
+		<Points>6</Points>
 		<PeasantOnly>Yes</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -7265,7 +7590,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>125</Knockback>
 				<WoodDamage>2</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>12</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -7396,7 +7721,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>120</Knockback>
 				<WoodDamage>10</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -7483,7 +7808,7 @@
 	<Weapon>
 		<Name>Sickle</Name>
 		<Type>Melee</Type>
-		<Points>2</Points>
+		<Points>5</Points>
 		<PeasantOnly>Yes</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -7527,7 +7852,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>100</Knockback>
 				<WoodDamage>10</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>17</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -7617,8 +7942,8 @@
 			</Speed>
 			<GeneralStats>
 				<Length>100</Length>
-				<TurnCapX>250</TurnCapX>
-				<TurnCapY>175</TurnCapY>
+				<TurnCapX>245</TurnCapX>
+				<TurnCapY>171.5</TurnCapY>
 				<MissCost>10</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -7628,7 +7953,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>10</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>5</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -7658,7 +7983,7 @@
 			</Damage>
 			<Speed>
 				<Windup>600</Windup>
-				<Combo>850</Combo>
+				<Combo>800</Combo>
 				<Release>325</Release>
 				<Recovery>700</Recovery>
 			</Speed>
@@ -7675,7 +8000,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>8</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>5</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -7718,8 +8043,8 @@
 			</Speed>
 			<GeneralStats>
 				<Length>60</Length>
-				<TurnCapX>250</TurnCapX>
-				<TurnCapY>175</TurnCapY>
+				<TurnCapX>245</TurnCapX>
+				<TurnCapY>171.5</TurnCapY>
 				<MissCost>13</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -7729,7 +8054,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>110</Knockback>
 				<WoodDamage>9</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -7759,7 +8084,7 @@
 			</Damage>
 			<Speed>
 				<Windup>600</Windup>
-				<Combo>850</Combo>
+				<Combo>800</Combo>
 				<Release>325</Release>
 				<Recovery>700</Recovery>
 			</Speed>
@@ -7776,7 +8101,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>110</Knockback>
 				<WoodDamage>5</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>8</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -7786,7 +8111,7 @@
 	<Weapon>
 		<Name>Hoe</Name>
 		<Type>Melee</Type>
-		<Points>4</Points>
+		<Points>12</Points>
 		<PeasantOnly>Yes</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -7819,8 +8144,8 @@
 			</Speed>
 			<GeneralStats>
 				<Length>86</Length>
-				<TurnCapX>250</TurnCapX>
-				<TurnCapY>175</TurnCapY>
+				<TurnCapX>245</TurnCapX>
+				<TurnCapY>171.5</TurnCapY>
 				<MissCost>13</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -7830,7 +8155,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>110</Knockback>
 				<WoodDamage>15</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>10</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -7860,7 +8185,7 @@
 			</Damage>
 			<Speed>
 				<Windup>625</Windup>
-				<Combo>875</Combo>
+				<Combo>825</Combo>
 				<Release>325</Release>
 				<Recovery>700</Recovery>
 			</Speed>
@@ -7877,7 +8202,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>110</Knockback>
 				<WoodDamage>5</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>8</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -7887,7 +8212,7 @@
 	<Weapon>
 		<Name>Rusty Fork</Name>
 		<Type>Melee</Type>
-		<Points>4</Points>
+		<Points>12</Points>
 		<PeasantOnly>Yes</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -7920,8 +8245,8 @@
 			</Speed>
 			<GeneralStats>
 				<Length>118</Length>
-				<TurnCapX>250</TurnCapX>
-				<TurnCapY>175</TurnCapY>
+				<TurnCapX>245</TurnCapX>
+				<TurnCapY>171.5</TurnCapY>
 				<MissCost>10</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -7931,7 +8256,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>110</Knockback>
 				<WoodDamage>5</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -7961,7 +8286,7 @@
 			</Damage>
 			<Speed>
 				<Windup>675</Windup>
-				<Combo>925</Combo>
+				<Combo>875</Combo>
 				<Release>325</Release>
 				<Recovery>700</Recovery>
 			</Speed>
@@ -7978,7 +8303,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>15</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>7</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -7988,7 +8313,7 @@
 	<Weapon>
 		<Name>Club</Name>
 		<Type>Melee</Type>
-		<Points>5</Points>
+		<Points>15</Points>
 		<PeasantOnly>Yes</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -8021,8 +8346,8 @@
 			</Speed>
 			<GeneralStats>
 				<Length>85</Length>
-				<TurnCapX>255</TurnCapX>
-				<TurnCapY>178.5</TurnCapY>
+				<TurnCapX>245</TurnCapX>
+				<TurnCapY>171.5</TurnCapY>
 				<MissCost>13</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -8032,7 +8357,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>135</Knockback>
 				<WoodDamage>30</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>22</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -8089,7 +8414,7 @@
 	<Weapon>
 		<Name>Rusty Shovel</Name>
 		<Type>Melee</Type>
-		<Points>5</Points>
+		<Points>15</Points>
 		<PeasantOnly>Yes</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -8122,8 +8447,8 @@
 			</Speed>
 			<GeneralStats>
 				<Length>100</Length>
-				<TurnCapX>250</TurnCapX>
-				<TurnCapY>175</TurnCapY>
+				<TurnCapX>245</TurnCapX>
+				<TurnCapY>171.5</TurnCapY>
 				<MissCost>13</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -8133,7 +8458,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>120</Knockback>
 				<WoodDamage>19</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>7</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -8163,7 +8488,7 @@
 			</Damage>
 			<Speed>
 				<Windup>625</Windup>
-				<Combo>875</Combo>
+				<Combo>825</Combo>
 				<Release>325</Release>
 				<Recovery>700</Recovery>
 			</Speed>
@@ -8180,7 +8505,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>110</Knockback>
 				<WoodDamage>10</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -8190,7 +8515,7 @@
 	<Weapon>
 		<Name>Scythe</Name>
 		<Type>Melee</Type>
-		<Points>5</Points>
+		<Points>15</Points>
 		<PeasantOnly>Yes</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -8217,14 +8542,14 @@
 			</Damage>
 			<Speed>
 				<Windup>625</Windup>
-				<Combo>825</Combo>
+				<Combo>775</Combo>
 				<Release>500</Release>
 				<Recovery>700</Recovery>
 			</Speed>
 			<GeneralStats>
 				<Length>105</Length>
-				<TurnCapX>250</TurnCapX>
-				<TurnCapY>175</TurnCapY>
+				<TurnCapX>245</TurnCapX>
+				<TurnCapY>171.5</TurnCapY>
 				<MissCost>15</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
@@ -8234,7 +8559,7 @@
 				<CanCombo>No</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>15</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -8264,7 +8589,7 @@
 			</Damage>
 			<Speed>
 				<Windup>675</Windup>
-				<Combo>925</Combo>
+				<Combo>875</Combo>
 				<Release>325</Release>
 				<Recovery>700</Recovery>
 			</Speed>
@@ -8281,7 +8606,7 @@
 				<CanCombo>Yes</CanCombo>
 				<Knockback>110</Knockback>
 				<WoodDamage>8</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<StoneDamage>8</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -8291,7 +8616,7 @@
 	<Weapon>
 		<Name>Pickaxe</Name>
 		<Type>Melee</Type>
-		<Points>6</Points>
+		<Points>15</Points>
 		<PeasantOnly>Yes</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -8392,7 +8717,7 @@
 	<Weapon>
 		<Name>Sledgehammer</Name>
 		<Type>Melee</Type>
-		<Points>6</Points>
+		<Points>15</Points>
 		<PeasantOnly>Yes</PeasantOnly>
 		<Misc>No</Misc>
 		<Attack>
@@ -8430,13 +8755,13 @@
 				<MissCost>20</MissCost>
 				<FeintCost>10</FeintCost>
 				<MorphCost>7</MorphCost>
-				<StaminaDrain>35</StaminaDrain>
+				<StaminaDrain>28</StaminaDrain>
 				<ParryDrainNeg>16</ParryDrainNeg>
 				<StopOnHit>Yes</StopOnHit>
 				<CanCombo>No</CanCombo>
 				<Knockback>130</Knockback>
 				<WoodDamage>50</WoodDamage>
-				<StoneDamage>60</StoneDamage>
+				<StoneDamage>50</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>
@@ -8482,102 +8807,8 @@
 				<StopOnHit>Yes</StopOnHit>
 				<CanCombo>No</CanCombo>
 				<Knockback>125</Knockback>
-				<WoodDamage>19</WoodDamage>
-				<StoneDamage>20</StoneDamage>
-				<BlockHeld>No</BlockHeld>
-				<BMoveRest>None</BMoveRest>
-				<CanFlinch>Yes</CanFlinch>
-			</GeneralStats>
-		</Attack>
-		<Attack>
-			<AttackType>Alt Strike</AttackType>
-			<Damage>
-				<Head>
-					<Armor0>100</Armor0>
-					<Armor1>100</Armor1>
-					<Armor2>68</Armor2>
-					<Armor3>60</Armor3>
-				</Head>
-				<Torso>
-					<Armor0>75</Armor0>
-					<Armor1>62</Armor1>
-					<Armor2>53</Armor2>
-					<Armor3>45</Armor3>
-				</Torso>
-				<Legs>
-					<Armor0>65</Armor0>
-					<Armor1>52</Armor1>
-					<Armor2>43</Armor2>
-					<Armor3>35</Armor3>
-				</Legs>
-			</Damage>
-			<Speed>
-				<Windup>525</Windup>
-				<Combo>700</Combo>
-				<Release>500</Release>
-				<Recovery>700</Recovery>
-			</Speed>
-			<GeneralStats>
-				<Length>0</Length>
-				<TurnCapX>265</TurnCapX>
-				<TurnCapY>185.5</TurnCapY>
-				<MissCost>10</MissCost>
-				<FeintCost>10</FeintCost>
-				<MorphCost>7</MorphCost>
-				<StaminaDrain>19</StaminaDrain>
-				<ParryDrainNeg>16</ParryDrainNeg>
-				<StopOnHit>No</StopOnHit>
-				<CanCombo>Yes</CanCombo>
-				<Knockback>125</Knockback>
-				<WoodDamage>50</WoodDamage>
-				<StoneDamage>2</StoneDamage>
-				<BlockHeld>No</BlockHeld>
-				<BMoveRest>None</BMoveRest>
-				<CanFlinch>Yes</CanFlinch>
-			</GeneralStats>
-		</Attack>
-		<Attack>
-			<AttackType>Alt Stab</AttackType>
-			<Damage>
-				<Head>
-					<Armor0>23</Armor0>
-					<Armor1>22</Armor1>
-					<Armor2>21</Armor2>
-					<Armor3>20</Armor3>
-				</Head>
-				<Torso>
-					<Armor0>13</Armor0>
-					<Armor1>12</Armor1>
-					<Armor2>11</Armor2>
-					<Armor3>10</Armor3>
-				</Torso>
-				<Legs>
-					<Armor0>13</Armor0>
-					<Armor1>7</Armor1>
-					<Armor2>6</Armor2>
-					<Armor3>5</Armor3>
-				</Legs>
-			</Damage>
-			<Speed>
-				<Windup>550</Windup>
-				<Combo>800</Combo>
-				<Release>350</Release>
-				<Recovery>700</Recovery>
-			</Speed>
-			<GeneralStats>
-				<Length>0</Length>
-				<TurnCapX>312.5</TurnCapX>
-				<TurnCapY>218.75</TurnCapY>
-				<MissCost>7</MissCost>
-				<FeintCost>10</FeintCost>
-				<MorphCost>7</MorphCost>
-				<StaminaDrain>17</StaminaDrain>
-				<ParryDrainNeg>16</ParryDrainNeg>
-				<StopOnHit>Yes</StopOnHit>
-				<CanCombo>Yes</CanCombo>
-				<Knockback>105</Knockback>
-				<WoodDamage>19</WoodDamage>
-				<StoneDamage>2</StoneDamage>
+				<WoodDamage>-25</WoodDamage>
+				<StoneDamage>15</StoneDamage>
 				<BlockHeld>No</BlockHeld>
 				<BMoveRest>None</BMoveRest>
 				<CanFlinch>Yes</CanFlinch>

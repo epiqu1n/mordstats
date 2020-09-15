@@ -205,7 +205,7 @@ body:after {
 	font-family: Arial;
 }
 
-.menuBtnDiv:hover+.tooltip:not (.invisible ) {
+.menuBtnDiv:hover+.tooltip:not(.invisible) {
 	display: block;
 }
 
@@ -565,11 +565,11 @@ body:after {
 	margin-left: 10px;
 }
 
-.menuOptWrapper:not (.off ) .checkbox:hover {
+.menuOptWrapper:not(.off ) .checkbox:hover {
 	opacity: 0.75;
 }
 
-.menuOptWrapper:not (.off ) .checkbox:active {
+.menuOptWrapper:not(.off ) .checkbox:active {
 	opacity: 0.8;
 }
 
@@ -583,10 +583,6 @@ body:after {
 
 .menuOptWrapper .multiSelect>.checked:active {
 	opacity: 1;
-}
-
-.unchecked {
-	
 }
 
 .altText {
@@ -740,7 +736,7 @@ body:after {
 	outline: 3px solid #3E3B2B;
 }
 
-.catButton:not (.catActive ):hover {
+.catButton:not(.catActive ):hover {
 	background-color: #3D310F;
 	color: white;
 }
@@ -980,11 +976,20 @@ body:after {
 }
 
 .optionImg {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 	margin-right: 5px;
 	height: 32px;
 	width: 32px;
 	background-image: url('');
 	background-size: contain;
+}
+
+.costText {
+	font-size: 16px;
+	color: #E4C54A;
 }
 
 .noneOption {
@@ -996,8 +1001,8 @@ body:after {
 	display: none;
 }
 
-.noneOption>.optionText {
-	opacity: 0.5;
+.noneOption > .optionText {
+	opacity: 0.6;
 }
 
 .noneOption:hover {
@@ -1308,7 +1313,7 @@ body:after {
 	display: flex;
 }
 
-.damageTable:not (.alt ) tr:hover .damRibbon {
+.damageTable:not(.alt ) tr:hover .damRibbon {
 	display: flex;
 }
 
@@ -1500,6 +1505,7 @@ body.noComps .damageDiv.right {
 
 .damageValue {
 	cursor: default;
+	font-size: 16px;
 }
 
 .damageTable.alt .damageValue {
@@ -1561,10 +1567,6 @@ body.noComps .damageDiv.right {
 	padding: 0px 10px 0px 10px;
 }
 
-.damWarn span {
-	display: none;
-}
-
 .ast {
 	font-weight: bold;
 	font-size: 10px;
@@ -1604,6 +1606,7 @@ body.noComps .damageDiv.right {
 	background-color: #373017;
 	border: 4px solid #151515;
 	border-style: double;
+	font-size: 16px;
 }
 
 #speed .nameL, #speed .nameR {
@@ -1838,7 +1841,63 @@ body.noComps .damageDiv.right {
 	margin-right: 8px;
 }
 
-/*
+.paxe {
+	cursor: pointer;
+}
+
+#paxe_bb {
+	position: absolute;
+	z-index: 100;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	/*
+	background-image: url('/img/gg_dating_sim.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: #1a1a1a;
+	*/
+	transition: opacity 0.75s linear;
+}
+
+#paxe_bb > img {
+	width: 90vw;
+	height: auto;
+	max-height: 95vh;
+	object-fit: contain;
+}
+
+#paxe_bb::before {
+	position: absolute;
+	content: 'X';
+	top: 1em;
+	right: 1em;
+	z-index: 150;
+	font-size: 2rem;
+	color: #e7ca9c;
+	background-color: rgba(0, 0, 0, 0.5);
+	width: 2.5rem;
+	height: 2.5rem;
+	text-align: center;
+	border-radius: 0.1em;
+	font-family: 'nunito';
+	pointer-events: auto;
+	cursor: pointer;
+}
+
+#paxe_bb::after {
+	position: absolute;
+	content: '';
+	z-index: -1;
+	width: 200vw;
+	height: 200vh;
+	top: -50%;
+	left: -50%;
+	background-color: rgba(16, 16, 16, 0.7);
+}
+
+/**
 * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 * =-=-=-=-= Comparisons =-=-=-=-=
 * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -1910,7 +1969,7 @@ body.noComps #genTable .textStat {
 * =-=-=-=-= Mobile Rules =-=-=-=-=
 * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 */
-@media ( hover :none) , ( hover :on-demand) {
+@media (hover: none), (hover: on-demand), (pointer: coarse), (pointer: none), only screen and (max-width: 360px) {
 	body, html {
 		font-size: 2vw;
 		height: 100%;
@@ -1986,7 +2045,6 @@ body.noComps #genTable .textStat {
 		width: 7vh;
 		padding: 0;
 		background-size: 85% 90%;
-		background-fit: contain;
 	}
 	.tooltip {
 		display: block;
@@ -2213,6 +2271,9 @@ body.noComps #genTable .textStat {
 		font-size: 2.2em;
 		padding: 0;
 	}
+	.costText {
+		font-size: 0.8em;
+	}
 	.optionImg {
 		height: 4.5vh;
 		width: 4.5vh;
@@ -2383,15 +2444,14 @@ body.noComps #genTable .textStat {
 		height: 100%;
 		overflow: hidden;
 	}
-	.damageTable:not (.alt ) .damageCell {
+	.damageTable:not(.alt ) .damageCell {
 		height: 11%;
 	}
-	.damageTable:not (.alt ) .damageDiv {
+	.damageTable:not(.alt ) .damageDiv {
 		height: 100%;
 	}
 	.damageValue {
 		font-size: 2em;
-		padding-bottom:
 	}
 	.damageTable.alt .damageDiv.right div {
 		padding-right: 0;
@@ -2414,7 +2474,7 @@ body.noComps #genTable .textStat {
 	.damRibbon {
 		display: none;
 	}
-	.damageTable:not (.alt ) tr:hover .damRibbon {
+	.damageTable:not(.alt ) tr:hover .damRibbon {
 		display: none;
 	}
 	#speedTitle {
@@ -2463,7 +2523,7 @@ body.noComps #genTable .textStat {
 		width: auto;
 		padding: 2% 0;
 	}
-	#genTable td:not (.nameTitles ) {
+	#genTable td:not(.nameTitles ) {
 		width: auto;
 		padding: 2% 2%;
 	}
