@@ -2,7 +2,7 @@
 <html>
 <head>
 	<link rel="shortcut icon" href="mfavicon.ico" type="image/x-icon" />
-	<title>Mordhau Weapon Matchup - Compare advanced weapon statistics side-by-side</title>
+	<title>Mordstats - Compare advanced weapon statistics side-by-side</title>
 	<meta name=”viewport” content=”width=device-width, initial-scale=1, maximum-scale=1″>
 	<meta property="og:title" content="Mordhau Weapon Matchup - Compare advanced weapon statistics side-by-side" />
 	<meta property=”og:type” content=”website” />
@@ -11,8 +11,8 @@
 	<meta property="og:image:height" content="600" />
 	<meta name="description" content="View and compare Mordhau advanced weapon statistics side-by-side, including peasant/miscellaneous weapons, ranged weapons, and shields." />
 	<meta charset="UTF-8" />
-	<link rel="stylesheet" type="text/css" href="res/style.css?v=2.856">
-	<script src="res/scripts.js?v=2.854"></script>
+	<link rel="stylesheet" type="text/css" href="res/style.css?v=3.000">
+	<script src="res/scripts.js?v=3.000"></script>
 </head>
 <body class="expanded" onload="onPageLoad()">
 <div id="pageWrapper">
@@ -26,25 +26,38 @@
 <div id="menuBar">
 	<textarea id="shareLink"></textarea>
 	<!-- Settings menu -->
-	<div id="settingsMenu" class="menu menuHide" onclick="toggleCompOpts(event, 'close')" ontouchstart="event.stopPropagation(); closeMenus(this);">
-		<div><div class="menuOptWrapper" style="padding-bottom: 3px;">
-			<span class="menuText">Comparisons: </span>
-			<div id="compList">
-				<div id="compCurr" onclick="toggleCompOpts(event)" ontouchstart="event.stopPropagation();"><div id="compSel">Full</div><div class="dropArrow"></div></div>
-				<div id="compItems" class="compOpts menuHide">
-					<div class="compOpt" onclick="changeComps(this)" ontouchstart="changeComps(this)">Simple</div>
-					<div class="compOpt" onclick="changeComps(this)" ontouchstart="changeComps(this)">None</div>
+	<div id="settingsMenu" class="menu menuHide" onclick="event.stopPropagation(); closeMenus(this);" ontouchstart="event.stopPropagation(); closeMenus(this);">
+		<div>
+			<div class="menuOptWrapper" style="padding-bottom: 3px;">
+				<span class="menuText">Game version: </span>
+				<div id="version" class="listCont" onclick="toggleList(this, event)">
+					<div class="listSel">Latest</div>
+					<div class="list dropDown hidden">
+						<div class="listOpt" onclick="changeListOpt(this, event)">18.1</div>
+						<div class="listOpt" onclick="changeListOpt(this, event)">17.3</div>
+						<div class="listOpt" onclick="changeListOpt(this, event)">16</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="menuOptWrapper">
-			<span class="menuText">Damage modifier:</span>
-			<div class="damageMod">
-				<input type="text" id="damageField" class="buttonText" value="1.00" placeholder="1.00" onfocus="onDModFocus(this)" onblur="onDModBlur(this)" onKeyDown="onDModPress(this, event)" maxlength="4" spellcheck="false" inputmode="numeric" />
-				 X
+			<div class="menuOptWrapper" style="padding-bottom: 3px;">
+				<span class="menuText">Comparisons: </span>
+				<div id="compList" class="listCont" onclick="toggleList(this, event)" ontouchstart="event.stopPropagation();">
+					<div id="compSel" class="listSel">Full</div>
+					<div id="compItems" class="list dropdown hidden">
+						<div class="compOpt listOpt" onclick="changeComps(this)" ontouchstart="changeComps(this)">Simple</div>
+						<div class="compOpt listOpt" onclick="changeComps(this)" ontouchstart="changeComps(this)">None</div>
+					</div>
+				</div>
 			</div>
-			<div id="dModHelper" class="helper helpHide" ontouchstart="toggleHelperText(event, this)">!<div id="dModError" class="popText">Damage modifier must be a number between 0 and 5.</div></div>
-		</div></div>
+			<div class="menuOptWrapper">
+				<span class="menuText">Damage modifier:</span>
+				<div class="damageMod">
+					<input type="text" id="damageField" class="buttonText" value="1.00" placeholder="1.00" onfocus="onDModFocus(this)" onblur="onDModBlur(this)" onKeyDown="onDModPress(this, event)" maxlength="4" spellcheck="false" inputmode="numeric" />
+					X
+				</div>
+				<div id="dModHelper" class="helper helpHide" ontouchstart="toggleHelperText(event, this)">!<div id="dModError" class="popText">Damage modifier must be a number between 0 and 5.</div></div>
+			</div>
+		</div>
 		
 		<div id="weaponOptsWrapper"><div class="menuOptWrapper">
 			<div class="checkContainer">
@@ -179,12 +192,12 @@
 <!-- Weapon selection bar -->
 <div id="weaponBar">
 		<div id="weaponLeft" class="weaponList" onclick="event.stopPropagation();">
-			<div class="listSelected"><input class="optionText listInput" onmousedown="event.preventDefault(); toggleList(this.parentNode.parentNode.querySelector('.listItems'))" onblur="onSelBlur(this)" oninput="filterList(this, event)" onkeydown="onSelPress(this, event)" placeholder="Find a weapon..." spellcheck="false" /></div>
+			<div class="listSelected"><input class="optionText listInput" onmousedown="event.preventDefault(); toggleWeaponList(this.parentNode.parentNode.querySelector('.listItems'))" onblur="onSelBlur(this)" oninput="filterList(this, event)" onkeydown="onSelPress(this, event)" placeholder="Find a weapon..." spellcheck="false" /></div>
 			<div class="dummyList menuHide" ontouchstart="event.stopPropagation()"></div>
 			<div class="listItems menuHide"></div>
 		</div>
 		<div id="weaponRight" class="weaponList" onclick="event.stopPropagation()">
-			<div class="listSelected"><input class="optionText listInput" onmousedown="event.preventDefault(); toggleList(this.parentNode.parentNode.querySelector('.listItems'))" onblur="onSelBlur(this)" oninput="filterList(this, event)" onkeydown="onSelPress(this, event)" placeholder="Find a weapon..." spellcheck="false" /></div>
+			<div class="listSelected"><input class="optionText listInput" onmousedown="event.preventDefault(); toggleWeaponList(this.parentNode.parentNode.querySelector('.listItems'))" onblur="onSelBlur(this)" oninput="filterList(this, event)" onkeydown="onSelPress(this, event)" placeholder="Find a weapon..." spellcheck="false" /></div>
 			<div class="dummyList menuHide" ontouchstart="event.stopPropagation()"></div>
 			<div class="listItems menuHide"></div>
 		</div>

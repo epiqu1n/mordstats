@@ -54,15 +54,13 @@ function onPageLoad() {
 		*/
 	}
 	
-	var weapTemp, xmlhttp, xmlDoc, issuehttp, issueDoc, changeshttp, changesDoc;
+	var issuehttp, issueDoc, changeshttp, changesDoc;
 	
 	if (window.XMLHttpRequest) { // For IE7+, Firefox, Chrome, Opera, & Safari
-		xmlhttp = new XMLHttpRequest();
 		issuehttp = new XMLHttpRequest();
 		changeshttp = new XMLHttpRequest();
 	}
 	else { // For IE6, IE5 (ishygddt)
-		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 		issuehttp = new ActiveXObject("Microsoft.XMLHTTP");
 		changeshttp = new ActiveXObject("Microsoft.XMLHTTP");
 	}
@@ -84,79 +82,7 @@ function onPageLoad() {
 		}
 	});
 	
-	xmlhttp.onreadystatechange = function (err) {
-		if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-			console.log("MordStats.xml loaded successfully.");
-			xmlDoc = xmlhttp.responseXML;
-			
-			// Set global variable for number of weapons
-			try {
-				weapTemp = xmlDoc.getElementsByTagName("Weapon");
-				_weapNum = weapTemp.length;
-			} catch (err) {
-				alert("An error occurred parsing XML file");
-				return;
-			}
-			
-			if (_weapNum == null) {
-				alert("An unknown error occurred with XML file.");
-			} else {
-				// Full success opening and parsing XML file.  Continue with script.
-				var dMod = document.getElementById("damageField");
-				dMod.placeholder = "1.00"; // Input value/placeholder carries on page reload for some reason
-				dMod.value = "1.00";       // so these must be reset (then overwritten by cookies if present)
-				applyCookies();
-				
-				weapTemp = [].slice.call(weapTemp); // Convert DOM NodeList into array so it can be sorted
-				weapTemp.sort(nameCompare);
-				for (var x in weapTemp) { // Create weapons array as associative array
-					_weapons[weapTemp[x].getElementsByTagName("Name")[0].childNodes[0].nodeValue] = weapTemp[x];
-				}
-				
-				// Add event listener to have tooltip(s) follow mouse pointer
-				window.onmousemove = function(event) {
-					var tooltips = document.querySelectorAll(".menuBtnDiv:hover + .tooltip");
-					var x = event.clientX, y = event.clientY;
-					
-					if (tooltips.item(0)) {
-						if ((x + 14 + tooltips.item(0).offsetWidth) > window.innerWidth) {
-						//	tooltips.item(0).style.left = (x - 8 - tooltips.item(0).offsetWidth) + "px";
-							tooltips.item(0).style.left = (window.innerWidth - tooltips.item(0).offsetWidth) + "px";
-						} else {
-							tooltips.item(0).style.left = (x + 14) + "px";
-						}
-						if ((y + 12 + tooltips.item(0).offsetHeight) > window.innerHeight) {
-							tooltips.item(0).style.top = (y - 4 - tooltips.item(0).offsetHeight) + "px";
-						} else {
-							tooltips.item(0).style.top = (y + 12) + "px";
-						}
-					}
-				};
-				
-				var parameters = getURLParameters();
-				if (parameters == "") populateLists("Melee", "");
-				else {
-					populateLists("None", parameters);
-					history.replaceState(history.state, history.title, "/");
-				}
-			}
-		} else if (xmlhttp.readyState === 3 && xmlhttp.status === 404) {
-			alert("Error opening XML file for reading.");
-		}
-	};
-	
-	xmlhttp.onerror = function (err) {
-		console.error(xmlhttp.statusText);
-		alert("Unknown error occurred with XML file.");
-	};
-	
-	xmlhttp.open("GET","res/MordStats.xml");
-	xmlhttp.setRequestHeader('cache-control', 'no-cache, must-revalidate, post-check=0, pre-check=0');
-	xmlhttp.setRequestHeader('cache-control', 'max-age=0');
-	xmlhttp.setRequestHeader('expires', '0');
-	xmlhttp.setRequestHeader('expires', 'Tue, 01 Jan 1980 1:00:00 GMT');
-	xmlhttp.setRequestHeader('pragma', 'no-cache');
-	xmlhttp.send();
+	reloadData();
 	
 	issuehttp.onreadystatechange = function (err) {
 		if (issuehttp.readyState === 4 && issuehttp.status === 200) {
@@ -215,6 +141,91 @@ function onPageLoad() {
 	changeshttp.setRequestHeader('expires', 'Tue, 01 Jan 1980 1:00:00 GMT');
 	changeshttp.setRequestHeader('pragma', 'no-cache');
 	changeshttp.send();
+}
+
+function reloadData(version = null) {
+	var weapTemp, xmlhttp, xmlDoc;
+	var filePath = "res/" + (version ? `data_tables/MordStats_p${version}.xml` : "MordStats.xml");
+
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function (err) {
+		if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+			console.log(`MordStats${version ? `_p${version}` : ""}.xml loaded successfully.`);
+			xmlDoc = xmlhttp.responseXML;
+			
+			// Set global variable for number of weapons
+			try {
+				weapTemp = xmlDoc.getElementsByTagName("Weapon");
+				_weapNum = weapTemp.length;
+			} catch (err) {
+				alert("An error occurred parsing XML file");
+				return;
+			}
+			
+			if (_weapNum == null) {
+				alert("An unknown error occurred with XML file.");
+			} else {
+				// Full success opening and parsing XML file.  Continue with script.
+				var dMod = document.getElementById("damageField");
+				dMod.placeholder = "1.00"; // Input value/placeholder carries on page reload for some reason
+				dMod.value = "1.00";       // so these must be reset (then overwritten by cookies if present)
+				applyCookies();
+				
+				weapTemp = [].slice.call(weapTemp); // Convert DOM NodeList into array so it can be sorted
+				weapTemp.sort(nameCompare);
+				_weapons = {};
+				for (var x in weapTemp) { // Create weapons array as associative array
+					_weapons[weapTemp[x].getElementsByTagName("Name")[0].childNodes[0].nodeValue] = weapTemp[x];
+				}
+				
+				// Add event listener to have tooltip(s) follow mouse pointer
+				window.onmousemove = function(event) {
+					var tooltips = document.querySelectorAll(".menuBtnDiv:hover + .tooltip");
+					var x = event.clientX, y = event.clientY;
+					
+					if (tooltips.item(0)) {
+						if ((x + 14 + tooltips.item(0).offsetWidth) > window.innerWidth) {
+						//	tooltips.item(0).style.left = (x - 8 - tooltips.item(0).offsetWidth) + "px";
+							tooltips.item(0).style.left = (window.innerWidth - tooltips.item(0).offsetWidth) + "px";
+						} else {
+							tooltips.item(0).style.left = (x + 14) + "px";
+						}
+						if ((y + 12 + tooltips.item(0).offsetHeight) > window.innerHeight) {
+							tooltips.item(0).style.top = (y - 4 - tooltips.item(0).offsetHeight) + "px";
+						} else {
+							tooltips.item(0).style.top = (y + 12) + "px";
+						}
+					}
+				};
+				
+				var parameters = getURLParameters();
+				if (version) {
+					console.log("WHAHTH")
+					populateLists("None", { source: "version" });
+				}
+				else if (parameters == "") populateLists("Melee", "");
+				else {
+					populateLists("None", parameters);
+					history.replaceState(history.state, history.title, "/");
+				}
+			}
+		} else if (xmlhttp.readyState === 3 && xmlhttp.status === 404) {
+			alert("Error opening XML file for reading.");
+		}
+	};
+	
+	xmlhttp.onerror = function (err) {
+		console.error(xmlhttp.statusText);
+		alert("Unknown error occurred with XML file.");
+	};
+	
+	xmlhttp.open("GET", filePath);
+	xmlhttp.setRequestHeader('cache-control', 'no-cache, must-revalidate, post-check=0, pre-check=0');
+	xmlhttp.setRequestHeader('cache-control', 'max-age=0');
+	xmlhttp.setRequestHeader('expires', '0');
+	xmlhttp.setRequestHeader('expires', 'Tue, 01 Jan 1980 1:00:00 GMT');
+	xmlhttp.setRequestHeader('pragma', 'no-cache');
+	xmlhttp.send();
 }
 
 /** function adjustMobile()
@@ -519,9 +530,11 @@ function closeMenus(noClose) {
 	for (i=0; i<menus.length; i++) {
 		if (menus[i] != noClose) menus[i].classList.add("menuHide");
 	}
-	
-	var compItems = document.getElementById("compItems");
-	if (compItems != noClose) compItems.classList.add("menuHide");
+
+	var lists = document.querySelectorAll(".list");
+	for (i=0; i<lists.length; i++) {
+		if (lists[i] != noClose) lists[i].classList.add("hidden");
+	}
 	
 	var popTexts = document.getElementsByClassName("popText");
 	for (p=0; p<popTexts.length; p++) {
@@ -1350,8 +1363,26 @@ function openList(list) {
 function populateLists(cat, params) {
 	var leftName, rightName;
 	
-	if (cat == "None" && typeof(params) == "object") {
-		// This runs if the page URL contains parameters for weapons 
+	if (params.source == "version") {
+		leftName = document.querySelector("#weaponLeft .listInput").value;
+		rightName = document.querySelector("#weaponRight .listInput").value;
+		if (!_weapons[leftName]) {
+			leftName = getNewDefault();
+			while (leftName == rightName) {
+				leftName = getNewDefault();
+			}
+			setTypeOptions("Left", leftName);
+		}
+		if (!_weapons[rightName]) {
+			rightName = getNewDefault();
+			while (rightName == leftName) {
+				rightName = getNewDefault();
+			}
+			setTypeOptions("Left", rightName);
+		}
+	}
+	else if (cat == "None" && typeof(params) == "object") {
+		// This typically runs if the page URL contains parameters for weapons 
 		try {
 			// Get weapon parameters and decode so that they match weapon names exactly
 			var weaps = params["w"].split("+");
@@ -1755,6 +1786,31 @@ function toggleCompOpts(event, close) {
 	else list.classList.toggle("menuHide");
 }
 
+function toggleList(cont, event) {
+	if (!cont.classList.contains("listCont")) return;
+	event.stopPropagation();
+
+	var list = cont.querySelector(".list");
+	var nearestMenu = cont.closest(".menu");
+	if (!nearestMenu) closeMenus();
+	else nearestMenu.querySelectorAll(".list").forEach(el => { if (el != list) el.classList.add("hidden") });
+
+	list.classList.toggle("hidden");
+}
+
+function changeListOpt(elem, event) {
+	event.stopPropagation();
+	var cont = elem.closest(".listCont")
+	cont.querySelector(".list").classList.add("hidden");
+	cont.querySelector(".listSel").innerText = elem.innerText;
+
+	switch (cont.id) {
+		case "version":
+			reloadData(elem.innerHTML);
+			break;
+	}
+}
+
 /** function toggleFAQ(event)
  * Toggles the FAQ menu on/off and closes Known Issues menu if open
  * @param event : The event handler attached to this function
@@ -1828,13 +1884,13 @@ function toggleIssues(event) {
 }
 
 
-/** function toggleList(list, event)
- * Opens/closes the given listItems element
+/**
+ * Opens/closes the given listItems element for a weapon list
  * @param list : The .listItems element
  * @param event : The event handler calling this function
  * @returns : Nothing
  */
-function toggleList(list) {
+function toggleWeaponList(list) {
 	var input = list.parentNode.querySelector(".listInput");
 	if (list.classList.contains("menuHide")) focusInput(input);
 	else {

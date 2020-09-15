@@ -240,6 +240,7 @@ body:after {
 .menuText {
 	color: #ebe6d8;
 	font-variant: normal;
+	margin-right: 0.3em;
 }
 
 .menu a {
@@ -285,6 +286,7 @@ body:after {
 	padding: 3px 0 8px 0;
 	/*	height: 198px;  // Height between buttons and "Advanced Stats" bar */
 	height: auto;
+	font-size: 1rem;
 }
 
 .helper {
@@ -400,34 +402,109 @@ body:after {
 	display: none;
 }
 
-#compList {
-	display: inline-block;
+.listCont {
 	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	cursor: default;
-	margin-left: 2px;
-	margin-right: 2px;
-	width: 66px;
 	background-color: #12130f;
+	color: var(--color-faded-gold);
+	transition: 0.1s;
+	font-size: 1em;
 }
 
-#compCurr {
+.listSel {
 	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
 	align-items: center;
-	justify-content: center;
+	color: #ebe6d8;
+	font-variant: normal;
+	font-size: 0.95em;
+	width: 100%;
+	padding: 0.1em calc(14px + 0.5em) 0.1em 0.5em;
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
 	-o-user-select: none;
 	user-select: none;
-	height: 18px;
 }
 
-#compSel {
-	width: 48px;
-	text-align: center;
+.listSel::after {
+	position: absolute;
+	right: 0.25em;
+	content: '';
+	width: 14px;
+	height: 8px;
+	background-image: url("../img/icons/downArrow.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+}
+
+.listSel:hover {
+	background-color: #23241e;
+}
+
+.listSel:active {
+	background-color: #1f201a;
+}
+
+.dropDown {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	padding: 0;
+	z-index: 99;
+	/* outline: 0.2rem solid #202320;
+	top: calc(100% + 0.2rem); */
+	overflow: hidden;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	background-color:rgba(18, 19, 15, 0.97);
+	scrollbar-color: #333333 #1a1a1a;
+	overflow-y: auto;
+	max-height: 75vh;
+}
+
+.listOpt {
+	position: relative;
+	z-index: 99;
+	display: flex;
 	font-variant: normal;
-	font-size: 14px;
+	justify-content: center;
+	align-items: center;
+	padding: 0.15em;
+	font-size: 0.75em;
 	color: #ebe6d8;
+	/*background-color: #12130f;*/
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	font-size: 0.9em;
+}
+
+.opacityBG ~ .listOpt {
+	background-color: transparent;
+}
+
+.listOpt.selected {
+	background-color: #44381e;
+}
+
+.listOpt:hover {
+	background-color: #23241e;
+}
+
+#compList, #version {
+	width: 5em;
 }
 
 #compCurr:hover {
@@ -517,6 +594,7 @@ body:after {
 .menuOptWrapper {
 	padding: 1px 10px 1px 10px;
 	display: flex;
+	align-items: center;
 }
 
 #weaponOptsWrapper {
@@ -2575,4 +2653,11 @@ body.noComps #genTable .textStat {
 		visibility: hidden;
 		display: none;
 	}
+}
+
+
+.hidden {
+	display: none			!important;
+	visibility: hidden;
+	opacity: 0;
 }
