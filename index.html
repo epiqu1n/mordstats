@@ -32,10 +32,10 @@
 				<span class="menuText">Game version: </span>
 				<div id="version" class="listCont" onclick="toggleList(this, event)">
 					<div class="listSel">Latest</div>
-					<div class="list dropDown hidden">
-						<div class="listOpt" onclick="changeListOpt(this, event)">18.1</div>
-						<div class="listOpt" onclick="changeListOpt(this, event)">17.3</div>
-						<div class="listOpt" onclick="changeListOpt(this, event)">16</div>
+					<div class="list dropDown hidden" onclick="if(event.target.matches('.listOpt')) changeListOpt(event.target, event)">
+						<div class="listOpt">18.1</div>
+						<div class="listOpt">17.3</div>
+						<div class="listOpt">16</div>
 					</div>
 				</div>
 			</div>
