@@ -1807,6 +1807,9 @@ function changeListOpt(elem, event) {
 	switch (cont.id) {
 		case "version":
 			reloadData(elem.innerHTML);
+			var vWarn = document.getElementById("vsnWarning");
+			vWarn.classList.remove("invisible");
+			vWarn.querySelector("#vsn").innerHTML = elem.innerText;
 			break;
 	}
 }
