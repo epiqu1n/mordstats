@@ -7279,7 +7279,7 @@
 					<Armor3>29</Armor3>
 				</Torso>
 				<Legs>
-					<Armor0>24</Armor0>
+					<Armor0>54</Armor0>
 					<Armor1>50</Armor1>
 					<Armor2>35</Armor2>
 					<Armor3>28</Armor3>
@@ -8436,7 +8436,7 @@
 					<Armor0>37</Armor0>
 					<Armor1>30</Armor1>
 					<Armor2>24</Armor2>
-					<Armor3>25</Armor3>
+					<Armor3>18</Armor3>
 				</Legs>
 			</Damage>
 			<Speed>
