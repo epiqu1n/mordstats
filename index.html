@@ -11,8 +11,9 @@
 	<meta property="og:image:height" content="600" />
 	<meta name="description" content="View and compare Mordhau advanced weapon statistics side-by-side, including peasant/miscellaneous weapons, ranged weapons, and shields." />
 	<meta charset="UTF-8" />
-	<link rel="stylesheet" type="text/css" href="res/style.css?v=3.002">
-	<script src="res/scripts.js?v=3.002"></script>
+	<link rel="stylesheet" type="text/css" href="res/style.css?v=3.8.0">
+	<script src="res/scripts.js?v=3.8.0"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Cardo&display=swap" rel="stylesheet">
 </head>
 <body class="expanded" onload="onPageLoad()">
 <div id="pageWrapper">
@@ -68,13 +69,13 @@
 		</div>
 		<div class="menuOptWrapper">
 			<div class="checkContainer">
-				<button type="button" id="miscBtn" class="checkbox" onclick="toggleMisc(this)"></button>
+				<button type="button" id="miscBtn" class="checkbox checked" onclick="toggleMisc(this)"></button>
 			</div>
 			<span class="buttonText">Show miscellaneous weapons</span>
 		</div>
 		<div class="menuOptWrapper">
 			<div class="checkContainer">
-				<button type="button" id="peasantBtn" class="checkbox" onclick="togglePeasant(this)"></button>
+				<button type="button" id="peasantBtn" class="checkbox checked" onclick="togglePeasant(this)"></button>
 			</div>
 			<span class="buttonText">Show peasant-only weapons</span>
 		</div></div>
@@ -115,7 +116,7 @@
 		<div class="menuText">
 			Issues or suggestions?&nbsp; Send an email to <a href="mailto:feedback@mordstats.com" target="_blank">feedback@mordstats.com</a>.
 		</div>
-		<div class="helpSubtext menuText">Stats accurate as of Build #19</div>
+		<div class="helpSubtext menuText">Stats accurate as of Build #19.3</div>
 		<div id="issuesSelect" class="helpSubtext menuText" onclick="toggleIssues(event)">Known issues</div>
 		
 		<!-- Known issues menu -->

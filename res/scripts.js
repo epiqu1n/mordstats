@@ -132,7 +132,7 @@ function onPageLoad() {
 function reloadData(version = null) {
 	/** @type {{}} */ var weapTemp;
 	var xmlhttp, xmlDoc;
-	var filePath = "res/" + (version ? `data_tables/MordStats_p${version}.xml` : "mordstats.json");
+	var filePath = "res/" + (version ? `data_tables/MordStats_p${version}.json` : "mordstats.json");
 
 
 	var datahttp = new MordXMLRequest(filePath, (response) => {
@@ -152,7 +152,7 @@ function reloadData(version = null) {
 		
 		// Sort weapons by name
 		_weapons = new Object();
-		Object.keys(weapTemp).sort(nameCompare).forEach((name) => {
+		Object.keys(weapTemp).sort().forEach((name) => {
 			_weapons[name] = weapTemp[name];
 		});
 
@@ -956,7 +956,7 @@ function makeLists() {
 
 	var options = new Array();
 	var pointCosts = new Array();
-	var weaponLists, pointCosts, optionElement, optionImg, costText, optionText, selectedName;
+	var weaponLists, pointCosts, optionElement, optionImg, costText, optionText, tag, selectedName;
 	weaponLists = document.getElementsByClassName("weaponList");
 	var names = Object.keys(_weapons);
 	
@@ -977,10 +977,23 @@ function makeLists() {
 		costText.innerHTML = pointCost;
 		optionImg.append(costText);
 		optionText = document.createElement("span");
-		optionText.setAttribute("class", "optionText");		
+		optionText.setAttribute("class", "optionText");
 		optionText.innerHTML = names[n];
 		optionElement.appendChild(optionImg);
 		optionElement.appendChild(optionText);
+
+/* 		if (_weapons[names[n]].isMisc) {
+			tag = document.createElement("div");
+			tag.innerHTML = "Misc";
+			tag.setAttribute("class", "option-tag");
+			optionElement.appendChild(tag);
+		}
+		else if (_weapons[names[n]].peasantOnly) {
+			tag = document.createElement("div");
+			tag.innerHTML = "Peasant";
+			tag.setAttribute("class", "option-tag");
+			optionElement.appendChild(tag);
+		} */
 
 		if (sortMethod == "points") {
 			// Get point costs for each weapon, then push that element to the appropriate spot in the array
@@ -1093,22 +1106,6 @@ function makeLists() {
 		noneOption.querySelector(".optionText").innerHTML = "No results found";
 		noneOption.setAttribute("class", "listOption noneOption");
 		newList.appendChild(noneOption);
-	}
-}
-
-/**
- * Function to be passed for sorting weapons array based on weapon names
- * @param a : Arg 1
- * @param b : Arg 2
- * @returns : -1, 1, or 0 based on comparison
- */
-function nameCompare(a, b) {
-	if (a.name < b.name) {
-		return -1;
-	} else if (a.name > b.name) {
-		return 1;
-	} else {
-		return 0;
 	}
 }
 
@@ -1361,7 +1358,7 @@ function populateLists(cat, params) {
 		if (cat == "melee" && params["m"] != null) {
 			try {
 				// Get attack mode parameters and set them on page
-				var modes = ["strike", "stab", "altStrike", "altStab", "meleeThrow", "kick", "shield"];
+				var modes = ["strike", "stab", "altStrike", "altStab", "meleeThrow", "shield", "misc"];
 				var modeParams = params["m"].split("+");
 				for (x=0; x<2; x++) {
 					if (modes[modeParams[x]-1].includes("stab")) {
@@ -1638,7 +1635,7 @@ function toggleAltMode(btn) {
 		if (getCategory() == "shield") {
 			document.getElementById("stats").querySelector(".statHalf").classList.remove("shieldStats");
 		}
-		else if (weaponData.attack.find((el) => el.type == "meleeThrow")) {
+		else if (weaponData.attacks.find((el) => el.type == "meleeThrow")) {
 			attackModeButtons[0].classList.replace("strikeSel", "strikeUnsel");
 			attackModeButtons[1].classList.replace("stabSel", "stabUnsel");
 		}
@@ -2089,20 +2086,23 @@ function updateStats(side, name) {
 												"damageMedHigh", "damageHigh");
 			if (dividerBG != null) dividerBG.setAttribute("class", "damageDiv bg "+side.toLowerCase());
 
-			try {
-				var damage = 0;
-				damage = damageMod * attack.damage[bodyPart][col];
-				if (huntsmanOn && bodyPart != "legs"
-					&& (attackType == "ranged" || attackType == "meleeThrow")) {
-					damage *= huntMod;
-					damage = damage.toFixed(0);
+			if (attack.damage) {
+				try {
+					var damage = 0;
+					damage = damageMod * attack.damage[bodyPart][col];
+					if (huntsmanOn && bodyPart != "legs"
+						&& (attackType == "ranged" || attackType == "meleeThrow")) {
+						damage *= huntMod;
+						damage = damage.toFixed(0);
+					}
+					else damage = +damage.toFixed(1);
+					damElem.innerHTML = damage;
+				} catch (e) {
+					console.error(e);
+					damElem.innerHTML = "–";
 				}
-				else damage = +damage.toFixed(1);
-				damElem.innerHTML = damage;
-			} catch (e) {
-				console.error(e);
-				damElem.innerHTML = "–";
 			}
+			else damElem.innerHTML = "–";
 			
 			if (damElem.innerHTML >= 100) {
 				damElem.parentNode.classList.add("damageHigh");
@@ -2161,7 +2161,7 @@ function updateStats(side, name) {
 			document.getElementById(genTitles[i].id+s).classList.remove("emptyStat");
 		}
 		else if (genTitles[i].id == "bMoveRest") {
-			document.getElementById(genTitles[i].id+s).innerHTML = (attack.general[gT] == "0" ? "None" : Number.parseInt(attack.general[gT]));
+			document.getElementById(genTitles[i].id+s).innerHTML = (attack.general[gT] == "0" || attack.general[gT] == "None" ? "None" : Number.parseInt(attack.general[gT]));
 			document.getElementById(genTitles[i].id+s).classList.remove("emptyStat");
 		}
 		else {

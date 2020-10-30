@@ -1065,6 +1065,16 @@ body:after {
 	background-size: contain;
 }
 
+.option-tag {
+	font-size: 0.6em;
+	background-color: rgba(83, 122, 163, 0.25);
+	border-radius: 0.2em;
+	padding: 0.075em 0.35em;
+	margin: 0 0.35em 0 auto;
+	font-family: 'Cardo';
+	font-variant: normal;
+}
+
 .costText {
 	font-size: 16px;
 	color: #E4C54A;
