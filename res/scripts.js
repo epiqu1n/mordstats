@@ -1,14 +1,51 @@
 var _weapons, _weapNum, Max_Cost, _categoryChanged, _lastFocus, _lastX, _xMove, _mainBody, _animTimeout, _mobile;
-	
-/** function onPageLoad()
- * Function to be run on first page load
- * @returns : Nothing
- */
+
+///
+/// Class declarations
+///
+class MordXMLRequest {
+	/**
+	 * 
+	 * @param {string} filePath 
+	 * @param {((response: string)=>void)=} onLoad 
+	 */
+	constructor(filePath, onLoad) {
+		this.request = new XMLHttpRequest();
+		this.fileName = filePath.substring(filePath.lastIndexOf("/"));
+
+		this.request.onreadystatechange = (err) => {
+			if (this.request.readyState === 4 && this.request.status === 200) {
+				console.log(`${this.fileName} loaded successfully`);
+				
+				if (onLoad) onLoad(this.request.responseText);
+			} else if (this.request.readyState === 3 && this.request.status === 404) {
+				console.error(`An error occurred loading ${this.fileName}`);
+			}
+		};
+		
+		this.request.onerror = function (err) {
+			console.error(`An error occurred loading ${this.fileName}`);
+			console.error(this.request.statusText);
+		};
+		
+		this.request.open("GET", filePath);
+		this.request.setRequestHeader('cache-control', 'no-cache, must-revalidate, post-check=0, pre-check=0');
+		this.request.setRequestHeader('cache-control', 'max-age=0');
+		this.request.setRequestHeader('expires', '0');
+		this.request.setRequestHeader('expires', 'Tue, 01 Jan 1980 1:00:00 GMT');
+		this.request.setRequestHeader('pragma', 'no-cache');
+		this.request.send();
+	}
+}
+
+
+///
+/// On load
+///
 function onPageLoad() {
 	// Define global variables
 	_mainBody = document.getElementById("mainBody");
 	_categoryChanged = true;
-	_weapons = {};
 	_lastFocus = document.getElementById("weaponRight").querySelector(".listInput");
 	_mobile = false;
 	Max_Cost = 33;
@@ -54,17 +91,6 @@ function onPageLoad() {
 		*/
 	}
 	
-	var issuehttp, issueDoc, changeshttp, changesDoc;
-	
-	if (window.XMLHttpRequest) { // For IE7+, Firefox, Chrome, Opera, & Safari
-		issuehttp = new XMLHttpRequest();
-		changeshttp = new XMLHttpRequest();
-	}
-	else { // For IE6, IE5 (ishygddt)
-		issuehttp = new ActiveXObject("Microsoft.XMLHTTP");
-		changeshttp = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	
 	// Set event listeners for document
 	document.addEventListener("click", function(e) {
 		closeMenus();
@@ -83,154 +109,86 @@ function onPageLoad() {
 	});
 	
 	reloadData();
-	
-	issuehttp.onreadystatechange = function (err) {
-		if (issuehttp.readyState === 4 && issuehttp.status === 200) {
-			console.log("KnownIssues.txt loaded successfully.");
-			issueDoc = issuehttp.responseText;
-			
-			try {
-				fillIssues(issueDoc);
-			} catch (err) {
-				alert("An error occurred while reading the known issues file");
-				return;
-			}
-		} else if (issuehttp.readyState === 3 && issuehttp.status === 404) {
-			alert("An error occurred opening the known issues file for reading.");
+
+	var issuehttp = new MordXMLRequest("res/KnownIssues.txt", (response) => {
+		try {
+			fillIssues(response);
+		} catch (err) {
+			console.error("An error occurred while reading the known issues file");
+			return;
 		}
-	};
+	});
 	
-	issuehttp.onerror = function (err) {
-		console.error(issuehttp.statusText);
-		alert("Unknown error occurred with known issues file.");
-	};
-	
-	issuehttp.open("GET","res/KnownIssues.txt");
-	issuehttp.setRequestHeader('cache-control', 'no-cache, must-revalidate, post-check=0, pre-check=0');
-	issuehttp.setRequestHeader('cache-control', 'max-age=0');
-	issuehttp.setRequestHeader('expires', '0');
-	issuehttp.setRequestHeader('expires', 'Tue, 01 Jan 1980 1:00:00 GMT');
-	issuehttp.setRequestHeader('pragma', 'no-cache');
-	issuehttp.send();
-	
-	changeshttp.onreadystatechange = function (err) {
-		if (changeshttp.readyState === 4 && changeshttp.status === 200) {
-			console.log("changelog.txt loaded successfully.");
-			changesDoc = changeshttp.responseText;
-			
-			try {
-				fillChangelog(changesDoc);
-			} catch (err) {
-				alert("An error occurred while reading the changelog file");
-				return;
-			}
-		} else if (changeshttp.readyState === 3 && changeshttp.status === 404) {
-			alert("An error occurred opening the known issues file for reading.");
+	var changeshttp = new MordXMLRequest("res/changelog.txt", (response) => {
+		try {
+			fillChangelog(response);
+		} catch (err) {
+			console.error("An error occurred while reading the changelog file");
+			return;
 		}
-	};
-	
-	changeshttp.onerror = function (err) {
-		console.error(changeshttp.statusText);
-		alert("Unknown error occurred with known issues file.");
-	};
-	
-	changeshttp.open("GET","res/changelog.txt");
-	changeshttp.setRequestHeader('cache-control', 'no-cache, must-revalidate, post-check=0, pre-check=0');
-	changeshttp.setRequestHeader('cache-control', 'max-age=0');
-	changeshttp.setRequestHeader('expires', '0');
-	changeshttp.setRequestHeader('expires', 'Tue, 01 Jan 1980 1:00:00 GMT');
-	changeshttp.setRequestHeader('pragma', 'no-cache');
-	changeshttp.send();
+	});
 }
 
 function reloadData(version = null) {
-	var weapTemp, xmlhttp, xmlDoc;
-	var filePath = "res/" + (version ? `data_tables/MordStats_p${version}.xml` : "MordStats.xml");
+	/** @type {{}} */ var weapTemp;
+	var xmlhttp, xmlDoc;
+	var filePath = "res/" + (version ? `data_tables/MordStats_p${version}.xml` : "mordstats.json");
 
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function (err) {
-		if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-			console.log(`MordStats${version ? `_p${version}` : ""}.xml loaded successfully.`);
-			xmlDoc = xmlhttp.responseXML;
-			
-			// Set global variable for number of weapons
-			try {
-				weapTemp = xmlDoc.getElementsByTagName("Weapon");
-				_weapNum = weapTemp.length;
-			} catch (err) {
-				alert("An error occurred parsing XML file");
-				return;
-			}
-			
-			if (_weapNum == null) {
-				alert("An unknown error occurred with XML file.");
-			} else {
-				// Full success opening and parsing XML file.  Continue with script.
-				var dMod = document.getElementById("damageField");
-				dMod.placeholder = "1.00"; // Input value/placeholder carries on page reload for some reason
-				dMod.value = "1.00";       // so these must be reset (then overwritten by cookies if present)
-				applyCookies();
-				
-				weapTemp = [].slice.call(weapTemp); // Convert DOM NodeList into array so it can be sorted
-				weapTemp.sort(nameCompare);
-				_weapons = {};
-				for (var x in weapTemp) { // Create weapons array as associative array
-					_weapons[weapTemp[x].getElementsByTagName("Name")[0].childNodes[0].nodeValue] = weapTemp[x];
-				}
-				
-				// Add event listener to have tooltip(s) follow mouse pointer
-				window.onmousemove = function(event) {
-					var tooltips = document.querySelectorAll(".menuBtnDiv:hover + .tooltip");
-					var x = event.clientX, y = event.clientY;
-					
-					if (tooltips.item(0)) {
-						if ((x + 14 + tooltips.item(0).offsetWidth) > window.innerWidth) {
-						//	tooltips.item(0).style.left = (x - 8 - tooltips.item(0).offsetWidth) + "px";
-							tooltips.item(0).style.left = (window.innerWidth - tooltips.item(0).offsetWidth) + "px";
-						} else {
-							tooltips.item(0).style.left = (x + 14) + "px";
-						}
-						if ((y + 12 + tooltips.item(0).offsetHeight) > window.innerHeight) {
-							tooltips.item(0).style.top = (y - 4 - tooltips.item(0).offsetHeight) + "px";
-						} else {
-							tooltips.item(0).style.top = (y + 12) + "px";
-						}
-					}
-				};
-				
-				var parameters = getURLParameters();
-				if (version) {
-					console.log("WHAHTH")
-					populateLists("None", { source: "version" });
-				}
-				else if (parameters == "") populateLists("Melee", "");
-				else {
-					populateLists("None", parameters);
-					history.replaceState(history.state, history.title, "/");
-				}
-			}
-		} else if (xmlhttp.readyState === 3 && xmlhttp.status === 404) {
-			alert("Error opening XML file for reading.");
+
+	var datahttp = new MordXMLRequest(filePath, (response) => {
+		try {
+			weapTemp = JSON.parse(response);
+			_weapNum = Object.keys(weapTemp).length;
+		} catch (err) {
+			console.error(err);
+			alert("An error occurred parsing XML file");
+			return;
 		}
-	};
-	
-	xmlhttp.onerror = function (err) {
-		console.error(xmlhttp.statusText);
-		alert("Unknown error occurred with XML file.");
-	};
-	
-	xmlhttp.open("GET", filePath);
-	xmlhttp.setRequestHeader('cache-control', 'no-cache, must-revalidate, post-check=0, pre-check=0');
-	xmlhttp.setRequestHeader('cache-control', 'max-age=0');
-	xmlhttp.setRequestHeader('expires', '0');
-	xmlhttp.setRequestHeader('expires', 'Tue, 01 Jan 1980 1:00:00 GMT');
-	xmlhttp.setRequestHeader('pragma', 'no-cache');
-	xmlhttp.send();
+		
+		var dMod = document.getElementById("damageField");
+		dMod.placeholder = "1.00"; // Input value/placeholder carries on page reload for some reason
+		dMod.value = "1.00";       // so these must be reset (then overwritten by cookies if present)
+		applyCookies();
+		
+		// Sort weapons by name
+		_weapons = new Object();
+		Object.keys(weapTemp).sort(nameCompare).forEach((name) => {
+			_weapons[name] = weapTemp[name];
+		});
+
+		
+		// Add event listener to have tooltip(s) follow mouse pointer
+		window.onmousemove = function(event) {
+			var tooltips = document.querySelectorAll(".menuBtnDiv:hover + .tooltip");
+			var x = event.clientX, y = event.clientY;
+			
+			if (tooltips.item(0)) {
+				if ((x + 14 + tooltips.item(0).offsetWidth) > window.innerWidth) {
+				//	tooltips.item(0).style.left = (x - 8 - tooltips.item(0).offsetWidth) + "px";
+					tooltips.item(0).style.left = (window.innerWidth - tooltips.item(0).offsetWidth) + "px";
+				} else {
+					tooltips.item(0).style.left = (x + 14) + "px";
+				}
+				if ((y + 12 + tooltips.item(0).offsetHeight) > window.innerHeight) {
+					tooltips.item(0).style.top = (y - 4 - tooltips.item(0).offsetHeight) + "px";
+				} else {
+					tooltips.item(0).style.top = (y + 12) + "px";
+				}
+			}
+		};
+		
+		var parameters = getURLParameters();
+		if (version) populateLists("None", { source: "version" });
+		else if (parameters == "") populateLists("Melee", "");
+		else {
+			populateLists("None", parameters);
+			history.replaceState(history.state, history.title, "/");
+		}
+	});
 }
 
-/** function adjustMobile()
+/**
  * If a mobile browser is detected, make adjustments to the page to allow full mobile compatibility
- * @returns : Nothing
  */
 function adjustMobile() {
 	_mobile = true;
@@ -296,12 +254,11 @@ function adjustMobile() {
 	}
 }
 
-/** function animateSlide(e)
+/**
  * Recursive function that runs when swipe bar is let go of.
  * Animates the sliding function of the info box so that it always ends up on either side of the screen,
  * depending on where it is and how the user was moving it upon release.
  * @param e : The slide event object
- * @returns : Nothing
  */
 function animateSlide(e) {
 	var currLeft = Number(_mainBody.style.left.replace("%",""));
@@ -328,9 +285,8 @@ function animateSlide(e) {
 	_animTimeout = setTimeout(function(){ animateSlide(e); }, 5);
 }
 
-/** function applyCookies()
+/**
  * Sets various settings based on any present cookies
- * @returns : Nothing
  */
 function applyCookies() {
 	var cookies = getCookies();
@@ -365,23 +321,23 @@ function applyCookies() {
 	}
 }
 
-/** function capitalize(text)
+/**
  * Capitalizes the first letter of each word in a string
- * @param text : The input string
- * @returns : The output string
+ * @param {*} text
  */
 function capitalize(text) {
-	var words = text.split(" ");
-	for (w in words) {
+	var str = (typeof text == "string" ? text : `${text}`);
+
+	var words = str.split(" ");
+	for (var w in words) {
 		words[w] = words[w].charAt(0).toUpperCase() + words[w].substring(1);
 	}
 	return words.join(" ");
 }
 
-/** function changeComps(div)
+/**
  * Changes display of the stat comparisons, depending on the chosen setting
  * @param div : The newly selected element
- * @returns : Nothing
  */
 function changeComps(div) {
 	var comps = document.querySelectorAll(".comp:not(.cNone)");
@@ -415,10 +371,9 @@ function changeComps(div) {
 	setCookie("comps", curr.innerHTML);
 }
 
-/** function changeWeapon(newSelect)
+/**
  * Updates the weapon list to reflect the new weapon being selected, then calls updateStats
  * @param newSelect : The listOption element that was selected
- * @returns : Nothing
  */
 function changeWeapon(newSelect) {
 	var side = getElementSide(newSelect);
@@ -434,7 +389,7 @@ function changeWeapon(newSelect) {
 	updateStats(side, listInput.value);
 }
 
-/** function cleanNumber(input)
+/**
  * Takes a String containing a positive integer and cleans any non-numerical characters off of it
  * @param input : The input; must be positive and whole integer
  * @returns : The number, still as a String (probably, JavaScript is a little odd)
@@ -454,10 +409,9 @@ function cleanNumber(input) {
 	return output;
 }
 
-/** function clearTables(side)
+/**
  * Clears existing values from damage, speed, and general stat tables for provided side
  * @param side : The side to clear the tables for
- * @returns : Nothing
  */
 function clearTables(side) {
 	// Clear damage table
@@ -495,10 +449,9 @@ function clearTables(side) {
 	}
 }
 
-/** function closeList(list)
+/**
  * Closes the provided list
  * @param list : The .listItems element
- * @returns : Nothing
  */
 function closeList(list) {
 	list.parentNode.querySelector(".listInput").blur();
@@ -509,10 +462,9 @@ function closeList(list) {
 	if (_mobile) document.getElementById("infoBox").style.overflowY = "auto";
 }
 
-/** function closeMenus(noClose)
+/**
  * Closes menus and lists
  * @param noClose : Optional parameter; if present, do not close the provided menu/list
- * @returns : Nothing
  */
 function closeMenus(noClose) {
 	var lists = document.getElementsByClassName("listItems");
@@ -542,9 +494,8 @@ function closeMenus(noClose) {
 	}
 }
 
-/** function compare() {
+/**
  * Calculates the comparisons between most stats and alters the color of non-numerical stats that are different
- * @returns : Nothing
  */
 function compare() {
 	var compsL = document.querySelectorAll(".comp.L");
@@ -676,10 +627,9 @@ function compare() {
 	}
 }
 
-/** function fillChangelog(data)
+/**
  * Fills changelog with provided data
  * @param data : The data from the changelog file
- * @returns : Nothing
  */
 function fillChangelog(data) {
 	var changesElem = document.getElementById("changelog");
@@ -709,10 +659,9 @@ function fillChangelog(data) {
 	}
 }
 
-/** function fillIssues(data)
+/**
  * Fills known issues menu with provided data
  * @param data : The data from the known issues file
- * @returns : Nothing
  */
 function fillIssues(data) {
 	var issueList = document.getElementById("issuesMenu");
@@ -727,11 +676,10 @@ function fillIssues(data) {
 	}
 }
 
-/** function filterList(listInput, event)
+/**
  * Function to be run on "onkeyup" event; filters list based on currently entered text
  * @param listInput : The input field for the active listSelected element
  * @param event : The event handler attached to this function
- * @returns : Nothing
  */
 function filterList(listInput, event) {
 	var opts = listInput.parentNode.parentNode.getElementsByClassName("listOption");
@@ -775,12 +723,11 @@ function filterList(listInput, event) {
 	}
 }
 
-/** function focusInput(input)
+/**
  * Focuses provided input
  * Clears current weapon value for new entry and unhides any previously hidden weapons.
  * Opens list for input element and closes other list
  * @param input : The input element
- * @returns : Nothing
  */
 function focusInput(input) {
 	input.focus();
@@ -801,17 +748,16 @@ function focusInput(input) {
 	}
 }
 
-/** function generateLink()
+/**
  * Generates a URL for the current weapons and attack modes
- * @returns : Nothing
  */
 function generateLink() {
 	var link = window.location.protocol + "//" + window.location.hostname + "/";
-	var modes = { "Strike":1, "Stab":2, "Alt Strike":3, "Alt Stab":4, "Melee Throw":5 };
+	const modes = { "strike":1, "stab":2, "altStrike":3, "altStab":4, "meleeThrow":5, "shield":6, "misc":7 };
 	var wLeft = document.getElementById("weaponLeft").querySelector("input").value;
 	var wRight = document.getElementById("weaponRight").querySelector("input").value;
 	link += "?w=" + encodeURIComponent(wLeft.replace(" ", "_")) + "+" + encodeURIComponent(wRight.replace(" ", "_"));
-	if (getCategory() == "Melee") {
+	if (getCategory() == "melee") {
 		link += "&m=" + modes[getAttackType("Left")] + "+" + modes[getAttackType("Right")];
 	}
 	
@@ -830,50 +776,53 @@ function generateLink() {
 	}, 3000);
 }
 
-/** function getAttackType(side)
+/**
  * Gets the whole attack type for the provided side
- * @param side : The side
- * @returns : The attack type
+ * @param {"Left"|"Right"} side
+ * @returns {string} The attack type
  */
 function getAttackType(side) {
 	var attackTypeElem, attackType;
 	attackTypeElem = document.getElementById("attType"+side);
 	
-	if (attackTypeElem.getElementsByClassName("altButton")[0].classList.contains("altSel")) {
+	if (["Kick", "Kick (T3 Legs)"].includes(document.querySelector(`#weapon${side} input`).value)) {
+		attackType = "misc";
+	}
+	else if (attackTypeElem.getElementsByClassName("altButton")[0].classList.contains("altSel")) {
 		if (attackTypeElem.getElementsByClassName("attButton")[0].classList.contains("strikeSel")) {
-			attackType = "Alt Strike";
+			attackType = "altStrike";
 		} else if (attackTypeElem.getElementsByClassName("attButton")[1].classList.contains("stabSel")) {
-			attackType = "Alt Stab";
+			attackType = "altStab";
 		} else {
 			// If alt is selected but neither strike or stab is, that means it's a throwable melee weapon
-			attackType = "Melee Throw";
+			attackType = "meleeThrow";
 		}
 	} else {
 		if (attackTypeElem.getElementsByClassName("attButton")[0].classList.contains("strikeSel")) {
-			attackType = "Strike";
+			attackType = "strike";
 		} else if (attackTypeElem.getElementsByClassName("attButton")[1].classList.contains("stabSel")) {
-			attackType = "Stab";
+			attackType = "stab";
 		} else {
 			// If none of alt, strike, or stab are selected, then attack type is either ranged or shield,
 			// depending on category
-			if (getCategory() == "Shield") attackType = "Shield";
-			else attackType = "Ranged";
+			if (getCategory() == "shield") attackType = "shield";
+			else attackType = "ranged";
 		}
 	}
 	
 	return attackType;
 }
 
-/** function getCategory()
+/**
  * Gets the name of the currently selected category
  * @returns : The name of the currently selected category
  */
 
 function getCategory() {
-	return document.getElementsByClassName("catActive")[0].innerHTML;
+	return document.getElementsByClassName("catActive")[0].innerHTML.toLowerCase();
 }
 
-/** function getCookies()
+/**
  * Returns an associative array of key:value pairs for cookies
  * @returns : An associative array of key:value pairs for cookies
  */
@@ -892,7 +841,7 @@ function getCookies() {
 	return cooks;
 }
 
-/** function getElementSide(elem)
+/**
  * Returns the side for the provided element by finding nearest parent whose ID contains "Left" or "Right",
  * or "None" if it does not belong to one
  * @param elem : HTML document element
@@ -911,9 +860,9 @@ function getElementSide(elem) {
 	return "None";
 }
 
-/** function getNewDefault()
+/**
  * Selects a new default weapon based on the current category (and if peasant and/or unequippable (misc) weapons are shown)
- * @returns : The name of the new weapon
+ * @returns {string} The name of the weapon
  */
 function getNewDefault() {
 	var num;
@@ -929,17 +878,19 @@ function getNewDefault() {
 		showMisc = false;
 	}
 	
-	var keys = Object.keys(_weapons);
+	var names = Object.keys(_weapons);
 	do {
 		num = Math.floor(Math.random()*_weapNum);
-	} while (_weapons[keys[num]].getElementsByTagName("Type")[0].childNodes[0].nodeValue != cat
-			|| (!showPeasant && _weapons[keys[num]].getElementsByTagName("PeasantOnly")[0].childNodes[0].nodeValue == "Yes")
-			|| (!showMisc && _weapons[keys[num]].getElementsByTagName("Misc")[0].childNodes[0].nodeValue == "Yes"));
+	} while (
+		_weapons[names[num]].type != cat
+		|| (!showPeasant && _weapons[names[num]].peasantOnly)
+		|| (!showMisc && _weapons[names[num]].isMisc)
+	);
 	
-	return keys[num];
+	return names[num];
 }
 
-/** function getURLParameters()
+/**
  * Parses the URL to get the keys and values of any parameters
  * @returns : A hash table of the keys and values {@code[[keys][values]]} of the URL parameters
  */
@@ -959,7 +910,7 @@ function getURLParameters() {
 	return table;
 }
 
-/** function isNumber(input)
+/**
  * Checks if a given variable (including Strings) is a number
  * @param input : The variable
  * @returns : True or False
@@ -974,12 +925,12 @@ function isNumber(input) {
 	}
 }
 
-/** function makeLists()
+/**
  * Clears the listItems elements and appends the options to them based on selected sorting method and category
  * @returns : The Div array
  */
 function makeLists() {
-	var category = document.getElementsByClassName("catActive")[0].innerHTML;
+	var category = document.getElementsByClassName("catActive")[0].innerHTML.toLowerCase();
 	var boxes = document.getElementById("sortWrapper").getElementsByClassName("checkbox");
 	var sortMethod;
 	if (boxes[0].classList.contains("checked")) {
@@ -1005,25 +956,18 @@ function makeLists() {
 
 	var options = new Array();
 	var pointCosts = new Array();
-	var weaponLists, weapName, pointCosts, optionElement, optionImg, costText, optionText, selectedName;
+	var weaponLists, pointCosts, optionElement, optionImg, costText, optionText, selectedName;
 	weaponLists = document.getElementsByClassName("weaponList");
-	var keys = Object.keys(_weapons);
+	var names = Object.keys(_weapons);
 	
 	// Loop through weapons, ignoring any that should not be currently shown
-	for (var k in keys) {
-		if (_weapons[keys[k]].getElementsByTagName("Type")[0].childNodes[0].nodeValue != category) {
-			continue;
-		}
-		if (!showPeasant && _weapons[keys[k]].getElementsByTagName("PeasantOnly")[0].childNodes[0].nodeValue == "Yes") {
-			continue;
-		}
-		if (!showMisc && _weapons[keys[k]].getElementsByTagName("Misc")[0].childNodes[0].nodeValue == "Yes") {
-			continue;
-		}
+	for (var n in names) {
+		if (_weapons[names[n]].type != category) continue;
+		if (!showPeasant && _weapons[names[n]].peasantOnly) continue;
+		if (!showMisc && _weapons[names[n]].isMisc) continue;
 		
 		// Create div for option, add image for point cost and name
-		weapName = _weapons[keys[k]].getElementsByTagName("Name")[0].childNodes[0].nodeValue;
-		pointCost = _weapons[keys[k]].getElementsByTagName("Points")[0].childNodes[0].nodeValue;
+		pointCost = _weapons[names[n]].pointCost;
 		optionElement = document.createElement("div");
 		optionImg = document.createElement("div");
 		optionImg.setAttribute("class", "optionImg");
@@ -1034,7 +978,7 @@ function makeLists() {
 		optionImg.append(costText);
 		optionText = document.createElement("span");
 		optionText.setAttribute("class", "optionText");		
-		optionText.innerHTML = weapName;
+		optionText.innerHTML = names[n];
 		optionElement.appendChild(optionImg);
 		optionElement.appendChild(optionText);
 
@@ -1152,28 +1096,27 @@ function makeLists() {
 	}
 }
 
-/** function nameCompare(a, b)
+/**
  * Function to be passed for sorting weapons array based on weapon names
  * @param a : Arg 1
  * @param b : Arg 2
  * @returns : -1, 1, or 0 based on comparison
  */
 function nameCompare(a, b) {
-	if (a.getElementsByTagName("Name")[0].childNodes[0].nodeValue < b.getElementsByTagName("Name")[0].childNodes[0].nodeValue) {
+	if (a.name < b.name) {
 		return -1;
-	} else if (a.getElementsByTagName("Name")[0].childNodes[0].nodeValue > b.getElementsByTagName("Name")[0].childNodes[0].nodeValue) {
+	} else if (a.name > b.name) {
 		return 1;
 	} else {
 		return 0;
 	}
 }
 
-/** function onDModBlur(mod)
+/**
  * Checks the input field for the damage modifier to make sure it is a number in the accepted range.
  * Displays a message if the input is not valid, and reverts the value to the placeholder (aka the previous value)
  * if the input is invalid or blank.
  * @param mod : The damage modifier input element
- * @returns : Nothing
  */
 function onDModBlur(mod) {
 	if (mod.value == "") {
@@ -1207,11 +1150,10 @@ function onDModBlur(mod) {
 	updateStats("Right", rName);
 }
 
-/** function onDModFocus(mod)
+/**
  * Function to be run when the input field for the damage modifier setting is focused;
  * Replaces placeholder with current value and clears current value for new entry.
  * @param mod : The damage modifier input element
- * @returns : Nothing
  */
 function onDModFocus(mod) {
 	mod.placeholder = mod.value;
@@ -1224,11 +1166,10 @@ function onDModPress(input, event) {
 	}
 }
 
-/** function onSelBlur(input)
+/**
  * Function to be run when focus for the input field for a currently selected weapon is lost;
  * Clears input value for smoother transitions
  * @param input : The input element for the currently selected weapon
- * @returns : Nothing
  */
 function onSelBlur(input) {
 	var list = input.parentNode.parentNode.querySelector(".listItems");
@@ -1239,10 +1180,9 @@ function onSelBlur(input) {
 	}
 }
 
-/** function onSelFocus(input)
+/**
  * This function is manually run to put focus on the provided input and open it's corresponding list
  * @param input : The .listInput element
- * @returns : Nothing
  */
 function onSelFocus(input) {
 	_lastFocus = input;
@@ -1251,13 +1191,12 @@ function onSelFocus(input) {
 	}, 10);
 }
 
-/** function onSelPress(input, event)
+/**
  * Function to be run on key press in a weapon input field
  * Checks to see if the enter key has been pressed; if so, checks if the current value is a valid weapon,
  * then changes the weapon if true.
  * @param input : The input field
  * @param event : The event handler
- * @returns : Nothing
  */
 function onSelPress(input, event) {
 	var listOpts, selNode, nextNode, prevValue;
@@ -1332,10 +1271,9 @@ function onSelPress(input, event) {
 	}
 }
 
-/** function openList(list)
+/**
  * Opens the provided list
  * @param list : The .listItems element
- * @returns : Nothing
  */
 function openList(list) {
 	if (list != null && !list.classList.contains("menuHide")) return;
@@ -1354,11 +1292,10 @@ function openList(list) {
 	if (_mobile) document.getElementById("infoBox").style.overflowY = "hidden";
 }
 
-/** function populateLists(cat, params)
+/**
  * Creates drop-down lists for equipment names (depending upon category)
  * @param cat : The category of equipment (Ranged, Melee, Shield, or None) to populate lists with
  * @param params : The parameters as an associative array, or an empty String if there are none
- * @returns : Nothing
  */
 function populateLists(cat, params) {
 	var leftName, rightName;
@@ -1388,8 +1325,8 @@ function populateLists(cat, params) {
 			var weaps = params["w"].split("+");
 			leftName = decodeURIComponent(weaps[0]).replace("_", " ");
 			rightName = decodeURIComponent(weaps[1]).replace("_", " ");
-			var leftCat = _weapons[leftName].getElementsByTagName("Type")[0].childNodes[0].nodeValue;
-			var rightCat = _weapons[rightName].getElementsByTagName("Type")[0].childNodes[0].nodeValue;
+			var leftCat = _weapons[leftName].type;
+			var rightCat = _weapons[rightName].type;
 			
 			if (leftCat != rightCat) {
 				// Check for weapon category mismatch
@@ -1411,32 +1348,30 @@ function populateLists(cat, params) {
 			return;
 		}
 		
-		if (_weapons[leftName].getElementsByTagName("PeasantOnly")[0].childNodes[0].nodeValue == "Yes"
-			|| _weapons[rightName].getElementsByTagName("PeasantOnly")[0].childNodes[0].nodeValue == "Yes") {
+		if (_weapons[leftName].peasantOnly || _weapons[rightName].peasantOnly) {
 			document.getElementById("peasantBtn").classList.add("checked");
 		}
-		if (_weapons[leftName].getElementsByTagName("Misc")[0].childNodes[0].nodeValue == "Yes"
-			|| _weapons[rightName].getElementsByTagName("Misc")[0].childNodes[0].nodeValue == "Yes") {
+		if (_weapons[leftName].isMisc || _weapons[rightName].isMisc) {
 			document.getElementById("miscBtn").classList.add("checked");
 		}
 		
 		setTypeOptions("Left", leftName);
 		setTypeOptions("Right", rightName);
 		
-		if (cat == "Melee" && params["m"] != null) {
+		if (cat == "melee" && params["m"] != null) {
 			try {
 				// Get attack mode parameters and set them on page
-				var modes = ["Strike", "Stab", "Alt Strike", "Alt Stab", "Melee Throw"];
+				var modes = ["strike", "stab", "altStrike", "altStab", "meleeThrow", "kick", "shield"];
 				var modeParams = params["m"].split("+");
 				for (x=0; x<2; x++) {
-					if (modes[modeParams[x]-1].includes("Stab")) {
+					if (modes[modeParams[x]-1].includes("stab")) {
 						document.getElementsByClassName("attButton")[2*x].classList.replace("strikeSel", "strikeUnsel");
 						document.getElementsByClassName("attButton")[2*x+1].classList.replace("stabUnsel", "stabSel");
 					}
-					if (modes[modeParams[x]-1].includes("Alt")) {
+					if (modes[modeParams[x]-1].includes("alt")) {
 						document.getElementsByClassName("altButton")[x].classList.replace("altUnsel", "altSel")
 					}
-					if (modes[modeParams[x]-1] == "Melee Throw") {
+					if (modes[modeParams[x]-1] == "meleeThrow") {
 						document.getElementsByClassName("attButton")[2*x].classList.replace("strikeSel", "strikeUnsel");
 						document.getElementsByClassName("altButton")[x].classList.replace("altUnsel", "altSel");
 					} 
@@ -1473,11 +1408,10 @@ function populateLists(cat, params) {
 	updateStats("Right", rightName);
 }
 
-/** function setCookie(key, value)
+/**
  * Sets or replaces a cookie
  * @param key : Cookie name
  * @param value : Cookie value
- * @returns : Nothing
  */
 function setCookie(key, value) {
 	var date30Yr = new Date();
@@ -1485,9 +1419,8 @@ function setCookie(key, value) {
 	document.cookie = key+"="+value+";expires="+date30Yr.toUTCString()+";path=/";
 }
 
-/** function setHiddenElements()
+/**
  * Shows/hides speed and general stat elements based on what data is being displayed.
- * @returns : Nothing
  */
 function setHiddenElements() {
 	var speedRows = document.getElementById("speedTable").getElementsByTagName("tr");
@@ -1528,11 +1461,10 @@ function setHiddenElements() {
 	}
 }
 
-/** function setImage(side, name)
+/**
  * Sets the images to the requested weapon on the provided side
  * @param side : The side to set the image on
  * @param name : The name of the weapon (should match image name exactly)
- * @returns : Nothing
  */
 function setImage(side, name) {
 	var images;
@@ -1551,83 +1483,85 @@ function setImage(side, name) {
 	}
 }
 
-/** function setTypeOptions(side, weapon)
+/**
  * Resets attack type options on the provided side and enables/disables all buttons
  * depending on if it is a melee or ranged weapon
  * @param side : The side
  * @param weapon : The name of the weapon
- * @returns : Nothing
  */
 function setTypeOptions(side, weapon) {
-	var categoryButtons = document.getElementById("categoryBar").getElementsByTagName("button");
-	var typeButtons = document.getElementById("attType"+side).getElementsByTagName("button");
-	var attacks = _weapons[weapon].getElementsByTagName("Attack");
+	var catBtns = document.getElementById("categoryBar").getElementsByTagName("button");
+	var typeBtns = document.getElementById("attType"+side).getElementsByTagName("button");
+	var attacks = _weapons[weapon].attacks;
 	var leftDiv = document.getElementsByClassName("statHalf")[0];
 	
-	if (categoryButtons[0].classList.contains("catActive")) {
+	if (catBtns[0].classList.contains("catActive")) {
 		// If category is melee, enable buttons and default to Strike
-		for (i=0; i<typeButtons.length; i++) {
-			typeButtons[i].disabled = false;
+		for (i=0; i<typeBtns.length; i++) {
+			typeBtns[i].disabled = false;
 		}
 		leftDiv.classList.remove("shieldStats");
-		typeButtons[0].setAttribute("class", "strikeSel attButton");
-		typeButtons[1].setAttribute("class", "stabUnsel attButton");
-		typeButtons[2].setAttribute("class", "altUnsel altButton");
+		typeBtns[0].setAttribute("class", "strikeSel attButton");
+		typeBtns[1].setAttribute("class", "stabUnsel attButton");
+		typeBtns[2].setAttribute("class", "altUnsel altButton");
 		
 		if (attacks.length == 1) {
-			// Kick
-			for (i=0; i<typeButtons.length; i++) {
-				typeButtons[i].disabled = true;
+			for (i=0; i<typeBtns.length; i++) {
+				typeBtns[i].disabled = true;
 			}
-			typeButtons[0].setAttribute("class", "strikeUnsel attButton");
-			typeButtons[2].parentNode.parentNode.getElementsByClassName("altText")[0].classList.add("altDisabled");
-		} else if (attacks.length == 2) {
-			// Melee no alt
-			typeButtons[2].disabled = true;
-			typeButtons[2].parentNode.parentNode.getElementsByClassName("altText")[0].classList.add("altDisabled");
-		} else {
-			// Normal melee or thrown melee
-			typeButtons[2].disabled = false;
-			typeButtons[2].parentNode.parentNode.getElementsByClassName("altText")[0].classList.remove("altDisabled");
+			typeBtns[0].setAttribute("class", "strikeUnsel attButton");
+			typeBtns[2].parentNode.parentNode.getElementsByClassName("altText")[0].classList.add("altDisabled");
 		}
-	} else if (categoryButtons[1].classList.contains("catActive")) {
+		else if (attacks.length == 2) {
+			// Melee no alt
+			typeBtns[2].disabled = true;
+			typeBtns[2].parentNode.parentNode.getElementsByClassName("altText")[0].classList.add("altDisabled");
+		}
+		else {
+			// Normal melee or thrown melee
+			typeBtns[2].disabled = false;
+			typeBtns[2].parentNode.parentNode.getElementsByClassName("altText")[0].classList.remove("altDisabled");
+		}
+	}
+	else if (catBtns[1].classList.contains("catActive")) {
 		// If category is Ranged, disable and unselect all attack type buttons
-		for (i=0; i<typeButtons.length; i++) {
-			typeButtons[i].disabled = true;
+		for (i=0; i<typeBtns.length; i++) {
+			typeBtns[i].disabled = true;
 		}
 		leftDiv.classList.remove("shieldStats");
-		typeButtons[0].setAttribute("class", "strikeUnsel attButton");
-		typeButtons[1].setAttribute("class", "stabUnsel attButton");
-		typeButtons[2].setAttribute("class", "altUnsel altButton");
-		typeButtons[2].parentNode.parentNode.getElementsByClassName("altText")[0].classList.add("altDisabled");
-	} else {
+		typeBtns[0].setAttribute("class", "strikeUnsel attButton");
+		typeBtns[1].setAttribute("class", "stabUnsel attButton");
+		typeBtns[2].setAttribute("class", "altUnsel altButton");
+		typeBtns[2].parentNode.parentNode.getElementsByClassName("altText")[0].classList.add("altDisabled");
+	}
+	else {
 		// If category is Shield, disable and unselect all attack type buttons and hide speed/damage tables
-		for (i=0; i<typeButtons.length-1; i++) {
-			typeButtons[i].disabled = true;
+		for (i=0; i<typeBtns.length-1; i++) {
+			typeBtns[i].disabled = true;
 		}
-		typeButtons[0].setAttribute("class", "strikeUnsel attButton");
-		typeButtons[1].setAttribute("class", "stabUnsel attButton");
-		typeButtons[2].setAttribute("class", "altUnsel altButton");
+		typeBtns[0].setAttribute("class", "strikeUnsel attButton");
+		typeBtns[1].setAttribute("class", "stabUnsel attButton");
+		typeBtns[2].setAttribute("class", "altUnsel altButton");
 		
 		// If both shields are not displaying thrown stats, hide damage table, otherwise show
-		if (getAttackType("Left") == "Shield" && getAttackType("Right") == "Shield") leftDiv.classList.add("shieldStats");
+		if (getAttackType("Left") == "shield" && getAttackType("Right") == "shield") leftDiv.classList.add("shieldStats");
 		else leftDiv.classList.remove("shieldStats");
 		
 		if (attacks.length == 1) {
 			// If shield does not have a thrown option, disable alt button.  Otherwise enable
-			typeButtons[2].disabled = true;
-			typeButtons[2].parentNode.parentNode.getElementsByClassName("altText")[0].classList.add("altDisabled");
-		} else {
-			typeButtons[2].disabled = false;
-			typeButtons[2].parentNode.parentNode.getElementsByClassName("altText")[0].classList.remove("altDisabled");
+			typeBtns[2].disabled = true;
+			typeBtns[2].parentNode.parentNode.getElementsByClassName("altText")[0].classList.add("altDisabled");
+		}
+		else {
+			typeBtns[2].disabled = false;
+			typeBtns[2].parentNode.parentNode.getElementsByClassName("altText")[0].classList.remove("altDisabled");
 		}
 	}
 }
 
-/** function switchAttMode(btn)
+/**
  * Switches the attack mode for the provided side
  * @param btn : The button being clicked
- * @returns : Nothing
  */
 function switchAttMode(btn) {
 	var buttons = btn.parentNode.getElementsByTagName("button");
@@ -1656,10 +1590,9 @@ function switchAttMode(btn) {
 	updateStats(getElementSide(btn), document.getElementById("weapon"+getElementSide(btn)).getElementsByClassName("listInput")[0].value);
 }
 
-/** function switchCategory(cat) {
+/**
  * Switches the category of weapons to display lists for, then updates stats
  * @param cat : The category to show
- * @returns : Nothing
  */
 function switchCategory(cat) {
 	var catButtons = document.getElementsByClassName("catButton");
@@ -1678,10 +1611,9 @@ function switchCategory(cat) {
 	populateLists(cat, "");
 }
 
-/** function toggleAltMode(btn)
+/**
  * Toggles the alt mode on/off for the clicked side
  * @param btn : The button being clicked
- * @returns : Nothing
  */
 function toggleAltMode(btn) {	
 	var side, weaponData;
@@ -1690,8 +1622,8 @@ function toggleAltMode(btn) {
 	
 	if (btn.classList.contains("altSel")) {
 		btn.classList.replace("altSel", "altUnsel");
-		if (getCategory() == "Shield") {
-			if (getAttackType("Left") == "Shield" && getAttackType("Right") == "Shield") {
+		if (getCategory() == "shield") {
+			if (getAttackType("Left") == "shield" && getAttackType("Right") == "shield") {
 				document.getElementById("stats").querySelector(".statHalf").classList.add("shieldStats");
 			}
 		} else if (attackModeButtons[0].classList.contains("strikeUnsel") && attackModeButtons[1].classList.contains("stabUnsel")) {
@@ -1702,12 +1634,11 @@ function toggleAltMode(btn) {
 		
 	} else {
 		btn.classList.replace("altUnsel", "altSel");
-		weaponData = _weapons[document.getElementById("weapon"+side).getElementsByClassName("currSelected")[0].getElementsByClassName("optionText")[0].innerHTML];
-		if (getCategory() == "Shield") {
+		weaponData = _weapons[document.querySelector(`#weapon${side} .currSelected .optionText`).innerHTML];
+		if (getCategory() == "shield") {
 			document.getElementById("stats").querySelector(".statHalf").classList.remove("shieldStats");
-		} else if(weaponData.getElementsByTagName("AttackType")[2].childNodes[0].nodeValue == "Melee Throw") {
-			// If the third attack type node for the weapon data is "Melee Throw"
-			// then this alt is a melee throw and it should deselect both strike and stab buttons
+		}
+		else if (weaponData.attack.find((el) => el.type == "meleeThrow")) {
 			attackModeButtons[0].classList.replace("strikeSel", "strikeUnsel");
 			attackModeButtons[1].classList.replace("stabSel", "stabUnsel");
 		}
@@ -1717,10 +1648,9 @@ function toggleAltMode(btn) {
 	updateStats(side, currWeapElem.getElementsByClassName("optionText")[0].innerHTML);
 }
 
-/** function toggleChanges(event)
+/**
  * Toggles the changelog menu on/off and closes other open lists/menus
  * @param event : The event handler attached to this function
- * @returns : Nothing
  */
 function toggleChanges(event) {
 	event.stopPropagation();
@@ -1737,10 +1667,9 @@ function toggleChanges(event) {
 	setCookie("lastVersion", ping.innerHTML);
 }
 
-/** function toggleClassic(btn)
+/**
  * Toggles display of either the classic or alt damage table
  * @param btn : The button for this toggle
- * @returns : Nothing
  */
 function toggleClassic(btn) {
 	var damageDiv = document.getElementById("damage");
@@ -1773,11 +1702,10 @@ function toggleClassic(btn) {
 	setCookie("classicOn", btn.classList.contains("checked"));
 }
 
-/** function toggleCompOpts(event, close)
+/**
  * Toggles display of the comparison options dropdown
  * @param event : The event handler attached to this function
  * @param close : Optional parameter; if given "close", function will close the dropdown menu instead of toggling
- * @returns : Nothing
  */
 function toggleCompOpts(event, close) {
 	event.stopPropagation();
@@ -1814,10 +1742,9 @@ function changeListOpt(elem, event) {
 	}
 }
 
-/** function toggleFAQ(event)
+/**
  * Toggles the FAQ menu on/off and closes Known Issues menu if open
  * @param event : The event handler attached to this function
- * @returns : Nothing
  */
 function toggleFAQ(event) {
 	event.stopPropagation();
@@ -1827,10 +1754,9 @@ function toggleFAQ(event) {
 	issuesMenu.classList.add("menuHide");
 }
 
-/** function toggleHelp(event)
+/**
  * Toggles the help menu on/off and closes other open lists/menus
  * @param event : The event handler attached to this function
- * @returns : Nothing
  */
 function toggleHelp(event) {
 	event.stopPropagation();
@@ -1843,21 +1769,19 @@ function toggleHelp(event) {
 	}
 }
 
-/** function toggleHelperText(event, helper)
+/**
  * Toggles the helper text for the given helper
  * @param helper : The helper
  * @param event : The event handler
- * @returns : Nothing
  */
 function toggleHelperText(event, helper) {
 	event.stopPropagation();
 	helper.parentNode.querySelector(".popText").classList.toggle("popHide");
 }
 
-/** function toggleHuntsman(btn)
+/**
  * Toggles the modification of damage values to reflect huntsman perk
  * @param btn : The corresponding button
- * @returns : Nothing
  */
 function toggleHuntsman(btn) {
 	event.stopPropagation();
@@ -1873,10 +1797,9 @@ function toggleHuntsman(btn) {
 	updateStats("Right", wName);
 }
 
-/** function toggleIssues(event)
+/**
  * Toggles the Known Issues on/off and closes FAQ menu if open
  * @param event : The event handler calling this function
- * @returns : Nothing
  */
 function toggleIssues(event) {
 	event.stopPropagation();
@@ -1891,7 +1814,6 @@ function toggleIssues(event) {
  * Opens/closes the given listItems element for a weapon list
  * @param list : The .listItems element
  * @param event : The event handler calling this function
- * @returns : Nothing
  */
 function toggleWeaponList(list) {
 	var input = list.parentNode.querySelector(".listInput");
@@ -1905,10 +1827,9 @@ function toggleWeaponList(list) {
 	}
 }
 
-/** function toggleMisc(btn)
+/**
  * Toggles the display of miscellaneous weapons
  * @param btn : The button for this toggle
- * @returns : Nothing
  */
 function toggleMisc(btn) {
 	btn.classList.toggle("checked");
@@ -1965,10 +1886,9 @@ function toggleMisc(btn) {
 	makeLists();
 }
 
-/** function togglePeasant(btn)
+/**
  * Toggles the display of peasant weapons
  * @param btn : The button for this toggle
- * @returns : Nothing
  */
 function togglePeasant(btn) {
 	btn.classList.toggle("checked");
@@ -2025,10 +1945,9 @@ function togglePeasant(btn) {
 	makeLists();
 }
 
-/** function toggleSettings(event)
+/**
  * Toggles the settings menu on/off and closes other open lists/menus
  * @param event : The event handler calling this function
- * @returns : Nothing
  */
 function toggleSettings(event) {
 	event.stopPropagation();
@@ -2041,10 +1960,9 @@ function toggleSettings(event) {
 	}
 }
 
-/** function toggleSort(btn)
+/**
  * Toggles the weapon list sorting method between name (default) and point cost
  * @param btn : The button calling this function
- * @returns : Nothing
  */
 function toggleSort(btn) {
 	var buttons = btn.parentNode.parentNode.parentNode.getElementsByTagName("button");
@@ -2062,10 +1980,9 @@ function toggleSort(btn) {
 	makeLists();
 }
 
-/** function toggleTags(btn)
+/**
  * Toggles permanent display of the damage table nametags
  * @param btn : The button for this toggle
- * @returns : Nothing
  */
 function toggleTags(btn) {
 	if (btn.parentNode.parentNode.classList.contains("off")) return;
@@ -2093,19 +2010,14 @@ function toggleTags(btn) {
 	}
 }
 
-/** function updateStats(side, name)
+/**
  * Updates the statistics and image for the provided side,
  * as well as the comparisons (unless the other side has no selection yet).
  * @param side : Which side to update the stats for
  * @param name : The name of the weapon
- * @returns : Nothing
  */
 function updateStats(side, name) {
 	clearTables(side);
-	var huntMods = { "Crossbow":3, "Longbow":3, "1411":3, "Recurve Bow":2.3, "Other":1.75 }; // Damage modifiers for hunstman
-	
-	// Get XML data for current weapon
-	var weaponData = _weapons[name];
 	
 	// Get provided side and other side's selected attack types
 	var attackType, otherAttackType, otherSide;
@@ -2126,38 +2038,23 @@ function updateStats(side, name) {
 	// Set damage modifier if huntsman is enabled
 	var huntsmanOn = document.getElementById("huntBtn").classList.contains("checked");
 	var huntMod = 1;
-	if (huntsmanOn) {
-		if (huntMods.hasOwnProperty(name)) {
-			huntMod = huntMods[name];
-		} else if (attackType == "Ranged" || attackType == "Melee Throw") {
-			huntMod = huntMods["Other"];
-		}
+	if (huntsmanOn && (attackType == "ranged" || attackType == "meleeThrow")) {
+		huntMod = _weapons[name].attacks.find((el) => el.type == attackType).huntsmanModifier;
 	}
 	
 	// Get global damage modifier
-	var damageMod = Number(document.getElementById("damageField").value);
+	var damageMod = new Number(document.getElementById("damageField").value);
 	
 	// Get the Attack XML node
-	var attacks, attackNode;
-	var attacks = weaponData.getElementsByTagName("Attack");
-	if (attacks[0].getElementsByTagName("AttackType")[0].childNodes[0].nodeValue == "Kick") {
-		// A bit hacky but kick needs to be handled differently
-		attackNode = attacks[0];
-	} else {
-		for (i=0; i<attacks.length; i++) {
-			if (attacks[i].getElementsByTagName("AttackType")[0].childNodes[0].nodeValue == attackType) {
-				attackNode = attacks[i];
-			}
-		}
-	}
+	var attack = _weapons[name].attacks.find((el) => el.type == attackType);
 	
-	if (attackNode == null) {
+	if (attack == null) {
 		alert("\""+attackType+"\" data for " + name + " does not exist.");
 		setTypeOptions(side, name);
-		attackNode = attacks[0];
+		attack = _weapons[name].attacks[0];
 	}
-	if (attackNode == null) {
-		alert("Error uS1284");
+	if (attack == null) {
+		alert(`Error: ${name} has no attacks`);
 		window.location.replace("/");
 	}
 	
@@ -2173,13 +2070,13 @@ function updateStats(side, name) {
 	for (t=0; t<tables.length; t++) {
  	for (row=0; row<3; row++) {
 		if (row == 0) {
-			bodyPart = "Head";
+			bodyPart = "head";
 			b = "h";
 		}  else if (row == 1) {
-			bodyPart = "Torso";
+			bodyPart = "torso";
 			b = "t";
 		} else if (row == 2) {
-			bodyPart = "Legs";
+			bodyPart = "legs";
 			b = "l";
 		}
 		for (col=0; col<4; col++) {
@@ -2187,23 +2084,23 @@ function updateStats(side, name) {
 			compElem = damElem.nextElementSibling;
 			otherCompElem = tables[t].querySelector(".a"+col+b+otherS).nextElementSibling;
 			dividerBG = damElem.parentNode.previousElementSibling;
-			// Clear damage table
+			// Clear damage cell
 			damElem.parentNode.classList.remove("emptyDam", "damageNeg", "damageLow", "damageMedLow", "damageMed",
 												"damageMedHigh", "damageHigh");
 			if (dividerBG != null) dividerBG.setAttribute("class", "damageDiv bg "+side.toLowerCase());
-			
+
 			try {
-				// If requested XML node does not exist or is empty, this will fail and set damElem to "-"
 				var damage = 0;
-				damage = damageMod * attackNode.getElementsByTagName(bodyPart)[0].getElementsByTagName("Armor"+col)[0].childNodes[0].nodeValue;
-				if (huntsmanOn && bodyPart != "Legs"
-					&& (attackType == "Ranged" || attackType == "Melee Throw")) {
+				damage = damageMod * attack.damage[bodyPart][col];
+				if (huntsmanOn && bodyPart != "legs"
+					&& (attackType == "ranged" || attackType == "meleeThrow")) {
 					damage *= huntMod;
-					damage = +Number.parseInt(damage);
+					damage = damage.toFixed(0);
 				}
-				damage = +damage.toFixed(1);
+				else damage = +damage.toFixed(1);
 				damElem.innerHTML = damage;
 			} catch (e) {
+				console.error(e);
 				damElem.innerHTML = "–";
 			}
 			
@@ -2235,58 +2132,41 @@ function updateStats(side, name) {
 	
 	// Update speed table
 	var speedTitles = document.getElementById("speedTable").getElementsByClassName("spTableTitle");
-	var speedNodes;
-	try { // Thrown melee weapon does not have speed stats
-		speedNodes = attackNode.getElementsByTagName("Speed")[0].children;
-	} catch (e) {}
-	
-	var nodeCount = 0; // First node is the XML text node, which will be null
-	var spTitleName;
+	var spTitle;
 	
 	for (i=0; i<speedTitles.length; i++) {
-		spTitleName = speedTitles[i].innerHTML.toLowerCase();
-		if (speedNodes == null || speedNodes[nodeCount] == null) { // Thrown melee weapon does not have speed stats
-			document.getElementById(spTitleName+side).innerHTML = "N/A";
-			document.getElementById(spTitleName+side).classList.add("emptyStat");
-		} else if (speedNodes[nodeCount].childNodes[0].nodeValue.includes("-")) {
-			document.getElementById(spTitleName+side).innerHTML = "N/A";
-			document.getElementById(spTitleName+side).classList.add("emptyStat");
-			nodeCount++;
-		} else if (nodeCount < speedNodes.length && speedNodes[nodeCount].tagName.toLowerCase() == spTitleName
-				&& speedNodes[nodeCount].childNodes[0] != null) {
-				// If current stat matches the current XML tag and has data
-			document.getElementById(spTitleName+side).innerHTML = speedNodes[nodeCount].childNodes[0].nodeValue + "ms";
-			document.getElementById(spTitleName+side).classList.remove("emptyStat");
-			nodeCount++;
-		} else {
-			document.getElementById(spTitleName+side).innerHTML = "N/A";
-			document.getElementById(spTitleName+side).classList.add("emptyStat");
+		spTitle = speedTitles[i].innerHTML.toLowerCase();
+		if (attack.speed == null || attack.speed[spTitle] == null) { // Thrown melee weapon does not have speed stats
+			document.getElementById(spTitle+side).innerHTML = "N/A";
+			document.getElementById(spTitle+side).classList.add("emptyStat");
+		}
+		else {
+			document.getElementById(spTitle+side).innerHTML = Number.parseFloat(attack.speed[spTitle]).toFixed(0) + "ms";
+			document.getElementById(spTitle+side).classList.remove("emptyStat");
 		}
 	}
 
 	// Update general stats
 	var genTitles = document.getElementsByClassName("genTitle");
-	var genNodes = attackNode.getElementsByTagName("GeneralStats")[0].children;
-	nodeCount = 0;
+	var gT;
 	
 	for (i=0; i<genTitles.length; i++) {
-		if (nodeCount < genNodes.length && genTitles[i].id == genNodes[nodeCount].tagName
-				&& genNodes[nodeCount].childNodes[0] != null) {
-				// If current stat matches the current XML tag and has data
-			if (genNodes[nodeCount].childNodes[0].nodeValue == "-") {
-				document.getElementById(genTitles[i].id+s).innerHTML = "N/A";
-				document.getElementById(genTitles[i].id+s).classList.add("emptyStat");
-			} else if (genTitles[i].id == "Length") {
-				document.getElementById(genTitles[i].id+s).innerHTML = genNodes[nodeCount].childNodes[0].nodeValue + "cm";
-				document.getElementById(genTitles[i].id+s).classList.remove("emptyStat");
-			} else {
-				document.getElementById(genTitles[i].id+s).innerHTML = genNodes[nodeCount].childNodes[0].nodeValue;
-				document.getElementById(genTitles[i].id+s).classList.remove("emptyStat");
-			}
-			nodeCount++;
-		} else {
+		gT = genTitles[i].id;
+		if (attack.general == null || attack.general[gT] == null) {
 			document.getElementById(genTitles[i].id+s).innerHTML = "N/A";
 			document.getElementById(genTitles[i].id+s).classList.add("emptyStat");
+		}
+		else if (genTitles[i].id == "length") {
+			document.getElementById(genTitles[i].id+s).innerHTML = Number.parseInt(attack.general[gT]) + "cm";
+			document.getElementById(genTitles[i].id+s).classList.remove("emptyStat");
+		}
+		else if (genTitles[i].id == "bMoveRest") {
+			document.getElementById(genTitles[i].id+s).innerHTML = (attack.general[gT] == "0" ? "None" : Number.parseInt(attack.general[gT]));
+			document.getElementById(genTitles[i].id+s).classList.remove("emptyStat");
+		}
+		else {
+			document.getElementById(genTitles[i].id+s).innerHTML = capitalize(attack.general[gT]);
+			document.getElementById(genTitles[i].id+s).classList.remove("emptyStat");
 		}
 	}
 	

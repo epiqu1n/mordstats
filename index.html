@@ -53,7 +53,7 @@
 			<div class="menuOptWrapper">
 				<span class="menuText">Damage modifier:</span>
 				<div class="damageMod">
-					<input type="text" id="damageField" class="buttonText" value="1.00" placeholder="1.00" onfocus="onDModFocus(this)" onblur="onDModBlur(this)" onKeyDown="onDModPress(this, event)" maxlength="4" spellcheck="false" inputmode="numeric" />
+					<input type="text" id="damageField" class="buttonText" value="1.00" placeholder="1.00" onfocus="onDModFocus(this)" onblur="onDModBlur(this)" onKeyDown="onDModPress(this, event)" maxlength="4" spellcheck="false" inputmode="numeric" autocomplete="off"/>
 					X
 				</div>
 				<div id="dModHelper" class="helper helpHide" ontouchstart="toggleHelperText(event, this)">!<div id="dModError" class="popText">Damage modifier must be a number between 0 and 5.</div></div>
@@ -482,99 +482,99 @@
 			<td colspan=2 class="nameTitles"><div class="nameWrapper"><div class="nameLabel left"><span class="nameL"></span></div><div class="nameLabel right"><span class="nameR"></span></div></div></td>
 		</tr>
 		<tr>
-			<th id="Length" class="genTitle">Length</th>
-			<td class="genCell"><div class="genDiv"><div id="LengthL" class="normalStat genStat posCorr"></div><div class="comp L"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="LengthR" class="normalStat genStat posCorr"></div><div class="comp R"></div></div></td>
+			<th id="length" class="genTitle">Length</th>
+			<td class="genCell"><div class="genDiv"><div id="lengthL" class="normalStat genStat posCorr"></div><div class="comp L"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="lengthR" class="normalStat genStat posCorr"></div><div class="comp R"></div></div></td>
 		</tr>
 		<tr>
-			<th rowspan=2 id="TurnCapX" class="genTitle">Turn Cap</th>
-			<th id="TurnCapY" class="genTitle invisible"></th> <!-- To play nice with scripts -->
-			<td class="XYCellTop"><div class="XYDiv"><div class="genXTitle">X:</div><div id="TurnCapXL" class="XYStat genStat"></div></div></td>
-			<td class="XYCellTop"><div class="XYDiv"><div id="TurnCapXR" class="XYStat genStat"></div></div></td>
+			<th rowspan=2 id="turnCapX" class="genTitle">Turn Cap</th>
+			<th id="turnCapY" class="genTitle invisible"></th> <!-- To play nice with scripts -->
+			<td class="XYCellTop"><div class="XYDiv"><div class="genXTitle">X:</div><div id="turnCapXL" class="XYStat genStat"></div></div></td>
+			<td class="XYCellTop"><div class="XYDiv"><div id="turnCapXR" class="XYStat genStat"></div></div></td>
 		</tr>
 		<tr>
-			<td class="XYCell"><div class="XYDiv"><div class="genYTitle">Y:</div><div id="TurnCapYL" class="XYStat genStat"></div></div></td>
-			<td class="XYCell"><div class="XYDiv"><div id="TurnCapYR" class="XYStat genStat"></div></div></td>
+			<td class="XYCell"><div class="XYDiv"><div class="genYTitle">Y:</div><div id="turnCapYL" class="XYStat genStat"></div></div></td>
+			<td class="XYCell"><div class="XYDiv"><div id="turnCapYR" class="XYStat genStat"></div></div></td>
 		</tr>
 		<tr>
-			<th id="MissCost" class="genTitle">Miss Cost</th>
-			<td class="genCell"><div class="genDiv"><div id="MissCostL" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp L"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="MissCostR" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp R"></div></div></td>
+			<th id="missCost" class="genTitle">Miss Cost</th>
+			<td class="genCell"><div class="genDiv"><div id="missCostL" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp L"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="missCostR" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp R"></div></div></td>
 		</tr>
 		<tr>
-			<th id="FeintCost" class="genTitle">Feint Cost</th>
-			<td class="genCell"><div class="genDiv"><div id="FeintCostL" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp L"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="FeintCostR" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp R"></div></div></td>
+			<th id="feintCost" class="genTitle">Feint Cost</th>
+			<td class="genCell"><div class="genDiv"><div id="feintCostL" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp L"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="feintCostR" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp R"></div></div></td>
 		</tr>
 		<tr>
-			<th id="MorphCost" class="genTitle">Morph Cost</th>
-			<td class="genCell"><div class="genDiv"><div id="MorphCostL" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp L"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="MorphCostR" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp R"></div></div></td>
+			<th id="morphCost" class="genTitle">Morph Cost</th>
+			<td class="genCell"><div class="genDiv"><div id="morphCostL" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp L"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="morphCostR" class="stamStat genStat negCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp R"></div></div></td>
 		</tr>
 		<tr>
-			<th id="StaminaDrain" class="genTitle">Stamina Drain</th>
-			<td class="genCell"><div class="genDiv"><div id="StaminaDrainL" class="stamStat genStat posCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp L"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="StaminaDrainR" class="stamStat genStat posCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp R"></div></div></td>
+			<th id="staminaDrain" class="genTitle">Stamina Drain</th>
+			<td class="genCell"><div class="genDiv"><div id="staminaDrainL" class="stamStat genStat posCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp L"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="staminaDrainR" class="stamStat genStat posCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp R"></div></div></td>
 		</tr>
 		<tr>
-			<th id="ParryDrainNeg" class="genTitle">Parry Drain Negation</th>
-			<td class="genCell"><div class="genDiv"><div id="ParryDrainNegL" class="stamStat genStat posCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp L"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="ParryDrainNegR" class="stamStat genStat posCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp R"></div></div></td>
+			<th id="parryDrainNeg" class="genTitle">Parry Drain Negation</th>
+			<td class="genCell"><div class="genDiv"><div id="parryDrainNegL" class="stamStat genStat posCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp L"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="parryDrainNegR" class="stamStat genStat posCorr"></div><img src="img/icons/stamNS.png" class="stamImg" /><div class="comp R"></div></div></td>
 		</tr>
 		<tr>
-			<th id="StopOnHit" class="genTitle">Stop on Hit</th>
-			<td class="genCell"><div class="genDiv"><div id="StopOnHitL" class="textStat genStat negCorr"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="StopOnHitR" class="textStat genStat negCorr"></div></div></td>
+			<th id="stopOnHit" class="genTitle">Stop on Hit</th>
+			<td class="genCell"><div class="genDiv"><div id="stopOnHitL" class="textStat genStat negCorr"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="stopOnHitR" class="textStat genStat negCorr"></div></div></td>
 		</tr>
 		<tr>
-			<th id="CanCombo" class="genTitle">Can Combo</th>
-			<td class="genCell"><div class="genDiv"><div id="CanComboL" class="textStat genStat posCorr"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="CanComboR" class="textStat genStat posCorr"></div></div></td>
+			<th id="canCombo" class="genTitle">Can Combo</th>
+			<td class="genCell"><div class="genDiv"><div id="canComboL" class="textStat genStat posCorr"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="canComboR" class="textStat genStat posCorr"></div></div></td>
 		</tr>
 		<tr>
-			<th id="Knockback" class="genTitle">Hit Knockback</th>
-			<td class="genCell"><div class="genDiv"><div id="KnockbackL" class="normalStat genStat neutCorr"></div><div class="comp L"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="KnockbackR" class="normalStat genStat neutCorr"></div><div class="comp R"></div></div></td>
+			<th id="knockback" class="genTitle">Hit Knockback</th>
+			<td class="genCell"><div class="genDiv"><div id="knockbackL" class="normalStat genStat neutCorr"></div><div class="comp L"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="knockbackR" class="normalStat genStat neutCorr"></div><div class="comp R"></div></div></td>
 		</tr>
 		<tr>
-			<th id="WoodDamage" class="genTitle">Wood Damage</th>
-			<td class="genCell"><div class="genDiv"><div id="WoodDamageL" class="normalStat genStat posCorr"></div><div class="comp L"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="WoodDamageR" class="normalStat genStat posCorr"></div><div class="comp R"></div></div></td>
+			<th id="woodDamage" class="genTitle">Wood Damage</th>
+			<td class="genCell"><div class="genDiv"><div id="woodDamageL" class="normalStat genStat posCorr"></div><div class="comp L"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="woodDamageR" class="normalStat genStat posCorr"></div><div class="comp R"></div></div></td>
 		</tr>
 		<tr>
-			<th id="StoneDamage" class="genTitle">Stone Damage</th>
-			<td class="genCell"><div class="genDiv"><div id="StoneDamageL" class="normalStat genStat posCorr"></div><div class="comp L"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="StoneDamageR" class="normalStat genStat posCorr"></div><div class="comp R"></div></div></td>
+			<th id="stoneDamage" class="genTitle">Stone Damage</th>
+			<td class="genCell"><div class="genDiv"><div id="stoneDamageL" class="normalStat genStat posCorr"></div><div class="comp L"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="stoneDamageR" class="normalStat genStat posCorr"></div><div class="comp R"></div></div></td>
 		</tr>
 		<tr>
-			<th id="BlockHeld" class="genTitle">Is block held</th>
-			<td class="genCell"><div class="genDiv"><div id="BlockHeldL" class="textStat genStat posCorr"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="BlockHeldR" class="textStat genStat posCorr"></div></div></td>
+			<th id="blockHeld" class="genTitle">Is block held</th>
+			<td class="genCell"><div class="genDiv"><div id="blockHeldL" class="textStat genStat posCorr"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="blockHeldR" class="textStat genStat posCorr"></div></div></td>
 		</tr>
 		<tr>
-			<th id="BMoveRest" class="genTitle">Block Movement Restriction</th>
-			<td class="genCell"><div class="genDiv"><div id="BMoveRestL" class="normalStat genStat"></div><div class="comp L"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="BMoveRestR" class="normalStat genStat"></div><div class="comp R"></div></div></td>
+			<th id="bMoveRest" class="genTitle">Block Movement Restriction</th>
+			<td class="genCell"><div class="genDiv"><div id="bMoveRestL" class="normalStat genStat"></div><div class="comp L"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="bMoveRestR" class="normalStat genStat"></div><div class="comp R"></div></div></td>
 		</tr>
 		<tr>
-			<th id="MaxAmmo" class="genTitle">Max Ammo</th>
-			<td class="genCell"><div class="genDiv"><div id="MaxAmmoL" class="normalStat genStat posCorr"></div><div class="comp L"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="MaxAmmoR" class="normalStat genStat posCorr"></div><div class="comp R"></div></div></td>
+			<th id="maxAmmo" class="genTitle">Max Ammo</th>
+			<td class="genCell"><div class="genDiv"><div id="maxAmmoL" class="normalStat genStat posCorr"></div><div class="comp L"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="maxAmmoR" class="normalStat genStat posCorr"></div><div class="comp R"></div></div></td>
 		</tr>
 		<tr>
-			<th id="CanFlinch" class="genTitle">Can Flinch</th>
-			<td class="genCell"><div class="genDiv"><div id="CanFlinchL" class="textStat genStat posCorr"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="CanFlinchR" class="textStat genStat posCorr"></div></div></td>
+			<th id="canFlinch" class="genTitle">Can Flinch</th>
+			<td class="genCell"><div class="genDiv"><div id="canFlinchL" class="textStat genStat posCorr"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="canFlinchR" class="textStat genStat posCorr"></div></div></td>
 		</tr>
 		<tr>
-			<th id="ProjSpeed" class="genTitle">Projectile Speed</th>
-			<td class="genCell"><div class="genDiv"><div id="ProjSpeedL" class="normalStat genStat posCorr"></div><div class="comp L"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="ProjSpeedR" class="normalStat genStat posCorr"></div><div class="comp R"></div></div></td>
+			<th id="projSpeed" class="genTitle">Projectile Speed</th>
+			<td class="genCell"><div class="genDiv"><div id="projSpeedL" class="normalStat genStat posCorr"></div><div class="comp L"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="projSpeedR" class="normalStat genStat posCorr"></div><div class="comp R"></div></div></td>
 		</tr>
 		<tr>
-			<th id="GravityScale" class="genTitle">Gravity Scale</th>
-			<td class="genCell"><div class="genDiv"><div id="GravityScaleL" class="normalStat genStat negCorr"></div><div class="comp L"></div></div></td>
-			<td class="genCell"><div class="genDiv"><div id="GravityScaleR" class="normalStat genStat negCorr"></div><div class="comp R"></div></div></td>
+			<th id="gravityScale" class="genTitle">Gravity Scale</th>
+			<td class="genCell"><div class="genDiv"><div id="gravityScaleL" class="normalStat genStat negCorr"></div><div class="comp L"></div></div></td>
+			<td class="genCell"><div class="genDiv"><div id="gravityScaleR" class="normalStat genStat negCorr"></div><div class="comp R"></div></div></td>
 		</tr>
 		</table>
 		</div>
