@@ -291,13 +291,8 @@ function animateSlide(e) {
 function applyCookies() {
 	var cookies = getCookies();
 	if (cookies["classicOn"] == "true") toggleClassic(document.getElementById("classicBtn"));
-
-	if (cookies["peasOn"] == "true") document.getElementById("peasantBtn").classList.add("checked");
-	else document.getElementById("peasantBtn").classList.remove("checked");
-
-	if (cookies["miscOn"] == "true") document.getElementById("miscBtn").classList.add("checked");
-	else document.getElementById("miscBtn").classList.remove("checked");
-
+	if (cookies["peasOn"] == "false") document.getElementById("peasantBtn").classList.remove("checked");
+	if (cookies["miscOn"] == "false") document.getElementById("miscBtn").classList.remove("checked");
 	if (cookies["huntOn"] == "true") {
 		document.getElementById("huntBtn").classList.add("checked");
 		document.getElementById("huntWarning").classList.remove("invisible");
