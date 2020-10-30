@@ -641,7 +641,7 @@ function fillChangelog(data) {
 		var cookies = getCookies();
 		version = lines[0].substring(8, lines[0].length-1);
 		ping.innerHTML = version;
-		if (!cookies.hasOwnProperty("lastVersion") || Number(cookies["lastVersion"]) < Number(version)) {
+		if (cookies["lastVersion"] != null && Number(cookies["lastVersion"]) < Number(version)) {
 			ping.classList.remove("invisible");
 		}
 	}
