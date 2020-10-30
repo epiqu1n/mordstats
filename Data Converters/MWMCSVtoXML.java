@@ -12,7 +12,9 @@ import java.util.LinkedList;
 public class MWMCSVtoXML {
 public static void main(String[] args) throws IOException {
 	// Open TSV file
-	File fileName = new File("C:/Users/Eric/Downloads/MWMCSV.csv");
+	String homepath = System.getenv("HOMEPATH");
+	
+	File fileName = new File("C:" + homepath.replace("\\", "/") + "/Downloads/MWMCSV.csv");
 	BufferedReader tsv;
 	try {
 		tsv = new BufferedReader(
@@ -23,7 +25,7 @@ public static void main(String[] args) throws IOException {
 	}
 	
 	// Create and open new XML file
-	fileName = new File("C:/Users/Eric/Downloads/MordStats.xml");
+	fileName = new File("C:" + homepath.replace("\\", "/") + "/Downloads/MordStats.xml");
 	fileName.createNewFile();
 	BufferedWriter xml = null;
 	xml = new BufferedWriter(new FileWriter(fileName));

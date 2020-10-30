@@ -38,7 +38,7 @@ function readSavVariable(source, id) {
 
 var srch = Buffer.concat([Buffer.from("String"), Uint8Array.from([0x00, 0x0c, 0x00, 0x00, 0x00]), Buffer.from("StrProperty")]);
 
-fs.readFile("C:/Users/Eric/AppData/Local/Mordhau/Saved/SaveGames/mordstats_sav.sav", (err, data) => {
+fs.readFile(`${process.env.LOCALAPPDATA}/Mordhau/Saved/SaveGames/mordstats_sav.sav`, (err, data) => {
     var res = readSavVariable(data, srch);
     console.log(res.toString('utf8'));
 
