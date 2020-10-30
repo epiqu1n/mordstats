@@ -1,0 +1,22 @@
+{
+  "name": "mordstats",
+  "version": "3.9.0",
+  "description": "Compare Mordhau weapon stats side-by-side",
+  "main": "XMLtoJSON.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epiqu1n/mordstats.git"
+  },
+  "author": "Eric",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/epiqu1n/mordstats/issues"
+  },
+  "homepage": "https://github.com/epiqu1n/mordstats#readme",
+  "dependencies": {
+    "xmldom": "^0.4.0"
+  }
+}
