@@ -19,8 +19,8 @@
 
 # Miscellaneous #
 ###################
-.config
-.sav
+*.config
+*.sav
 
 
 
