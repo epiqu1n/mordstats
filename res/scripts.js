@@ -291,8 +291,13 @@ function animateSlide(e) {
 function applyCookies() {
 	var cookies = getCookies();
 	if (cookies["classicOn"] == "true") toggleClassic(document.getElementById("classicBtn"));
+
 	if (cookies["peasOn"] == "true") document.getElementById("peasantBtn").classList.add("checked");
+	else document.getElementById("peasantBtn").classList.remove("checked");
+
 	if (cookies["miscOn"] == "true") document.getElementById("miscBtn").classList.add("checked");
+	else document.getElementById("miscBtn").classList.remove("checked");
+
 	if (cookies["huntOn"] == "true") {
 		document.getElementById("huntBtn").classList.add("checked");
 		document.getElementById("huntWarning").classList.remove("invisible");
@@ -982,7 +987,7 @@ function makeLists() {
 		optionElement.appendChild(optionImg);
 		optionElement.appendChild(optionText);
 
-/* 		if (_weapons[names[n]].isMisc) {
+		if (_weapons[names[n]].isMisc) {
 			tag = document.createElement("div");
 			tag.innerHTML = "Misc";
 			tag.setAttribute("class", "option-tag");
@@ -993,7 +998,7 @@ function makeLists() {
 			tag.innerHTML = "Peasant";
 			tag.setAttribute("class", "option-tag");
 			optionElement.appendChild(tag);
-		} */
+		}
 
 		if (sortMethod == "points") {
 			// Get point costs for each weapon, then push that element to the appropriate spot in the array
@@ -1841,7 +1846,7 @@ function toggleMisc(btn) {
 	var listOptsRight = document.getElementById("weaponRight").getElementsByClassName("listOption");
 
 	// If a weapon is misc and misc weapons are being disabled, set a new weapon
-	if (!btn.classList.contains("checked") && dataLeft.getElementsByTagName("Misc")[0].childNodes[0].nodeValue == "Yes") {
+	if (!btn.classList.contains("checked") && dataLeft.isMisc) {
 		newLeft = getNewDefault();
 		listOpts = document.getElementById("weaponLeft").getElementsByClassName("listOption");
 		for (lo=0; lo<listOpts.length; lo++) {
@@ -1856,7 +1861,7 @@ function toggleMisc(btn) {
 		}
 		changeWeapon(newListOpt);
 	}
-	if (!btn.classList.contains("checked") && dataRight.getElementsByTagName("Misc")[0].childNodes[0].nodeValue == "Yes") {
+	if (!btn.classList.contains("checked") && dataRight.isMisc) {
 		if (newLeft == null) {
 			newRight = getNewDefault();
 		} else {
@@ -1900,7 +1905,7 @@ function togglePeasant(btn) {
 	var listOptsRight = document.getElementById("weaponRight").getElementsByClassName("listOption");
 
 	// If a weapon is peasant-only and peasant-only weapons are being disabled, set a new weapon
-	if (!btn.classList.contains("checked") && dataLeft.getElementsByTagName("PeasantOnly")[0].childNodes[0].nodeValue == "Yes") {
+	if (!btn.classList.contains("checked") && dataLeft.peasantOnly) {
 		newLeft = getNewDefault();
 		listOpts = document.getElementById("weaponLeft").getElementsByClassName("listOption");
 		for (lo=0; lo<listOpts.length; lo++) {
@@ -1915,7 +1920,7 @@ function togglePeasant(btn) {
 		}
 		changeWeapon(newListOpt);
 	}
-	if (!btn.classList.contains("checked") && dataRight.getElementsByTagName("PeasantOnly")[0].childNodes[0].nodeValue == "Yes") {
+	if (!btn.classList.contains("checked") && dataRight.peasantOnly) {
 		if (newLeft == null) {
 			newRight = getNewDefault();
 		} else {
