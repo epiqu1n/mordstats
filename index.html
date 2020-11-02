@@ -11,8 +11,8 @@
 	<meta property="og:image:height" content="600" />
 	<meta name="description" content="View and compare Mordhau advanced weapon statistics side-by-side, including peasant/miscellaneous weapons, ranged weapons, and shields." />
 	<meta charset="UTF-8" />
-	<link rel="stylesheet" type="text/css" href="res/style.css?v=3.8.1">
-	<script src="res/scripts.js?v=3.8.1"></script>
+	<link rel="stylesheet" type="text/css" href="res/style.css?v=3.8.21">
+	<script src="res/scripts.js?v=3.8.3"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Cardo&display=swap" rel="stylesheet">
 </head>
 <body class="expanded" onload="onPageLoad()">
@@ -21,6 +21,8 @@
 <div id="imageSlider">
 	<div class="imageRight"><img class="imageLeft" src=""/></div>
 </div>
+
+<textarea id="copyDummy"></textarea>
 
 <!-- Main content for both mobile and desktop -->
 <div id="mainBody">
@@ -34,6 +36,7 @@
 				<div id="version" class="listCont" onclick="toggleList(this, event)">
 					<div class="listSel">Latest</div>
 					<div class="list dropDown hidden" onclick="if(event.target.matches('.listOpt')) changeListOpt(event.target, event)">
+						<div class="listOpt selected">Latest</div>
 						<div class="listOpt">19</div>
 						<div class="listOpt">18.1</div>
 						<div class="listOpt">17.3</div>
@@ -113,9 +116,10 @@
 		<div id="faqHelp" class="menuText" onclick="toggleFAQ(event)">
 			Frequently asked questions
 		</div>
-		<div class="menuText">
-			Issues or suggestions?&nbsp; Send an email to <a href="mailto:feedback@mordstats.com" target="_blank">feedback@mordstats.com</a>.
+		<div class="menuText toolSrc">
+			Issues or suggestions?&nbsp; Send an email to <span class="link" onclick="event.preventDefault(); copyText(this.innerHTML)">feedback@mordstats.com</span>.
 		</div>
+		<div class="tooltip">Copy email</div>
 		<div class="helpSubtext menuText">Stats accurate as of Build #19.3</div>
 		<div id="issuesSelect" class="helpSubtext menuText" onclick="toggleIssues(event)">Known issues</div>
 		
@@ -149,7 +153,7 @@
 			<button type="button" id="changesButton" class="menuButton" onclick="toggleChanges(event)"></button>
 		</div>
 <!--	<div class="tooltip">Changelog</div>  -->
-		<div class="menuBtnDiv">
+		<div class="menuBtnDiv toolSrc">
 			<button type="button" id="shareButton" class="menuButton" onclick="generateLink()">
 			</button>
 		</div>

@@ -205,11 +205,11 @@ body:after {
 	font-family: Arial;
 }
 
-.menuBtnDiv:hover+.tooltip:not(.invisible) {
+.toolSrc:hover + .tooltip:not(.invisible) {
 	display: block;
 }
 
-#shareLink {
+#shareLink, #copyDummy {
 	position: absolute;
 	opacity: 0;
 	width: 1px;
@@ -243,10 +243,11 @@ body:after {
 	margin-right: 0.3em;
 }
 
-.menu a {
+.menu a, .menu .link {
 	color: #4a81db;
 	font-variant: normal;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 .menu a:visited {
