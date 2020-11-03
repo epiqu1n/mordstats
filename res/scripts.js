@@ -539,7 +539,7 @@ function compare() {
 		} else if (dataL.length > 2 && dataR.length > 2 &&
 				isNumber(dataL.substring(0, dataL.length-2)) && isNumber(dataR.substring(0, dataR.length-2))) {
 			// Check if it is a number without the last 2 characters which may be units ("ms" or "cm")
-			dataComps[i] = dataL.substring(0, dataL.length-2) - dataR.substring(0, dataR.length-2);
+			dataComps[i] = +(Number.parseFloat(dataL.substring(0, dataL.length-2)) - Number.parseFloat(dataR.substring(0, dataR.length-2)));
 		} else {
 			dataComps[i] = "";
 		}
@@ -959,7 +959,7 @@ function getURLParameters() {
  */
 function isNumber(input) {
 	if (input == "" || input == null) return false;
-	else if (isNaN(Number.parseInt(input))) return false;
+	else if (isNaN(Number(input))) return false;
 	else return true;
 }
 
