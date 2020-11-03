@@ -278,7 +278,7 @@ function adjustMobile() {
  * Recursive function that runs when swipe bar is let go of.
  * Animates the sliding function of the info box so that it always ends up on either side of the screen,
  * depending on where it is and how the user was moving it upon release.
- * @param e : The slide event object
+ * @param {Event} e The slide event object
  */
 function animateSlide(e) {
 	var currLeft = Number(_mainBody.style.left.replace("%",""));
@@ -357,7 +357,7 @@ function capitalize(text) {
 
 /**
  * Changes display of the stat comparisons, depending on the chosen setting
- * @param div : The newly selected element
+ * @param {HTMLElement} div The newly selected element
  */
 function changeComps(div) {
 	var comps = document.querySelectorAll(".comp:not(.cNone)");
@@ -393,7 +393,7 @@ function changeComps(div) {
 
 /**
  * Updates the weapon list to reflect the new weapon being selected, then calls updateStats
- * @param newSelect : The listOption element that was selected
+ * @param {HTMLDivElement} newSelect The listOption element that was selected
  */
 function changeWeapon(newSelect) {
 	var side = getElementSide(newSelect);
@@ -410,28 +410,8 @@ function changeWeapon(newSelect) {
 }
 
 /**
- * Takes a String containing a positive integer and cleans any non-numerical characters off of it
- * @param input : The input; must be positive and whole integer
- * @returns : The number, still as a String (probably, JavaScript is a little odd)
- */
-function cleanNumber(input) {
-	var output = "";
-	for (cn=0; cn<input.length; cn++) {
-		if (isNumber(input.charAt(cn))) {
-			output += input.charAt(cn);
-		}
-	}
-	
-	if (output == "") {
-		alert("Error 3: String does not contain a number");
-		return -1;
-	}
-	return output;
-}
-
-/**
  * Clears existing values from damage, speed, and general stat tables for provided side
- * @param side : The side to clear the tables for
+ * @param {"Left"|"Right"} side : The side to clear the tables for
  */
 function clearTables(side) {
 	// Clear damage table
@@ -471,7 +451,7 @@ function clearTables(side) {
 
 /**
  * Closes the provided list
- * @param list : The .listItems element
+ * @param {HTMLDivElement} list The .listItems element
  */
 function closeList(list) {
 	list.parentNode.querySelector(".listInput").blur();
@@ -1800,7 +1780,7 @@ function changeListOpt(elem, event) {
 
 /**
  * Toggles the FAQ menu on/off and closes Known Issues menu if open
- * @param event : The event handler attached to this function
+ * @param {Event} event The event handler attached to this function
  */
 function toggleFAQ(event) {
 	event.stopPropagation();
@@ -1812,7 +1792,7 @@ function toggleFAQ(event) {
 
 /**
  * Toggles the help menu on/off and closes other open lists/menus
- * @param event : The event handler attached to this function
+ * @param {Event} event The event handler attached to this function
  */
 function toggleHelp(event) {
 	event.stopPropagation();
@@ -1827,8 +1807,8 @@ function toggleHelp(event) {
 
 /**
  * Toggles the helper text for the given helper
- * @param helper : The helper
- * @param event : The event handler
+ * @param {HTMLElement} helper The helper
+ * @param {Event} event The event handler
  */
 function toggleHelperText(event, helper) {
 	event.stopPropagation();
@@ -1837,7 +1817,7 @@ function toggleHelperText(event, helper) {
 
 /**
  * Toggles the modification of damage values to reflect huntsman perk
- * @param btn : The corresponding button
+ * @param {HTMLElement} btn The corresponding button
  */
 function toggleHuntsman(btn) {
 	event.stopPropagation();
@@ -1855,7 +1835,7 @@ function toggleHuntsman(btn) {
 
 /**
  * Toggles the Known Issues on/off and closes FAQ menu if open
- * @param event : The event handler calling this function
+ * @param {Event} event The event handler calling this function
  */
 function toggleIssues(event) {
 	event.stopPropagation();
@@ -1868,8 +1848,8 @@ function toggleIssues(event) {
 
 /**
  * Opens/closes the given listItems element for a weapon list
- * @param list : The .listItems element
- * @param event : The event handler calling this function
+ * @param {HTMLDivElement} list The .listItems element
+ * @param {Event} event The event handler calling this function
  */
 function toggleWeaponList(list) {
 	var input = list.parentNode.querySelector(".listInput");
@@ -1885,7 +1865,7 @@ function toggleWeaponList(list) {
 
 /**
  * Toggles the display of miscellaneous weapons
- * @param btn : The button for this toggle
+ * @param {HTMLElement} btn The button for this toggle
  */
 function toggleMisc(btn) {
 	btn.classList.toggle("checked");
@@ -1944,7 +1924,7 @@ function toggleMisc(btn) {
 
 /**
  * Toggles the display of peasant weapons
- * @param btn : The button for this toggle
+ * @param {HTMLElement} btn The button for this toggle
  */
 function togglePeasant(btn) {
 	btn.classList.toggle("checked");
@@ -2003,7 +1983,7 @@ function togglePeasant(btn) {
 
 /**
  * Toggles the settings menu on/off and closes other open lists/menus
- * @param event : The event handler calling this function
+ * @param {Event} event The event handler calling this function
  */
 function toggleSettings(event) {
 	event.stopPropagation();
@@ -2018,7 +1998,7 @@ function toggleSettings(event) {
 
 /**
  * Toggles the weapon list sorting method between name (default) and point cost
- * @param btn : The button calling this function
+ * @param {HTMLElement} btn The button calling this function
  */
 function toggleSort(btn) {
 	var buttons = btn.parentNode.parentNode.parentNode.getElementsByTagName("button");
@@ -2038,7 +2018,7 @@ function toggleSort(btn) {
 
 /**
  * Toggles permanent display of the damage table nametags
- * @param btn : The button for this toggle
+ * @param {HTMLElement} btn The button for this toggle
  */
 function toggleTags(btn) {
 	if (btn.parentNode.parentNode.classList.contains("off")) return;
@@ -2069,8 +2049,8 @@ function toggleTags(btn) {
 /**
  * Updates the statistics and image for the provided side,
  * as well as the comparisons (unless the other side has no selection yet).
- * @param side : Which side to update the stats for
- * @param name : The name of the weapon
+ * @param {"Left"|"Right"} side Which side to update the stats for
+ * @param {string} name The name of the weapon
  */
 function updateStats(side, name) {
 	clearTables(side);
