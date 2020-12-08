@@ -1,7 +1,9 @@
+Version 3.1
+- Updated for build #20
+
 Version 3.0
 - Added game version option in settings to view stats from previous patches
 - Updated for build #19
-- Updated for build #20
 
 Version 2.9
 - Updated for build #18
