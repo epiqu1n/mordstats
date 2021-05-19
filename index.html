@@ -36,7 +36,7 @@
 				<div id="version" class="listCont" onclick="toggleList(this, event)">
 					<div class="listSel">Latest</div>
 					<div class="list dropDown hidden" onclick="if(event.target.matches('.listOpt')) changeListOpt(event.target, event)">
-						<div class="listOpt selected">Latest (21.1)</div>
+						<div class="listOpt selected">Latest (21.4)</div>
 						<div class="listOpt">21</div>
 						<div class="listOpt">20.4</div>
 						<div class="listOpt">20</div>
@@ -68,36 +68,44 @@
 			</div>
 		</div>
 		
-		<div id="weaponOptsWrapper"><div class="menuOptWrapper">
-			<div class="checkContainer">
-				<button type="button" id="huntBtn" class="checkbox" onclick="toggleHuntsman(this)"></button>
+		<div id="weaponOptsWrapper">
+			<div class="menuOptWrapper">
+				<div class="checkContainer">
+					<button type="button" id="huntBtn" class="checkbox" onclick="toggleHuntsman(this)"></button>
+				</div>
+				<span class="buttonText">Adjust damage for Huntsman</span><div id="huntHelper" class="helper" ontouchstart="toggleHelperText(event, this)">?<div id="huntInfo" class="popText">The Huntsman perk increases damage with all ranged and thrown weapons against the head/torso of enemies holding a bow.</div></div>
 			</div>
-			<span class="buttonText">Adjust damage for Huntsman</span><div id="huntHelper" class="helper" ontouchstart="toggleHelperText(event, this)">?<div id="huntInfo" class="popText">The Huntsman perk increases damage with all ranged and thrown weapons against the head/torso of enemies holding a bow.</div></div>
+			<div class="menuOptWrapper">
+				<div class="checkContainer">
+					<button type="button" id="tankBtn" class="checkbox" onclick="toggleTank(this)"></button>
+				</div>
+				<span class="buttonText">Adjust damage against Tank</span>
+			</div>
+			<div class="menuOptWrapper">
+				<div class="checkContainer">
+					<button type="button" id="miscBtn" class="checkbox checked" onclick="toggleMisc(this)"></button>
+				</div>
+				<span class="buttonText">Show miscellaneous weapons</span>
+			</div>
+			<div class="menuOptWrapper">
+				<div class="checkContainer">
+					<button type="button" id="peasantBtn" class="checkbox checked" onclick="togglePeasant(this)"></button>
+				</div>
+				<span class="buttonText">Show peasant-only weapons</span>
+			</div></div>
+			<div id="tableOptsWrapper"><div class="menuOptWrapper">
+				<div class="checkContainer">
+					<button type="button" id="classicBtn" class="checkbox" onclick="toggleClassic(this)"></button>
+				</div>
+				<span class="buttonText">Use classic damage table</span>
+			</div>
+			<div class="menuOptWrapper off">
+				<div class="checkContainer">
+					<button type="button" id="tagsBtn" class="checkbox" onclick="toggleTags(this)"></button>
+				</div>
+				<span class="buttonText">Always show nametags</span>
+			</div>
 		</div>
-		<div class="menuOptWrapper">
-			<div class="checkContainer">
-				<button type="button" id="miscBtn" class="checkbox checked" onclick="toggleMisc(this)"></button>
-			</div>
-			<span class="buttonText">Show miscellaneous weapons</span>
-		</div>
-		<div class="menuOptWrapper">
-			<div class="checkContainer">
-				<button type="button" id="peasantBtn" class="checkbox checked" onclick="togglePeasant(this)"></button>
-			</div>
-			<span class="buttonText">Show peasant-only weapons</span>
-		</div></div>
-		<div id="tableOptsWrapper"><div class="menuOptWrapper">
-			<div class="checkContainer">
-				<button type="button" id="classicBtn" class="checkbox" onclick="toggleClassic(this)"></button>
-			</div>
-			<span class="buttonText">Use classic damage table</span>
-		</div>
-		<div class="menuOptWrapper off">
-			<div class="checkContainer">
-				<button type="button" id="tagsBtn" class="checkbox" onclick="toggleTags(this)"></button>
-			</div>
-			<span class="buttonText">Always show nametags</span>
-		</div></div>
 		
 		<div id="sortWrapper">
 			<span class="menuText">Sort weapons by:</span><br/>
@@ -438,6 +446,7 @@
 			
 			<div id="damWarnings">
 				<div id="huntWarning" class="damWarn invisible"><sup class="ast">*</sup> Huntsman enabled</div>
+				<div id="tankWarning" class="damWarn invisible"><sup class="ast">**</sup> Damage adjusted for tank perk</div>
 				<div id="dModWarning" class="damWarn invisible"><sup class="dagger">&#8224;</sup> Global damage modified by <span id="dMod">1.00</span>x</div>
 				<div id="vsnWarning" class="damWarn invisible"><sup class="dagger">&#8225;</sup> Data for game version <span id="vsn"></span></div>
 			</div>

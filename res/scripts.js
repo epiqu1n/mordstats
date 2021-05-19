@@ -25,6 +25,8 @@
 /** @type {boolean} */ var _mobile;
 /** @type {NodeListOf<Element>} */ var _tooltips;
 
+const TANK_PERK_MOD = 0.71;
+
 ///
 /// Class declarations
 ///
@@ -316,6 +318,10 @@ function applyCookies() {
 	if (cookies["huntOn"] == "true") {
 		document.getElementById("huntBtn").classList.add("checked");
 		document.getElementById("huntWarning").classList.remove("invisible");
+	}
+	if (cookies["tankOn"] == "true") {
+		document.getElementById("tankBtn").classList.add("checked");
+		document.getElementById("tankWarning").classList.remove("invisible");
 	}
 	if (cookies["tagsOn"] == "true") toggleTags(document.getElementById("tagsBtn"));
 	if (cookies["sortBy"] == "name") {
@@ -1834,6 +1840,24 @@ function toggleHuntsman(btn) {
 }
 
 /**
+ * Toggles the modification of damage values to reflect huntsman perk
+ * @param {HTMLElement} btn The corresponding button
+ */
+function toggleTank(btn) {
+	event.stopPropagation();
+	btn.classList.toggle("checked");
+	setCookie("tankOn", String(btn.classList.contains("checked")));
+	document.getElementById("tankWarning").classList.toggle("invisible");
+	
+	var weaponListElems = document.getElementsByClassName("weaponList");
+	var wName;
+	wName = weaponListElems[0].getElementsByClassName("listInput")[0].value;
+	updateStats("Left", wName);
+	wName = weaponListElems[1].getElementsByClassName("listInput")[0].value;
+	updateStats("Right", wName);
+}
+
+/**
  * Toggles the Known Issues on/off and closes FAQ menu if open
  * @param {Event} event The event handler calling this function
  */
@@ -2073,6 +2097,8 @@ function updateStats(side, name) {
 	
 	// Set damage modifier if huntsman is enabled
 	var huntsmanOn = document.getElementById("huntBtn").classList.contains("checked");
+	const tankOn = document.getElementById("tankBtn").classList.contains("checked");
+
 	var huntMod = 1;
 	if (huntsmanOn && (attackType == "ranged" || attackType == "meleeThrow")) {
 		huntMod = _weapons[name].attacks.find((el) => el.type == attackType).huntsmanModifier;
@@ -2129,6 +2155,9 @@ function updateStats(side, name) {
 				try {
 					var damage = 0;
 					damage = damageMod * attack.damage[bodyPart][col];
+
+					if (tankOn) damage *= TANK_PERK_MOD;
+
 					if (huntsmanOn && bodyPart != "legs"
 						&& (attackType == "ranged" || attackType == "meleeThrow")) {
 						damage *= huntMod;
