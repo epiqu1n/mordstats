@@ -1,31 +1,51 @@
 /**
- * @type {{
- * [name: string]: {
- *   type: string,
- *   pointCost: number,
- *   attacks: Array<{
- *     type:string,
- *     damage?:{torso:number[], head:number[], legs:number[]},
- *     speed?:{windup?:number,combo?:number,release?:number,recovery?:number,draw?:number,reload?:number},
- *     general: *
- *   }>,
- *   peasantOnly: boolean,
- *   isMisc: boolean
- * }
- * }}
- */ var _weapons;
-/** @type {number} */ var _weapNum;
-/** @type {number} */ var _Max_Cost;
-/** @type {boolean} */ var _categoryChanged;
-/** @type {HTMLInputElement} */ var _lastFocus;
-/** @type {number} */ var _lastX;
-/** @type {number} */ var _xMove;
-/** @type {HTMLDivElement} */ var _mainBody;
-/** @type {number} */ var _animTimeout;
-/** @type {boolean} */ var _mobile;
-/** @type {NodeListOf<Element>} */ var _tooltips;
+ * @typedef Weapon
+ * @prop {string} type
+ * @prop {number} pointCost
+ * @prop {Attack[]} attacks
+ * @prop {boolean} peasantOnly
+ * @prop {boolean} isMisc
+ */
+
+/**
+ * @typedef Attack
+ * @prop {string} type
+ * @prop {AttackDamage?} damage
+ * @prop {AttackSpeed?} speed
+ * @prop {{}} general
+ * @prop {number} huntsmanModifier
+ */
+
+/**
+ * @typedef AttackDamage
+ * @prop {number[]} torso
+ * @prop {number[]} head
+ * @prop {number[]} legs
+ */
+
+/** 
+ * @typedef AttackSpeed
+ * @prop {number?} windup
+ * @prop {number?} combo
+ * @prop {number?} release
+ * @prop {number?} recovery
+ * @prop {number?} draw
+ * @prop {number?} reload
+ */
+
+/** @type {{[name: string]: Weapon}[]} */ const _weaponSets = [];
+/** @type {number[]} */ const _weapNums = [];
+/** @type {boolean} */ let _categoryChanged;
+/** @type {HTMLInputElement} */ let _lastFocus;
+/** @type {number} */ let _lastX;
+/** @type {number} */ let  _xMove;
+/** @type {HTMLDivElement} */ let _mainBody;
+/** @type {number} */ let _animTimeout;
+/** @type {boolean} */ let _mobile;
+/** @type {NodeListOf<Element>} */ let _tooltips;
 
 const TANK_PERK_MOD = 0.71;
+const MAX_COST = 33;
 
 ///
 /// Class declarations
@@ -77,7 +97,6 @@ function onPageLoad() {
 	_lastFocus = document.getElementById("weaponRight").querySelector(".listInput");
 	_mobile = false;
 	_tooltips = document.querySelectorAll(".toolSrc + .tooltip");
-	_Max_Cost = 33;
 	document.body.width = document.body.offsetWidth;
 	
 	if (navigator.userAgent.match(/Mobi/)) adjustMobile();
@@ -168,7 +187,7 @@ function onPageLoad() {
  * Reloads data on the page
  * @param {string} version 
  */
-function reloadData(version = null) {
+function reloadData(version = null, side = null) {
 	/** @type {{}} */ var weapTemp;
 	var filePath = "res/" + (version && !version.includes("Latest") ? `data_tables/MordStats_p${version}.json` : "mordstats.json");
 
@@ -181,7 +200,13 @@ function reloadData(version = null) {
 
 		try {
 			weapTemp = JSON.parse(response);
-			_weapNum = Object.keys(weapTemp).length;
+			if (typeof side === 'number') {
+				_weapNums[side] = Object.keys(weapTemp).length;
+			}
+			else {
+				_weapNums[0] = Object.keys(weapTemp).length;
+				_weapNums[1] = Object.keys(weapTemp).length;
+			}
 		} catch (err) {
 			console.error(err);
 			alert("An error occurred parsing weapon data");
@@ -194,10 +219,20 @@ function reloadData(version = null) {
 		applyCookies();
 		
 		// Sort weapons by name
-		_weapons = new Object();
-		Object.keys(weapTemp).sort().forEach((name) => {
-			_weapons[name] = weapTemp[name];
-		});
+		if (typeof side === 'number') {
+			_weaponSets[side] = {};
+			Object.keys(weapTemp).sort().forEach((name) => {
+				_weaponSets[side][name] = weapTemp[name];
+			});
+		}
+		else {
+			_weaponSets[0] = {};
+			_weaponSets[1] = {};
+			Object.keys(weapTemp).sort().forEach((name) => {
+				_weaponSets[0][name] = weapTemp[name];
+				_weaponSets[1][name] = weapTemp[name];
+			});
+		}
 
 		var parameters = getURLParameters();
 		if (version) populateLists("None", { source: "version" });
@@ -385,7 +420,7 @@ function changeComps(div) {
 		// If simple has been selected and comparisons are not currently simple (length is greater than 3, ergo full format),
 		// trim comparisons down to simple format
 		for (i=0; i<comps.length; i++) {
-			comps[i].innerHTML = comps[i].innerHTML.substring(0,2) + ")";
+			comps[i].innerHTML = comps[i].innerHTML.substring(1,2).replace("-", "–");
 		}
 	} else if (curr.innerHTML != "None" && comps[0].innerHTML.length <= 3) {
 		// If full has been selected and there are simple or no comparisons present,
@@ -594,8 +629,8 @@ function compare() {
 		}
 			
 		if (simpleComps) {
-			compsL[i].innerHTML = compsL[i].innerHTML.substring(0,2) + ")";
-			compsR[i].innerHTML = compsR[i].innerHTML.substring(0,2) + ")";
+			compsL[i].innerHTML = compsL[i].innerHTML.substring(1,2).replace("-", "–");
+			compsR[i].innerHTML = compsR[i].innerHTML.substring(1,2).replace("-", "–");
 		} else if (compsL[i].previousElementSibling.classList.contains("speedValue")) {
 			compsL[i].innerHTML = compsL[i].innerHTML.substring(0, compsL[i].innerHTML.length-1) + "ms)";
 			compsR[i].innerHTML = compsR[i].innerHTML.substring(0, compsR[i].innerHTML.length-1) + "ms)";
@@ -892,7 +927,7 @@ function getElementSide(elem) {
  * Selects a new default weapon based on the current category (and if peasant and/or unequippable (misc) weapons are shown)
  * @returns {string} The name of the weapon
  */
-function getNewDefault() {
+function getNewDefault(side = 0) {
 	var num;
 	var cat = getCategory();
 	if (document.getElementById("peasantBtn").classList.contains("checked")) {
@@ -906,13 +941,13 @@ function getNewDefault() {
 		showMisc = false;
 	}
 	
-	var names = Object.keys(_weapons);
+	var names = Object.keys(_weaponSets[side]);
 	do {
-		num = Math.floor(Math.random()*_weapNum);
+		num = Math.floor(Math.random()*_weapNums[side]);
 	} while (
-		_weapons[names[num]].type != cat
-		|| (!showPeasant && _weapons[names[num]].peasantOnly)
-		|| (!showMisc && _weapons[names[num]].isMisc)
+		_weaponSets[side][names[num]].type != cat
+		|| (!showPeasant && _weaponSets[side][names[num]].peasantOnly)
+		|| (!showMisc && _weaponSets[side][names[num]].isMisc)
 	);
 	
 	return names[num];
@@ -952,7 +987,7 @@ function isNumber(input) {
 /**
  * Clears the listItems elements and appends the options to them based on selected sorting method and category
  */
-function makeLists() {
+function makeList(side = 0) {
 	var category = document.getElementsByClassName("catActive")[0].innerHTML.toLowerCase();
 	var boxes = document.getElementById("sortWrapper").getElementsByClassName("checkbox");
 	var sortMethod;
@@ -981,16 +1016,16 @@ function makeLists() {
 	var pointCosts = new Array();
 	var weaponLists, pointCosts, optionElement, optionImg, costText, optionText, tag, selectedName;
 	weaponLists = document.getElementsByClassName("weaponList");
-	var names = Object.keys(_weapons);
+	var names = Object.keys(_weaponSets[side]);
 	
 	// Loop through weapons, ignoring any that should not be currently shown
 	for (var n in names) {
-		if (_weapons[names[n]].type != category) continue;
-		if (!showPeasant && _weapons[names[n]].peasantOnly) continue;
-		if (!showMisc && _weapons[names[n]].isMisc) continue;
+		if (_weaponSets[side][names[n]].type != category) continue;
+		if (!showPeasant && _weaponSets[side][names[n]].peasantOnly) continue;
+		if (!showMisc && _weaponSets[side][names[n]].isMisc) continue;
 		
 		// Create div for option, add image for point cost and name
-		pointCost = _weapons[names[n]].pointCost;
+		pointCost = _weaponSets[side][names[n]].pointCost;
 		optionElement = document.createElement("div");
 		optionImg = document.createElement("div");
 		optionImg.setAttribute("class", "optionImg");
@@ -1005,13 +1040,13 @@ function makeLists() {
 		optionElement.appendChild(optionImg);
 		optionElement.appendChild(optionText);
 
-		if (_weapons[names[n]].isMisc) {
+		if (_weaponSets[side][names[n]].isMisc) {
 			tag = document.createElement("div");
 			tag.innerHTML = "Misc";
 			tag.setAttribute("class", "option-tag");
 			optionElement.appendChild(tag);
 		}
-		else if (_weapons[names[n]].peasantOnly) {
+		else if (_weaponSets[side][names[n]].peasantOnly) {
 			tag = document.createElement("div");
 			tag.innerHTML = "Peasant";
 			tag.setAttribute("class", "option-tag");
@@ -1029,107 +1064,95 @@ function makeLists() {
 	var oldList, newList, oldDummy, newDummy;
 	
 	var selectedName;
-	for (l=0; l<weaponLists.length; l++) {
-		// Replace listItems/dummyList element with clone of itself lacking the old listOption elements,
-		// then get the new listItems element
-		// Dummies are for creating transparent backdrop because backdrop-filter isn't supported yet
-		oldList = weaponLists[l].getElementsByClassName("listItems")[0];
-		newList = oldList.cloneNode(false);
-		oldDummy = weaponLists[l].getElementsByClassName("dummyList")[0];
-		newDummy = oldDummy.cloneNode(false);
-		weaponLists[l].replaceChild(newList, oldList);
-		weaponLists[l].replaceChild(newDummy, oldDummy);
-		
-		selectedName = weaponLists[l].getElementsByClassName("listInput")[0].value;
-		if (sortMethod == "points") {
-			// Create 2D array: [point cost][weapon]
-			var points;
-			var buffer = new Array(_Max_Cost+1);
-			for (a=0; a<_Max_Cost+1; a++) {
-				buffer[a] = new Array();
-			}
-			
-			// Get the point cost of each weapon, then push that weapon's element
-			// to the corresponding array within the buffer array
-			for (n=0; n<options.length; n++) {
-				buffer[pointCosts[n]].push(options[n]);
-			}
+	// Replace listItems/dummyList element with clone of itself lacking the old listOption elements,
+	// then get the new listItems element
+	// Dummies are for creating transparent backdrop because backdrop-filter isn't supported yet
+	oldList = weaponLists[side].getElementsByClassName("listItems")[0];
+	newList = oldList.cloneNode(false);
+	oldDummy = weaponLists[side].getElementsByClassName("dummyList")[0];
+	newDummy = oldDummy.cloneNode(false);
+	weaponLists[side].replaceChild(newList, oldList);
+	weaponLists[side].replaceChild(newDummy, oldDummy);
 	
-			// Append the sum of the buffer arrays to the listItems element
-			// _weapons array is sorted upon page load so this will automatically be sorted.
-			for (x=0; x<_Max_Cost+1; x++) {
-				for (y=0; y<buffer[x].length; y++) {
-					if (l > 0) {
-						// listOption must be cloned before being appended elsewhere
-						buffer[x][y] = buffer[x][y].cloneNode(true);
-					}
-					
-					if (buffer[x][y].getElementsByClassName("optionText")[0].innerHTML == selectedName) {
-						buffer[x][y].setAttribute("class", "listOption currSelected")
-					} else {
-						buffer[x][y].setAttribute("class", "listOption");
-					}
-					
-					// Add event listeners to change weapon when clicked, and to remove the predictive highlighting
-					// when another element is moused over
-					buffer[x][y].addEventListener("click", function(e) {
-						closeList(this.parentNode.parentNode.querySelector(".listItems"));
-						changeWeapon(this);
-					});
-				/*	buffer[x][y].addEventListener("mouseover", function(){
-						var pred = this.parentNode.querySelector(".predicted");
-						if (pred != null) pred.classList.remove("predicted");
-					}); */
-					newList.appendChild(buffer[x][y]);
-					dummyOption = buffer[x][y].cloneNode(true);
-					dummyOption.setAttribute("class", "dummyOption");
-					newDummy.appendChild(dummyOption);
-				}
-			}
-		} else if (sortMethod == "name") {
-			// Options are sorted on page load, so simply reappend them to the list in order
-			for (o=0; o<options.length; o++) {
-				if (l > 0) {
-					// listOption must be cloned before being appended elsewhere
-					options[o] = options[o].cloneNode(true);
-				}
-				
-				if (options[o].getElementsByClassName("optionText")[0].innerHTML == selectedName) {
-					options[o].setAttribute("class", "listOption currSelected")
+	selectedName = weaponLists[side].getElementsByClassName("listInput")[0].value;
+	if (sortMethod == "points") {
+		// Create 2D array: [point cost][weapon]
+		var points;
+		var buffer = new Array(MAX_COST+1);
+		for (a=0; a<MAX_COST+1; a++) {
+			buffer[a] = new Array();
+		}
+		
+		// Get the point cost of each weapon, then push that weapon's element
+		// to the corresponding array within the buffer array
+		for (n=0; n<options.length; n++) {
+			buffer[pointCosts[n]].push(options[n]);
+		}
+
+		// Append the sum of the buffer arrays to the listItems element
+		// _weapons array is sorted upon page load so this will automatically be sorted.
+		for (x=0; x<MAX_COST+1; x++) {
+			for (y=0; y<buffer[x].length; y++) {
+				if (buffer[x][y].getElementsByClassName("optionText")[0].innerHTML == selectedName) {
+					buffer[x][y].setAttribute("class", "listOption currSelected")
 				} else {
-					options[o].setAttribute("class", "listOption");
+					buffer[x][y].setAttribute("class", "listOption");
 				}
 				
 				// Add event listeners to change weapon when clicked, and to remove the predictive highlighting
 				// when another element is moused over
-				options[o].addEventListener("click", function(){
+				buffer[x][y].addEventListener("click", function(e) {
 					closeList(this.parentNode.parentNode.querySelector(".listItems"));
 					changeWeapon(this);
 				});
-			/*	options[o].addEventListener("mouseup", function(){
+			/*	buffer[x][y].addEventListener("mouseover", function(){
 					var pred = this.parentNode.querySelector(".predicted");
 					if (pred != null) pred.classList.remove("predicted");
 				}); */
-				newList.appendChild(options[o]);
-				dummyOption = options[o].cloneNode(true);
+				newList.appendChild(buffer[x][y]);
+				dummyOption = buffer[x][y].cloneNode(true);
 				dummyOption.setAttribute("class", "dummyOption");
 				newDummy.appendChild(dummyOption);
 			}
+		}
+	} else if (sortMethod == "name") {
+		// Options are sorted on page load, so simply reappend them to the list in order
+		for (o=0; o<options.length; o++) {
+			if (options[o].getElementsByClassName("optionText")[0].innerHTML == selectedName) {
+				options[o].setAttribute("class", "listOption currSelected")
+			} else {
+				options[o].setAttribute("class", "listOption");
+			}
 			
-		} else {
-			alert("Error 6");
-			return;
+			// Add event listeners to change weapon when clicked, and to remove the predictive highlighting
+			// when another element is moused over
+			options[o].addEventListener("click", function(){
+				closeList(this.parentNode.parentNode.querySelector(".listItems"));
+				changeWeapon(this);
+			});
+		/*	options[o].addEventListener("mouseup", function(){
+				var pred = this.parentNode.querySelector(".predicted");
+				if (pred != null) pred.classList.remove("predicted");
+			}); */
+			newList.appendChild(options[o]);
+			dummyOption = options[o].cloneNode(true);
+			dummyOption.setAttribute("class", "dummyOption");
+			newDummy.appendChild(dummyOption);
 		}
 		
-		// Add dummies and "No weapons found" option
-		var noneDummy = dummyOption.cloneNode(true), noneOption;
-		noneDummy.setAttribute("class", "dummyOption noneOption");
-		newDummy.appendChild(noneDummy);
-		noneOption = noneDummy.cloneNode(true);
-		noneOption.querySelector(".optionText").innerHTML = "No results found";
-		noneOption.setAttribute("class", "listOption noneOption");
-		newList.appendChild(noneOption);
+	} else {
+		alert("Error 6");
+		return;
 	}
+	
+	// Add dummies and "No weapons found" option
+	var noneDummy = dummyOption.cloneNode(true), noneOption;
+	noneDummy.setAttribute("class", "dummyOption noneOption");
+	newDummy.appendChild(noneDummy);
+	noneOption = noneDummy.cloneNode(true);
+	noneOption.querySelector(".optionText").innerHTML = "No results found";
+	noneOption.setAttribute("class", "listOption noneOption");
+	newList.appendChild(noneOption);
 }
 
 /**
@@ -1322,22 +1345,22 @@ function openList(list) {
  * @param {"Ranged"|"Melee"|"Shield"|"None"} cat The category of equipment
  * @param {*} params
  */
-function populateLists(cat, params) {
+function populateLists(cat, params, side = null) {
 	var leftName, rightName;
 	
 	if (params.source == "version") {
 		leftName = document.querySelector("#weaponLeft .listInput").value;
 		rightName = document.querySelector("#weaponRight .listInput").value;
-		if (!_weapons[leftName]) {
-			leftName = getNewDefault();
+		if (!_weaponSets[0][leftName]) {
+			leftName = getNewDefault(0);
 			while (leftName == rightName) {
-				leftName = getNewDefault();
+				leftName = getNewDefault(0);
 			}
 		}
-		if (!_weapons[rightName]) {
-			rightName = getNewDefault();
+		if (!_weaponSets[1][rightName]) {
+			rightName = getNewDefault(1);
 			while (rightName == leftName) {
-				rightName = getNewDefault();
+				rightName = getNewDefault(1);
 			}
 		}
 	}
@@ -1348,8 +1371,8 @@ function populateLists(cat, params) {
 			var weaps = params["w"].split("+");
 			leftName = decodeURIComponent(weaps[0]).replace("_", " ");
 			rightName = decodeURIComponent(weaps[1]).replace("_", " ");
-			var leftCat = _weapons[leftName].type;
-			var rightCat = _weapons[rightName].type;
+			var leftCat = _weaponSets[0][leftName].type;
+			var rightCat = _weaponSets[1][rightName].type;
 			
 			if (leftCat != rightCat) {
 				// Check for weapon category mismatch
@@ -1371,10 +1394,10 @@ function populateLists(cat, params) {
 			return;
 		}
 		
-		if (_weapons[leftName].peasantOnly || _weapons[rightName].peasantOnly) {
+		if (_weaponSets[0][leftName].peasantOnly || _weaponSets[1][rightName].peasantOnly) {
 			document.getElementById("peasantBtn").classList.add("checked");
 		}
-		if (_weapons[leftName].isMisc || _weapons[rightName].isMisc) {
+		if (_weaponSets[0][leftName].isMisc || _weaponSets[1][rightName].isMisc) {
 			document.getElementById("miscBtn").classList.add("checked");
 		}
 		
@@ -1402,10 +1425,10 @@ function populateLists(cat, params) {
 		}
 	} else if (cat == "Melee" || cat == "Ranged" || cat == "Shield") {
 		// No parameters have been passed; randomly select 2 weapons of provided category
-		leftName = getNewDefault();
-		rightName = getNewDefault();
+		leftName = getNewDefault(0);
+		rightName = getNewDefault(1);
 		while (leftName == rightName) {
-			rightName = getNewDefault();
+			rightName = getNewDefault(1);
 		}
 	} else {
 		alert("Error: invalid category");
@@ -1416,12 +1439,20 @@ function populateLists(cat, params) {
 	selected[0].value = leftName;
 	selected[1].value = rightName;
 	
-	makeLists();
+	_categoryChanged = true;
+	if (typeof side == 'number') {
+		const sideWord = (side == 0 ? "Left" : "Right");
+		makeList(side);
+		setTypeOptions(sideWord, selected[side].value);
+	}
+	else {
+		makeList(0);
+		makeList(1);
+		setTypeOptions("Left", leftName);
+		setTypeOptions("Right", rightName);
+	}
 	
 	// Update everything for new category and weapons
-	_categoryChanged = true;
-	setTypeOptions("Left", leftName);
-	setTypeOptions("Right", rightName);
 	updateStats("Left", leftName);
 	updateStats("Right", rightName);
 }
@@ -1512,7 +1543,7 @@ function setTypeOptions(side, weapon = null) {
 
 	var catBtns = document.getElementById("categoryBar").getElementsByTagName("button");
 	var typeBtns = document.getElementById("attType"+side).getElementsByTagName("button");
-	var attacks = _weapons[weapon].attacks;
+	var attacks = _weaponSets[(side == "Right" ? 1 : 0)][weapon].attacks;
 	var leftDiv = document.getElementsByClassName("statHalf")[0];
 	
 	if (catBtns[0].classList.contains("catActive")) {
@@ -1654,7 +1685,7 @@ function toggleAltMode(btn) {
 		
 	} else {
 		btn.classList.replace("altUnsel", "altSel");
-		weaponData = _weapons[document.querySelector(`#weapon${side} .currSelected .optionText`).innerHTML];
+		weaponData = _weaponSets[(side == "Right" ? 1 : 1)][document.querySelector(`#weapon${side} .currSelected .optionText`).innerHTML];
 		if (getCategory() == "shield") {
 			document.getElementById("stats").querySelector(".statHalf").classList.remove("shieldStats");
 		}
@@ -1764,23 +1795,72 @@ function changeListOpt(elem, event) {
 	var sel = cont.querySelector(".selected");
 	if (sel == elem) return;
 
-	cont.querySelector(".listSel").innerText = elem.innerText;
+	cont.querySelector(".listSel").innerText = (elem.innerText.includes("Latest") ? "Latest" : elem.innerText);
 	sel.classList.remove("selected");
 	elem.classList.add("selected");
 
 	switch (cont.id) {
-		case "version":
+		case "version": {
 			var vWarn = document.getElementById("vsnWarning");
-			if (elem.innerText.includes("Latest")) {
-				vWarn.classList.add("invisible");
-				vWarn.querySelector("#vsn").innerHTML = "{latest}";
+			let vText = vWarn.querySelector(".text");
+			
+			let vTags = document.querySelectorAll(".vsnTag");
+			const comp0 = elem.innerText;
+			const comp0Vsn = comp0.match(/(\d+\.*\d*)/)[0];
+			const comp1 = document.querySelector("#version2 .listOpt.selected").innerText;
+
+			if (comp1 == "Same") {
+				if (comp0.includes("Latest")) {
+					vWarn.classList.add("invisible");
+					vTags[0].innerHTML = "";
+				}
+				else {
+					vText.innerText = `Data for game version ${comp0Vsn}`;
+					vWarn.classList.remove("invisible");
+					vTags[0].innerHTML = "v" + comp0Vsn;
+				}
+				vTags[1].innerHTML = vTags[0].innerHTML;
 			}
 			else {
+				vText.innerHTML = `Comparing data for v${comp0Vsn} (left) to v${comp1} (right)`;
 				vWarn.classList.remove("invisible");
-				vWarn.querySelector("#vsn").innerHTML = elem.innerText;
+				vTags[0].innerHTML = "v" + comp0Vsn;
 			}
-			reloadData(elem.innerHTML);
+			
+			reloadData(comp0, (comp1 == "Same" ? null : 0));
 			break;
+		}
+		case "version2": {
+			var vWarn = document.getElementById("vsnWarning");
+			let vText = vWarn.querySelector(".text");
+
+			let vTags = document.querySelectorAll(".vsnTag");
+			const comp0 = document.querySelector("#version .listOpt.selected").innerText;
+			const comp0Vsn = comp0.match(/(\d+\.*\d*)/)[0];
+			const comp1 = elem.innerText;
+
+			if (comp1 == "Same") {
+				if (comp0.includes("Latest")) {
+					vWarn.classList.add("invisible");
+					vTags[0].innerHTML = "";
+				}
+				else {
+					vText.innerHTML = `Data for game version ${comp0Vsn}`;
+					vWarn.classList.remove("invisible");
+				}
+				vTags[1].innerHTML = vTags[0].innerHTML;
+				reloadData(comp0, 1);
+			}
+			else {
+				if (comp0.includes("Latest")) vTags[0].innerHTML = "v" + comp0Vsn;
+				
+				vText.innerHTML = `Comparing data for v${comp0Vsn} (left) to v${comp1} (right)`;
+				vWarn.classList.remove("invisible");
+				vTags[1].innerHTML = "v" + comp1;
+				reloadData(comp1, 1);
+			}
+			break;
+		}
 	}
 }
 
@@ -1896,8 +1976,8 @@ function toggleMisc(btn) {
 	setCookie("miscOn", btn.classList.contains("checked"));
 
 	var weaps = document.getElementsByClassName("listInput");
-	var dataLeft = _weapons[weaps[0].value];
-	var dataRight = _weapons[weaps[1].value];
+	var dataLeft = _weaponSets[0][weaps[0].value];
+	var dataRight = _weaponSets[1][weaps[1].value];
 	
 	var newLeft, newRight, newListOpt, listOpts;
 	var listOptsLeft = document.getElementById("weaponLeft").getElementsByClassName("listOption");
@@ -1905,7 +1985,7 @@ function toggleMisc(btn) {
 
 	// If a weapon is misc and misc weapons are being disabled, set a new weapon
 	if (!btn.classList.contains("checked") && dataLeft.isMisc) {
-		newLeft = getNewDefault();
+		newLeft = getNewDefault(0);
 		listOpts = document.getElementById("weaponLeft").getElementsByClassName("listOption");
 		for (lo=0; lo<listOpts.length; lo++) {
 			if (listOpts[lo].getElementsByClassName("optionText")[0].innerHTML == newLeft) {
@@ -1921,12 +2001,12 @@ function toggleMisc(btn) {
 	}
 	if (!btn.classList.contains("checked") && dataRight.isMisc) {
 		if (newLeft == null) {
-			newRight = getNewDefault();
+			newRight = getNewDefault(1);
 		} else {
 			// If both weapons were peasant when show peasant button is disabled,
 			// make sure new weapons aren't the same
 			do {
-				newRight = getNewDefault();
+				newRight = getNewDefault(1);
 			} while (newLeft == newRight)
 		}
 		listOpts = document.getElementById("weaponRight").getElementsByClassName("listOption");
@@ -1943,7 +2023,8 @@ function toggleMisc(btn) {
 		changeWeapon(newListOpt);
 	}
 	
-	makeLists();
+	makeList(0);
+	makeList(1);
 }
 
 /**
@@ -1955,8 +2036,8 @@ function togglePeasant(btn) {
 	setCookie("peasOn", btn.classList.contains("checked"));
 
 	var weaps = document.getElementsByClassName("listInput");
-	var dataLeft = _weapons[weaps[0].value];
-	var dataRight = _weapons[weaps[1].value];
+	var dataLeft = _weaponSets[0][weaps[0].value];
+	var dataRight = _weaponSets[1][weaps[1].value];
 	
 	var newLeft, newRight, newListOpt, listOpts;
 	var listOptsLeft = document.getElementById("weaponLeft").getElementsByClassName("listOption");
@@ -1964,7 +2045,7 @@ function togglePeasant(btn) {
 
 	// If a weapon is peasant-only and peasant-only weapons are being disabled, set a new weapon
 	if (!btn.classList.contains("checked") && dataLeft.peasantOnly) {
-		newLeft = getNewDefault();
+		newLeft = getNewDefault(0);
 		listOpts = document.getElementById("weaponLeft").getElementsByClassName("listOption");
 		for (lo=0; lo<listOpts.length; lo++) {
 			if (listOpts[lo].getElementsByClassName("optionText")[0].innerHTML == newLeft) {
@@ -1980,12 +2061,12 @@ function togglePeasant(btn) {
 	}
 	if (!btn.classList.contains("checked") && dataRight.peasantOnly) {
 		if (newLeft == null) {
-			newRight = getNewDefault();
+			newRight = getNewDefault(1);
 		} else {
 			// If both weapons were peasant when show peasant button is disabled,
 			// make sure new weapons aren't the same
 			do {
-				newRight = getNewDefault();
+				newRight = getNewDefault(1);
 			} while (newLeft == newRight)
 		}
 		listOpts = document.getElementById("weaponRight").getElementsByClassName("listOption");
@@ -2002,7 +2083,8 @@ function togglePeasant(btn) {
 		changeWeapon(newListOpt);
 	}
 	
-	makeLists();
+	makeList(0);
+	makeList(1);
 }
 
 /**
@@ -2037,7 +2119,8 @@ function toggleSort(btn) {
 	if (buttons[0].classList.contains("checked")) setCookie("sortBy", "name");
 	else setCookie("sortBy", "points");
 	
-	makeLists();
+	makeList(0);
+	makeList(1);
 }
 
 /**
@@ -2078,6 +2161,7 @@ function toggleTags(btn) {
  */
 function updateStats(side, name) {
 	clearTables(side);
+	const sideNum = (side == "Right" ? 1 : 0)
 	
 	// Get provided side and other side's selected attack types
 	var attackType, otherAttackType, otherSide;
@@ -2101,19 +2185,19 @@ function updateStats(side, name) {
 
 	var huntMod = 1;
 	if (huntsmanOn && (attackType == "ranged" || attackType == "meleeThrow")) {
-		huntMod = _weapons[name].attacks.find((el) => el.type == attackType).huntsmanModifier;
+		huntMod = _weaponSets[sideNum][name].attacks.find((el) => el.type == attackType).huntsmanModifier;
 	}
 	
 	// Get global damage modifier
 	var damageMod = new Number(document.getElementById("damageField").value);
 	
 	// Get the current attack
-	var attack = _weapons[name].attacks.find((el) => el.type == attackType);
+	var attack = _weaponSets[sideNum][name].attacks.find((el) => el.type == attackType);
 	
 	if (attack == null) {
 		alert("\""+attackType+"\" data for " + name + " does not exist.");
 		setTypeOptions(side, name);
-		attack = _weapons[name].attacks[0];
+		attack = _weaponSets[sideNum][name].attacks[0];
 	}
 	if (attack == null) {
 		alert(`Error: ${name} has no attacks`);

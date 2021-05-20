@@ -49,11 +49,12 @@
 				</div>
 			</div>
 			<div class="menuOptWrapper" style="padding-bottom: 3px;">
-				<span class="menuText">Compare to version: </span>
+				<span class="menuText">Compare to: </span>
 				<div id="version2" class="listCont" onclick="toggleList(this, event)">
-					<div class="listSel">Latest</div>
+					<div class="listSel">Same</div>
 					<div class="list dropDown hidden" onclick="if(event.target.matches('.listOpt')) changeListOpt(event.target, event)">
-						<div class="listOpt selected">Latest (21.4)</div>
+						<div class="listOpt selected">Same</div>
+						<div class="listOpt">21.4</div>
 						<div class="listOpt">21</div>
 						<div class="listOpt">20.4</div>
 						<div class="listOpt">20</div>
@@ -227,12 +228,18 @@
 <!-- Weapon selection bar -->
 <div id="weaponBar">
 		<div id="weaponLeft" class="weaponList" onclick="event.stopPropagation();">
-			<div class="listSelected"><input class="optionText listInput" onmousedown="event.preventDefault(); toggleWeaponList(this.parentNode.parentNode.querySelector('.listItems'))" onblur="onSelBlur(this)" oninput="filterList(this, event)" onkeydown="onSelPress(this, event)" placeholder="Find a weapon..." spellcheck="false" /></div>
+			<div class="listSelected">
+				<input class="optionText listInput" onmousedown="event.preventDefault(); toggleWeaponList(this.parentNode.parentNode.querySelector('.listItems'))" onblur="onSelBlur(this)" oninput="filterList(this, event)" onkeydown="onSelPress(this, event)" placeholder="Find a weapon..." spellcheck="false" />
+				<div class="vsnTag 0"></div>
+			</div>
 			<div class="dummyList menuHide" ontouchstart="event.stopPropagation()"></div>
 			<div class="listItems menuHide"></div>
 		</div>
 		<div id="weaponRight" class="weaponList" onclick="event.stopPropagation()">
-			<div class="listSelected"><input class="optionText listInput" onmousedown="event.preventDefault(); toggleWeaponList(this.parentNode.parentNode.querySelector('.listItems'))" onblur="onSelBlur(this)" oninput="filterList(this, event)" onkeydown="onSelPress(this, event)" placeholder="Find a weapon..." spellcheck="false" /></div>
+			<div class="listSelected">
+				<input class="optionText listInput" onmousedown="event.preventDefault(); toggleWeaponList(this.parentNode.parentNode.querySelector('.listItems'))" onblur="onSelBlur(this)" oninput="filterList(this, event)" onkeydown="onSelPress(this, event)" placeholder="Find a weapon..." spellcheck="false" />
+				<div class="vsnTag 1"></div>
+			</div>
 			<div class="dummyList menuHide" ontouchstart="event.stopPropagation()"></div>
 			<div class="listItems menuHide"></div>
 		</div>
@@ -465,7 +472,7 @@
 				<div id="huntWarning" class="damWarn invisible"><sup class="ast">*</sup> Huntsman enabled</div>
 				<div id="tankWarning" class="damWarn invisible"><sup class="ast">**</sup> Damage adjusted for tank perk</div>
 				<div id="dModWarning" class="damWarn invisible"><sup class="dagger">&#8224;</sup> Global damage modified by <span id="dMod">1.00</span>x</div>
-				<div id="vsnWarning" class="damWarn invisible"><sup class="dagger">&#8225;</sup> Data for game version <span id="vsn"></span></div>
+				<div id="vsnWarning" class="damWarn invisible"><sup class="dagger">&#8225;</sup> <span class="text"></span></div>
 			</div>
 		</div>
 		
