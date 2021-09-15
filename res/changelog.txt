@@ -1,3 +1,6 @@
+Version 3.4
+- Updated for build #22.1
+
 Version 3.3
 - Added (experimental) "Compare to" option allowing comparison of weapons between different versions of the game
 
