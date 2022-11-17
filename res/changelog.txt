@@ -1,3 +1,6 @@
+Version 3.4.3
+- Updated for build #26.1
+
 Version 3.4.2
 - Updated for build #24.2
 
