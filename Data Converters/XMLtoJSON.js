@@ -3,11 +3,11 @@ const { debug } = require('console');
 const fs = require('fs');
 const _source = "res/data_tables/MordStats_p19.xml";
 const _target = _source.replace(".xml", ".json");
-const DOMParser = require('xmldom').DOMParser;
+const DOMParser = require('@xmldom/xmldom').DOMParser;
 
 /**
  * Lowers first letter in a string
- * @param {string} str 
+ * @param {string} str
  */
 function lowerFirst(str) {
     return str[0].toLowerCase() + str.substring(1);
@@ -15,7 +15,7 @@ function lowerFirst(str) {
 
 /**
  * Converts yes/no to boolean
- * @param {string} yn 
+ * @param {string} yn
  */
 function YNtoBool(yn) {
     if (yn.toLowerCase() == "yes") return true;
@@ -31,7 +31,7 @@ fs.readFile(_source, (err, data) => {
         var name, att, dam, spd, gen, attacks, newAttacks;
         var equip, newEquipment = {};
         var weapons = equipment.getElementsByTagName("Weapon");
-        
+
         for (var w=0; w<weapons.length; w++) {
             name = weapons[w].getElementsByTagName("Name")[0].textContent;
             attacks = weapons[w].getElementsByTagName("Attack");
@@ -41,7 +41,7 @@ fs.readFile(_source, (err, data) => {
                 dam = attacks[a].getElementsByTagName("Damage");
                 spd = attacks[a].getElementsByTagName("Speed");
                 gen = attacks[a].getElementsByTagName("GeneralStats");
-                
+
                 if (dam.length > 0) {
                     dam = {
                         head: Array.prototype.slice.call(dam[0].getElementsByTagName("Head")[0].childNodes).map((el) => Number.parseFloat(el.textContent.trim())).filter((el) => !isNaN(el)),
@@ -67,7 +67,7 @@ fs.readFile(_source, (err, data) => {
                 if (gen.constructor.name == "Object") att.general = gen;
                 newAttacks.push(att);
             }
-            
+
             equip = {
                 type: lowerFirst(weapons[w].getElementsByTagName("Type")[0].textContent),
                 pointCost: Number.parseInt(weapons[w].getElementsByTagName("Points")[0].textContent),
@@ -77,7 +77,7 @@ fs.readFile(_source, (err, data) => {
             }
             newEquipment[name] = equip;
         }
-        
+
     } catch (err) {
         console.error(err);
     }
